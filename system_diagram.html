@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Mast System Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <h1>Mobile Mast System Architecture</h1>
+    <div class="mermaid">
+graph TD
+    subgraph Hardware
+        Lidar[RoboSense LiDAR]
+        Cam1[Bullet Camera 1]
+        Cam2[Bullet Camera 2]
+        Cam3[Bullet Camera 3]
+        Cam4[Bullet Camera 4]
+    end
+
+    subgraph "Orin 1: Drivers & Preprocessing"
+        LidarDriver[rslidar_sdk_node]
+        LidarPre[rslidar_preprocess]
+        LidarBG[lidar_background_subtraction]
+        LidarCluster[lidar_cluster_node]
+        
+        CamDriver1[axis_camera_ros 1]
+        CamDriver2[axis_camera_ros 2]
+        CamDriver3[axis_camera_ros 3]
+        CamDriver4[axis_camera_ros 4]
+    end
+
+    subgraph "Orin 2: Detection & 3D Projection"
+        Yolo1[yolo11_detector 1]
+        Yolo2[yolo11_detector 2]
+        Yolo3[yolo11_detector 3]
+        Yolo4[yolo11_detector 4]
+
+        Proj1[camera_image_to_3d 1]
+        Proj2[camera_image_to_3d 2]
+        Proj3[camera_image_to_3d 3]
+        Proj4[camera_image_to_3d 4]
+    end
+
+    subgraph "Orin 3: Tracking & Fusion"
+        Tracker1[camera_tracker 1]
+        Tracker2[camera_tracker 2]
+        Tracker3[camera_tracker 3]
+        Tracker4[camera_tracker 4]
+
+        GlobalFusion[global_fusion_node]
+        VisMarkers[tracks_to_markers_node]
+    end
+
+    subgraph "Visualization"
+        RViz[RViz]
+    end
+
+    %% Connections
+    Lidar --> LidarDriver
+    LidarDriver -- /mast/orin1/lidar/points --> LidarPre
+    LidarPre -- /mast/orin1/lidar/points_filtered --> LidarBG
+    LidarBG -- /mast/orin1/lidar/foreground --> LidarCluster
+    LidarBG -- /mast/orin1/lidar/foreground --> Proj1
+    LidarBG -- /mast/orin1/lidar/foreground --> Proj2
+    LidarBG -- /mast/orin1/lidar/foreground --> Proj3
+    LidarBG -- /mast/orin1/lidar/foreground --> Proj4
+
+    Cam1 --> CamDriver1
+    Cam2 --> CamDriver2
+    Cam3 --> CamDriver3
+    Cam4 --> CamDriver4
+
+    CamDriver1 -- image_raw/compressed --> Yolo1
+    CamDriver2 -- image_raw/compressed --> Yolo2
+    CamDriver3 -- image_raw/compressed --> Yolo3
+    CamDriver4 -- image_raw/compressed --> Yolo4
+
+    Yolo1 -- detections_2d --> Proj1
+    Yolo2 -- detections_2d --> Proj2
+    Yolo3 -- detections_2d --> Proj3
+    Yolo4 -- detections_2d --> Proj4
+
+    Proj1 -- detections_3d --> Tracker1
+    Proj2 -- detections_3d --> Tracker2
+    Proj3 -- detections_3d --> Tracker3
+    Proj4 -- detections_3d --> Tracker4
+
+    Tracker1 -- tracks_3d --> GlobalFusion
+    Tracker2 -- tracks_3d --> GlobalFusion
+    Tracker3 -- tracks_3d --> GlobalFusion
+    Tracker4 -- tracks_3d --> GlobalFusion
+
+    GlobalFusion -- /mast/global/tracks_3d --> VisMarkers
+    VisMarkers -- /mast/global/tracks_markers --> RViz
+    </div>
+</body>
+</html>
