@@ -1,0 +1,15 @@
+# EKF tracker config for bullet2 camera
+
+detections_topic: "/mast/orin1/bullet2/detections_3d"
+tracks_topic: "/mast/orin1/bullet2/tracks_3d"
+
+max_age: 1.0
+min_hits: 3
+max_association_distance: 5.0
+
+process_noise_pos: 1.0
+process_noise_vel: 1.0
+measurement_noise_pos: 2.0
+
+region_file: "region_bullet2.csv"
+initial_angles_file: "initial_angles_bullet2.csv"

@@ -1,0 +1,27 @@
+# EKF + tracking parameters for bullet1
+
+# Input / output topics (namespace will be mast/orin1/bullet1)
+detections_topic: "detections_3d"
+tracks_topic: "tracks_3d"
+
+# Time in seconds after which a track is considered lost if no updates
+max_age: 1.0
+
+# Minimum number of detections before we consider a track "confirmed"
+min_hits: 3
+
+# Maximum distance (meters) between a detection and track to associate
+max_association_distance: 5.0
+
+# Process noise (how much we trust the motion model)
+process_noise_pos: 1.0     # Q for position
+process_noise_vel: 1.0     # Q for velocity
+
+# Measurement noise (how noisy detections are)
+measurement_noise_pos: 2.0
+
+# Region CSV file (relative to camera config folder)
+region_file: "region_bullet1.csv"
+
+# Initial angles file (optional)
+initial_angles_file: "initial_angles_bullet1.csv"
