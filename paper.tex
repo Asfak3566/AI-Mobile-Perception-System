@@ -262,12 +262,11 @@ Shwetha
 
 Sanjay
 
-Table 1: Team member responsibilities
+
 
 `
 
-\section{Chapter}
-System Background, Related Work, and Overall Pipeline
+\section{Chapter System Background, Related Work, and Overall Pipeline}
 
 This chapter presents the background concepts and related work underlying the proposed AI-based mobile mast perception system. It also introduces the overall system pipeline, detailing how sensor data flows through the distributed architecture, the role of ROS 2 communication, and the organization of inputs, outputs, and configuration parameters. This chapter bridges theoretical foundations with the practical system design used in this project.
 
@@ -842,8 +841,7 @@ This chapter presented a complete LiDAR-based perception pipeline using a RoboSe
 
 \section{Chapter 4: Camera Perception Pipeline}
 
-\section{Chapter}
-Camera Perception and Time Synchronization Pipeline**
+\section{Chapter Camera Perception and Time Synchronization Pipeline**}
 
 \subsection{4.1 Axis Camera System Overview}
 Camera sensors play a critical role in perception systems by providing dense visual and semantic information about the environment. In the proposed system, Axis network cameras are used to capture continuous video streams of the surroundings from elevated viewpoints on a mobile mast. These cameras provide high-resolution imagery suitable for object detection, tracking, and multi-sensor fusion.
@@ -2569,5 +2567,17 @@ We declare that we have authored this project thesis independently, that we have
 Ingolstadt, Feb 06, 2026
 
 Project Members: Asfak,Sahil,Shwetha,Sanjay,Fa
+
+
+\section{Supplementary Material and Project Structure}
+All source code and assets related to this project are available in the accompanying repository. The structure is as follows:
+
+\begin{description}
+    \item[src/] ROS 2 source code for \texttt{mobile\_mast}, \texttt{rslidar\_sdk}, and message definitions.
+    \item[best.pt] Trained YOLO11 model used for object detection on Orin 2.
+    \item[Flowchart.png] Architectural diagram of the multi-Orin perception pipeline.
+    \item[setup\_ptp.sh] Configuration script for microsecond-level clock synchronization across devices.
+    \item[README.md] Detailed installation and usage instructions.
+\end{description}
 
 \end{document}
