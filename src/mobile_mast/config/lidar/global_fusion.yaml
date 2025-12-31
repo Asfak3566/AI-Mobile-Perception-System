@@ -1,0 +1,21 @@
+# Global fusion config
+
+# Input topics (Detection3DArray)
+input_topics:
+  - "/mast/orin1/bullet1/tracks_3d"
+  - "/mast/orin1/bullet2/tracks_3d"
+  - "/mast/orin1/bullet3/tracks_3d"
+  - "/mast/orin1/bullet4/tracks_3d"
+  - "/mast/orin1/lidar/objects_3d"
+
+# Output fused topic
+output_topic: "/mast/global/tracks_3d"
+
+# Maximum distance (m) between detections to fuse them into one object
+fusion_distance: 3.0
+
+# How old (seconds) a message can be before we ignore it
+max_age_sec: 0.5
+
+# Fusion timer frequency (Hz)
+fusion_rate_hz: 10.0

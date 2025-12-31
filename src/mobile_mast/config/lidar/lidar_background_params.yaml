@@ -1,0 +1,10 @@
+# LiDAR background subtraction parameters
+
+input_topic: "/mast/orin1/lidar/points_filtered"
+output_topic: "/mast/orin1/lidar/foreground"
+
+# Path to your ASCII background PCD file
+background_pcd_file: "/home/ashfaq/Downloads/mobile_mast_ws/src/mobile_mast/config/lidar/background.pcd"
+
+# Voxel size (meters)
+voxel_size: 0.3
