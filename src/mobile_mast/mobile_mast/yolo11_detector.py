@@ -13,7 +13,7 @@ class Yolo11DetectorNode(Node):
         super().__init__('yolo11_detector')
 
         # Declare parameters
-        self.declare_parameter('weights', 'yolo11n.pt')
+        self.declare_parameter('weights', '/home/ashfaq/Downloads/mobile_mast_ws/best.pt')
         self.declare_parameter('input_topic', 'image_raw/compressed')
         self.declare_parameter('conf_threshold', 0.35)
 
