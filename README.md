@@ -11,31 +11,6 @@ The system is distributed across three **NVIDIA Orin** devices to handle the hea
 
 The project follows a modular architecture where processing is split by stage across the Orin devices:
 
-```mermaid
-graph TD
-    subgraph Orin1["Orin 1: Sensors & Preprocessing"]
-        RS_LiDAR[RS16 LiDAR] --> RS_SDK[rslidar_sdk]
-        RS_SDK --> RS_PP[rslidar_preprocess]
-        RS_PP --> LS_BS[lidar_background_subtraction]
-        LS_BS --> LC_ND[lidar_cluster_node]
-        
-        CAMs[4x Axis Bullet Cams] --> AX_ROS[axis_camera_ros]
-    end
-
-    subgraph Orin2["Orin 2: Perception & 3D Projection"]
-        AX_ROS --> VPI[vpi_undistort]
-        VPI --> YOLO[yolo11_detector]
-        YOLO --> CM3D[camera_image_to_3d]
-        LS_BS -.-> |Lidar Ground Plane| CM3D
-    end
-
-    subgraph Orin3["Orin 3: Tracking & Visualization"]
-        CM3D --> TRK[camera_tracker]
-        TRK --> GFUS[global_fusion_node]
-        GFUS --> T2M[tracks_to_markers]
-        T2M --> RViz[RViz / Visualization]
-    end
-```
 
 ### Detailed Breakdown
 
