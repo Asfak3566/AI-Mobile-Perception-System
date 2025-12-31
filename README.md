@@ -31,6 +31,7 @@ The project follows a modular architecture where processing is split by stage ac
 
 ## Prerequisites
 
+- **NVIDIA Jetson Orin (AGX / NX)**
 - **ROS 2 Humble**
 - **NVIDIA VPI 2.x/3.x**
 - **Ultralytics (YOLO11)**
