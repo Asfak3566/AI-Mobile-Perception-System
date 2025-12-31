@@ -1,0 +1,40 @@
+lidar_cluster_node:
+  ros__parameters:
+    # Topics
+    input_topic: "/mast/orin1/lidar/foreground"
+    output_topic: "/mast/orin1/lidar/clusters"
+    frame_id: "rslidar"
+
+    # Ground Removal (redundant if foreground is used, but good to have)
+    ground_removal:
+      enabled: true
+      ground_z_min: -0.3
+      ground_z_max: 0.3
+
+    # ROI Filter
+    roi:
+      enabled: false
+      min_x: -60.0
+      max_x: 60.0
+      min_y: -50.0
+      max_y: 50.0
+      min_z: -5.0
+      max_z: 5.0
+
+    # Clustering Settings
+    clustering:
+      method: "euclidean"
+      euclidean:
+        cluster_tolerance: 0.5
+        min_cluster_size: 10
+        max_cluster_size: 20000
+      dbscan:
+        eps: 0.5
+        min_points: 10
+
+    # Bounding Box Output
+    bounding_boxes:
+      enabled: true
+      publish_as: "/mast/orin1/lidar/objects_3d"
+
+  
