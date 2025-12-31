@@ -5,6 +5,8 @@
 \geometry{a4paper, margin=1in}
 \usepackage{parskip}
 \usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{graphicx}
 
 \title{AI Based Mobile Perception System}
 \author{Team Project}
@@ -13,6 +15,8 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
+\newpage
 
 Technische  Hochschule  Ingolstadt
 
@@ -20,9 +24,7 @@ Technische  Hochschule  Ingolstadt
 
  Team Project
 
-Master’s Programme International Automotive Engineering 
-
-AI Based Mobile Perception System
+Master's Programme International Automotive Engineering 
 
 Project Members: Asfak,Fatik,Sanjay,Shahil,Shwetha
 
@@ -30,118 +32,78 @@ Supervisor: Mr.Karthikeyan
 
 Date:06 Feb 2026
 
-Table of Contents
 
+\subsubsection{Table of Contents}
 List of Abbreviations ........................................................................................................ 1 Chapter 1: Introduction ..................................................................................................... 2 Chapter 2: System Background, Related Work, and Overall Pipeline ............................. 4 * 2.1 Camera-Based Perception .......................................................................................... 4
 
-2.2 LiDAR-Based Perception ............................................................................................ 4
-
-2.3 Multi-Sensor Fusion ................................................................................................... 5
-
-2.4 GPU-Accelerated Vision Processing .......................................................................... 5
-
-2.5 Deep Learning–Based Object Detection ..................................................................... 6
-
-2.6 Distributed Perception Using ROS 2 .......................................................................... 6
-
-2.7 Overall System Pipeline and Flow .............................................................................. 7
-
-2.8 ROS Parameters and Configuration ........................................................................... 8
-
-2.9 System Inputs and Outputs ........................................................................................ 8
-
-2.10 Summary .................................................................................................................. 9
-
-2.11 ROS 2 Nodes, Topics, and Data Flow ...................................................................... 9
-
-2.12 Configuration Files and CSV Usage ....................................................................... 13
-
-2.13 End-to-End Data Flow Summary ............................................................................ 13
-
+\begin{itemize}
+    \item 2.2 LiDAR-Based Perception ............................................................................................ 4
+    \item 2.3 Multi-Sensor Fusion ................................................................................................... 5
+    \item 2.4 GPU-Accelerated Vision Processing .......................................................................... 5
+    \item 2.5 Deep Learning–Based Object Detection ..................................................................... 6
+    \item 2.6 Distributed Perception Using ROS 2 .......................................................................... 6
+    \item 2.7 Overall System Pipeline and Flow .............................................................................. 7
+    \item 2.8 ROS Parameters and Configuration ........................................................................... 8
+    \item 2.9 System Inputs and Outputs ........................................................................................ 8
+    \item 2.10 Summary .................................................................................................................. 9
+    \item 2.11 ROS 2 Nodes, Topics, and Data Flow ...................................................................... 9
+    \item 2.12 Configuration Files and CSV Usage ....................................................................... 13
+    \item 2.13 End-to-End Data Flow Summary ............................................................................ 13
+\end{itemize}
 Chapter 3: LiDAR Perception Pipeline ........................................................................... 14 * 3.1 Overview .................................................................................................................. 14
 
-3.2 LiDAR Sensor and System Configuration ................................................................. 14
-
-3.2.1 RoboSense RS16 LiDAR .................................................................................. 14
-
-3.3 LiDAR Data Acquisition ............................................................................................ 15
-
-3.3.1 LiDAR Driver Node .......................................................................................... 15
-
-3.3.2 Coordinate Transformation .............................................................................. 15
-
-3.4 LiDAR Preprocessing ............................................................................................... 16
-
-3.5 Background Subtraction ........................................................................................... 17
-
-3.5.1 Background Subtraction Node ........................................................................ 17
-
-3.5.2 Background Modeling Algorithm ..................................................................... 17
-
-3.6 LiDAR Clustering ...................................................................................................... 18
-
-3.6.1 Clustering Node .............................................................................................. 18
-
-3.6.2 Euclidean Clustering Algorithm ........................................................................ 18
-
-3.7 LiDAR Object Representation ................................................................................... 19
-
-3.8 Operational Workflow ............................................................................................... 19
-
-3.9 Advantages of the LiDAR Pipeline ............................................................................ 20
-
-3.10 Summary ................................................................................................................ 20
-
+\begin{itemize}
+    \item 3.2 LiDAR Sensor and System Configuration ................................................................. 14
+    \item 3.2.1 RoboSense RS16 LiDAR .................................................................................. 14
+    \item 3.3 LiDAR Data Acquisition ............................................................................................ 15
+    \item 3.3.1 LiDAR Driver Node .......................................................................................... 15
+    \item 3.3.2 Coordinate Transformation .............................................................................. 15
+    \item 3.4 LiDAR Preprocessing ............................................................................................... 16
+    \item 3.5 Background Subtraction ........................................................................................... 17
+    \item 3.5.1 Background Subtraction Node ........................................................................ 17
+    \item 3.5.2 Background Modeling Algorithm ..................................................................... 17
+    \item 3.6 LiDAR Clustering ...................................................................................................... 18
+    \item 3.6.1 Clustering Node .............................................................................................. 18
+    \item 3.6.2 Euclidean Clustering Algorithm ........................................................................ 18
+    \item 3.7 LiDAR Object Representation ................................................................................... 19
+    \item 3.8 Operational Workflow ............................................................................................... 19
+    \item 3.9 Advantages of the LiDAR Pipeline ............................................................................ 20
+    \item 3.10 Summary ................................................................................................................ 20
+\end{itemize}
 Chapter 4: Camera Perception and Time Synchronization Pipeline ............................. 21 * 4.1 Axis Camera System Overview ................................................................................ 21
 
-4.2 Camera Data Acquisition .......................................................................................... 21
-
-4.3 Camera Image Transport and Processing ................................................................ 22
-
-4.4 Camera Time Synchronization .................................................................................. 23
-
-4.4.1 LiDAR Time Reference (GPS Time) ................................................................ 23
-
-4.4.2 Camera Time Alignment Strategy ................................................................... 23
-
-4.4.3 Precision Time Protocol (PTP) Integration ...................................................... 23
-
-4.5 Camera Image Undistortion (NVIDIA VPI-Based) ..................................................... 25
-
-4.5.1 Lens Distortion Model ...................................................................................... 25
-
-4.5.2 GPU-Accelerated Undistortion ......................................................................... 26
-
-4.6 Deep Learning–Based Object Detection ................................................................... 28
-
-4.7 Camera Intrinsic Calibration ..................................................................................... 28
-
-4.7.1 Intrinsic Parameters and Projection Model ....................................................... 28
-
-4.8 Camera–LiDAR Extrinsic Calibration ........................................................................ 32
-
-4.8.1 Coordinate Frame Alignment .......................................................................... 32
-
-4.9 2D–3D Projection and Camera–LiDAR Association ................................................. 35
-
-4.10 Camera-Based Object Tracking ............................................................................. 38
-
-4.10.1 Tracking Objectives ...................................................................................... 38
-
-4.10.2 Kalman Filter Model ...................................................................................... 39
-
+\begin{itemize}
+    \item 4.2 Camera Data Acquisition .......................................................................................... 21
+    \item 4.3 Camera Image Transport and Processing ................................................................ 22
+    \item 4.4 Camera Time Synchronization .................................................................................. 23
+    \item 4.4.1 LiDAR Time Reference (GPS Time) ................................................................ 23
+    \item 4.4.2 Camera Time Alignment Strategy ................................................................... 23
+    \item 4.4.3 Precision Time Protocol (PTP) Integration ...................................................... 23
+    \item 4.5 Camera Image Undistortion (NVIDIA VPI-Based) ..................................................... 25
+    \item 4.5.1 Lens Distortion Model ...................................................................................... 25
+    \item 4.5.2 GPU-Accelerated Undistortion ......................................................................... 26
+    \item 4.6 Deep Learning–Based Object Detection ................................................................... 28
+    \item 4.7 Camera Intrinsic Calibration ..................................................................................... 28
+    \item 4.7.1 Intrinsic Parameters and Projection Model ....................................................... 28
+    \item 4.8 Camera–LiDAR Extrinsic Calibration ........................................................................ 32
+    \item 4.8.1 Coordinate Frame Alignment .......................................................................... 32
+    \item 4.9 2D–3D Projection and Camera–LiDAR Association ................................................. 35
+    \item 4.10 Camera-Based Object Tracking ............................................................................. 38
+    \item 4.10.1 Tracking Objectives ...................................................................................... 38
+    \item 4.10.2 Kalman Filter Model ...................................................................................... 39
+\end{itemize}
 Chapter 5: Global Tracking and Multi-Sensor Fusion ................................................... 44 * 5.1 Motivation for Global Fusion ..................................................................................... 44
 
-5.2 Camera Track Aggregation ...................................................................................... 44
-
-5.3 LiDAR–Camera Track Association ........................................................................... 46
-
-5.4 Global Fusion Processing Flow ................................................................................ 47
-
+\begin{itemize}
+    \item 5.2 Camera Track Aggregation ...................................................................................... 44
+    \item 5.3 LiDAR–Camera Track Association ........................................................................... 46
+    \item 5.4 Global Fusion Processing Flow ................................................................................ 47
+\end{itemize}
 Chapter 6: Visualization and System Monitoring .......................................................... 52 Chapter 7: Time Synchronization and System Timing ................................................... 56 Chapter 8: Graphical User Interface (GUI) Architecture ............................................... 60 Chapter 9: Discussion and Future Work ........................................................................ 65 Chapter 10: References ..................................................................................................
 
-List of Abbreviations
-
+\begin{itemize}
+    \item List of Abbreviations
+\end{itemize}
 Abbreviation
 
 Full Form / Description
@@ -322,8 +284,9 @@ YOLO
 
 You Only Look Once (Object Detection Algorithm)
 
-Introduction (Asfak)
-
+\begin{itemize}
+    \item Introduction (Asfak)
+\end{itemize}
 Modern intelligent surveillance and perception systems increasingly rely on the fusion of heterogeneous sensors to achieve robust and accurate situational awareness. Single-sensor systems, such as camera-only or LiDAR-only solutions, often suffer from inherent limitations including sensitivity to lighting conditions, occlusions, limited depth perception, or reduced performance in adverse environments. To overcome these challenges, multi-sensor perception systems that integrate complementary sensing modalities have become a key research and development focus in applications such as smart surveillance, autonomous systems, and intelligent infrastructure monitoring.
 
 This project presents the design and implementation of an AI-based Mobile Mast Perception System, developed using a distributed architecture built on ROS 2 and deployed across multiple NVIDIA Jetson Orin devices. The system combines data from a 3D LiDAR sensor and multiple Axis network cameras to achieve real-time object detection, three-dimensional localization, tracking, and visualization. By leveraging the strengths of both sensing modalities, the system provides accurate spatial understanding and improved robustness compared to single-sensor approaches.
@@ -352,452 +315,335 @@ Sanjay
 
 Table 1: Team member responsibilities
 
-‘
+`
 
-Chapter 2
 
+\section{Chapter 2}
 System Background, Related Work, and Overall Pipeline
 
 This chapter presents the background concepts and related work underlying the proposed AI-based mobile mast perception system. It also introduces the overall system pipeline, detailing how sensor data flows through the distributed architecture, the role of ROS 2 communication, and the organization of inputs, outputs, and configuration parameters. This chapter bridges theoretical foundations with the practical system design used in this project.
 
-2.1 Camera-Based Perception
 
+\subsection{2.1 Camera-Based Perception}
 Camera sensors are widely used in perception systems due to their ability to capture rich semantic and texture information. Modern deep learning–based object detectors rely heavily on image data to recognize and classify objects such as pedestrians, vehicles, and infrastructure elements. However, monocular cameras do not directly provide depth information, making three-dimensional localization challenging.
 
 Furthermore, real-world cameras—especially wide-angle and surveillance cameras—exhibit lens distortion, which introduces non-linear geometric deformations in the captured images. These distortions lead to inaccuracies when projecting image-based detections into a 3D coordinate frame. As a result, accurate camera calibration and undistortion are essential preprocessing steps before any geometric reasoning or sensor fusion can be performed.
 
 In this project, Axis network cameras are used to provide continuous video streams. To ensure geometric consistency, camera images are passed through a GPU-accelerated undistortion pipeline before being processed by the object detection network.
 
-2.2 LiDAR-Based Perception
 
+\subsection{2.2 LiDAR-Based Perception}
 LiDAR sensors provide precise three-dimensional measurements of the surrounding environment by emitting laser pulses and measuring their return times. Unlike cameras, LiDAR sensors are largely invariant to lighting conditions and provide accurate depth and spatial structure.
 
 However, LiDAR point clouds are inherently sparse and lack semantic information such as object class or appearance. Raw LiDAR data may also contain noise, ground points, and static background elements that are not relevant for dynamic object perception.
 
 To address these limitations, the LiDAR pipeline in this project includes:
 
-Point cloud preprocessing and filtering
-
-Background subtraction to isolate moving objects
-
-Clustering to segment foreground points into object-level representations
-
+\begin{itemize}
+    \item Point cloud preprocessing and filtering
+    \item Background subtraction to isolate moving objects
+    \item Clustering to segment foreground points into object-level representations
+\end{itemize}
 These processed LiDAR clusters form the geometric backbone for subsequent fusion with camera-based detections.
 
-2.3 Multi-Sensor Fusion
 
+\subsection{2.3 Multi-Sensor Fusion}
 Multi-sensor fusion aims to combine the complementary strengths of cameras and LiDAR sensors. While cameras provide dense semantic information, LiDAR offers accurate depth and spatial localization. Fusion strategies can be broadly classified into:
 
-Early fusion: Combining raw sensor data
-
-Mid-level fusion: Combining learned features
-
-Late (object-level) fusion: Combining detection outputs
-
+\begin{itemize}
+    \item Early fusion: Combining raw sensor data
+    \item Mid-level fusion: Combining learned features
+    \item Late (object-level) fusion: Combining detection outputs
+\end{itemize}
 This project adopts an object-level fusion strategy, where 2D object detections from the camera pipeline are projected into 3D space and associated with LiDAR clusters. This approach provides several advantages:
 
-Modular system design
+\begin{itemize}
+    \item Modular system design
+    \item Sensor independence
+    \item Robustness to individual sensor failures
+    \item Simplified debugging and scalability
+\end{itemize}
 
-Sensor independence
-
-Robustness to individual sensor failures
-
-Simplified debugging and scalability
-
-2.4 GPU-Accelerated Vision Processing
-
+\subsection{2.4 GPU-Accelerated Vision Processing}
 Real-time perception on embedded platforms requires efficient utilization of available hardware resources. NVIDIA Jetson Orin devices provide powerful GPUs capable of accelerating computer vision workloads.
 
 This project leverages NVIDIA Vision Programming Interface (VPI) for camera image undistortion. VPI provides optimized implementations for image remapping and geometric transformations using CUDA or VIC backends, enabling real-time undistortion with minimal CPU overhead. By offloading this computation to the GPU, the system maintains high throughput and low latency even when processing multiple camera streams simultaneously.
 
-2.5 Deep Learning–Based Object Detection
 
+\subsection{2.5 Deep Learning–Based Object Detection}
 Deep learning–based object detectors have become the standard for visual perception tasks. Among them, YOLO (You Only Look Once) is particularly suitable for embedded systems due to its single-stage detection architecture and real-time performance.
 
 In this project:
 
-A YOLO model is trained offline using camera data collected from the mobile mast setup
-
-The trained model (best.pt) is converted to a TensorRT engine for optimized inference on Jetson Orin
-
-The detector outputs 2D bounding boxes, class labels, and confidence scores in rectified image coordinates
-
+\begin{itemize}
+    \item A YOLO model is trained offline using camera data collected from the mobile mast setup
+    \item The trained model (best.pt) is converted to a TensorRT engine for optimized inference on Jetson Orin
+    \item The detector outputs 2D bounding boxes, class labels, and confidence scores in rectified image coordinates
+\end{itemize}
 These detections serve as the semantic input to the 2D–3D fusion pipeline.
 
-2.6 Distributed Perception Using ROS 2
 
+\subsection{2.6 Distributed Perception Using ROS 2}
 The system is implemented as a distributed ROS 2 architecture spanning three NVIDIA Jetson Orin devices. ROS 2 provides native support for multi-machine communication using DDS, allowing nodes to exchange data across the network transparently.
 
 Key design considerations include:
 
-Use of a common ROS 2 domain ID
-
-Time synchronization using Chrony
-
-Consistent TF frame management
-
-Separation of computational load across devices
-
+\begin{itemize}
+    \item Use of a common ROS 2 domain ID
+    \item Time synchronization using Chrony
+    \item Consistent TF frame management
+    \item Separation of computational load across devices
+\end{itemize}
 This distributed approach improves scalability, fault isolation, and real-time performance.
 
-2.7 Overall System Pipeline and Flow
 
+\subsection{2.7 Overall System Pipeline and Flow}
 Figure 2.1 illustrates the complete perception pipeline deployed across the three Orin devices.
 
-Orin 1 – Sensor Drivers and Preprocessing
 
-Axis cameras stream video via HTTP/RTSP
+\subsubsection{Orin 1 – Sensor Drivers and Preprocessing}
+\begin{itemize}
+    \item Axis cameras stream video via HTTP/RTSP
+    \item axis\_camera\_ros publishes compressed image topics
+    \item Image republishing converts streams into raw image topics
+    \item LiDAR driver publishes raw point clouds
+    \item LiDAR preprocessing and background subtraction isolate foreground points
+    \item LiDAR clustering extracts object-level point clusters
+\end{itemize}
 
-axis\_camera\_ros publishes compressed image topics
+\subsubsection{Orin 2 – Perception and 2D–3D Association}
+\begin{itemize}
+    \item NVIDIA VPI–based undistortion nodes rectify camera images
+    \item YOLO detection nodes perform object detection on rectified images
+    \item Camera-to-3D projection nodes associate 2D detections with LiDAR data
+    \item 3D detections are published for each camera stream
+\end{itemize}
 
-Image republishing converts streams into raw image topics
+\subsubsection{Orin 3 – Tracking and Global Fusion}
+\begin{itemize}
+    \item Camera-specific trackers maintain object identities over time
+    \item A global fusion node merges tracks from multiple cameras and LiDAR
+    \item Visualization nodes publish RViz markers for monitoring and analysis
+\end{itemize}
 
-LiDAR driver publishes raw point clouds
-
-LiDAR preprocessing and background subtraction isolate foreground points
-
-LiDAR clustering extracts object-level point clusters
-
-Orin 2 – Perception and 2D–3D Association
-
-NVIDIA VPI–based undistortion nodes rectify camera images
-
-YOLO detection nodes perform object detection on rectified images
-
-Camera-to-3D projection nodes associate 2D detections with LiDAR data
-
-3D detections are published for each camera stream
-
-Orin 3 – Tracking and Global Fusion
-
-Camera-specific trackers maintain object identities over time
-
-A global fusion node merges tracks from multiple cameras and LiDAR
-
-Visualization nodes publish RViz markers for monitoring and analysis
-
-2.8 ROS Parameters and Configuration
-
+\subsection{2.8 ROS Parameters and Configuration}
 The system relies on ROS 2 parameters for flexible configuration, including:
 
-Camera intrinsic and distortion parameters
-
-VPI backend selection (CUDA or VIC)
-
-YOLO inference thresholds
-
-LiDAR clustering distances
-
-Tracking filter parameters
-
-Topic and frame naming conventions
-
+\begin{itemize}
+    \item Camera intrinsic and distortion parameters
+    \item VPI backend selection (CUDA or VIC)
+    \item YOLO inference thresholds
+    \item LiDAR clustering distances
+    \item Tracking filter parameters
+    \item Topic and frame naming conventions
+\end{itemize}
 This parameter-driven design allows the system to be reconfigured without modifying source code.
 
-2.9 System Inputs and Outputs
 
-Inputs
+\subsection{2.9 System Inputs and Outputs}
 
-Camera image streams (/image\_raw)
+\subsubsection{Inputs}
+\begin{itemize}
+    \item Camera image streams (/image\_raw)
+    \item LiDAR point clouds (/lidar/points)
+    \item Camera calibration data (CameraInfo)
+    \item Configuration parameters
+\end{itemize}
 
-LiDAR point clouds (/lidar/points)
+\subsubsection{Outputs}
+\begin{itemize}
+    \item Rectified images (/image\_rect)
+    \item 2D object detections
+    \item 3D object detections
+    \item Tracked object states
+    \item Global fused tracks
+    \item RViz visualization markers
+    \item Rosbag recordings for offline analysis
+\end{itemize}
 
-Camera calibration data (CameraInfo)
-
-Configuration parameters
-
-Outputs
-
-Rectified images (/image\_rect)
-
-2D object detections
-
-3D object detections
-
-Tracked object states
-
-Global fused tracks
-
-RViz visualization markers
-
-Rosbag recordings for offline analysis
-
-2.10 Summary
-
+\subsection{2.10 Summary}
 This chapter reviewed the foundational concepts and related work relevant to the proposed system and presented the complete perception pipeline. By combining camera-based perception, LiDAR processing, GPU-accelerated vision, deep learning–based detection, and distributed ROS 2 architecture, the system establishes a robust and scalable framework for real-time multi-sensor perception.
 
-2.11 ROS 2 Nodes, Topics, and Data Flow
 
+\subsection{2.11 ROS 2 Nodes, Topics, and Data Flow}
 The complete perception system is implemented as a collection of modular ROS 2 nodes distributed across three NVIDIA Jetson Orin devices. Each node performs a well-defined task and communicates exclusively through ROS 2 topics, following a publisher–subscriber model. This design ensures modularity, scalability, and ease of debugging.
 
-Orin 1 – Sensor Drivers and Preprocessing Nodes
 
-axis\_camera\_ros
+\subsubsection{Orin 1 – Sensor Drivers and Preprocessing Nodes}
 
-Function: Captures live video streams from Axis network cameras using HTTP/RTSP.
-
-Inputs:
-
-Network camera stream (RTSP/HTTP)
-
-Publishes:
-
-/mast/orin1/bulletX/image\_raw/compressed
-
-Configuration:
-
-Camera IP address
-
-Frame rate
-
-Resolution(Configured via ROS parameters in the launch file)
-
+\paragraph{axis\_camera\_ros}
+\begin{itemize}
+    \item Function: Captures live video streams from Axis network cameras using HTTP/RTSP.
+    \item Inputs:
+    \item Network camera stream (RTSP/HTTP)
+    \item Publishes:
+    \item /mast/orin1/bulletX/image\_raw/compressed
+    \item Configuration:
+    \item Camera IP address
+    \item Frame rate
+    \item Resolution(Configured via ROS parameters in the launch file)
+\end{itemize}
 This node acts as the entry point of visual data into the system.
 
-image\_transport / republish
 
-Function: Converts compressed camera streams into raw image messages for downstream processing.
+\paragraph{image\_transport / republish}
+\begin{itemize}
+    \item Function: Converts compressed camera streams into raw image messages for downstream processing.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/image\_raw/compressed
+    \item Publishes:
+    \item /mast/orin1/bulletX/image\_raw
+    \item Purpose:
+    \item Ensures compatibility with image processing and VPI nodes
+\end{itemize}
 
-Subscribes:
+\paragraph{rslidar\_sdk\_node}
+\begin{itemize}
+    \item Function: Interfaces with the RoboSense RS16 LiDAR sensor.
+    \item Inputs:
+    \item Raw LiDAR packets from sensor
+    \item Publishes:
+    \item /mast/orin1/lidar/points
+    \item Configuration:
+    \item Sensor model
+    \item IP and port
+    \item Calibration parameters (via YAML/CSV)
+\end{itemize}
 
-/mast/orin1/bulletX/image\_raw/compressed
+\paragraph{rslidar\_preprocess}
+\begin{itemize}
+    \item Function: Filters raw LiDAR point clouds.
+    \item Subscribes:
+    \item /mast/orin1/lidar/points
+    \item Publishes:
+    \item /mast/orin1/lidar/points\_filtered
+    \item Operations:
+    \item Range filtering
+    \item Ground removal
+    \item Noise suppression
+\end{itemize}
 
-Publishes:
+\paragraph{lidar\_background\_subtraction}
+\begin{itemize}
+    \item Function: Separates static background from dynamic foreground points.
+    \item Subscribes:
+    \item /mast/orin1/lidar/points\_filtered
+    \item Publishes:
+    \item /mast/orin1/lidar/foreground
+    \item Configuration Files:
+    \item CSV/YAML containing:
+    \item Background model thresholds
+    \item Temporal accumulation parameters
+\end{itemize}
 
-/mast/orin1/bulletX/image\_raw
+\paragraph{lidar\_cluster\_node}
+\begin{itemize}
+    \item Function: Groups foreground points into object clusters.
+    \item Subscribes:
+    \item /mast/orin1/lidar/foreground
+    \item Publishes:
+    \item /mast/orin1/lidar/clusters
+    \item Algorithm:
+    \item Euclidean clustering
+    \item Config Parameters:
+    \item Cluster distance threshold
+    \item Minimum and maximum cluster size
+\end{itemize}
 
-Purpose:
+\subsubsection{Orin 2 – Vision Perception and 2D–3D Association Nodes}
 
-Ensures compatibility with image processing and VPI nodes
-
-rslidar\_sdk\_node
-
-Function: Interfaces with the RoboSense RS16 LiDAR sensor.
-
-Inputs:
-
-Raw LiDAR packets from sensor
-
-Publishes:
-
-/mast/orin1/lidar/points
-
-Configuration:
-
-Sensor model
-
-IP and port
-
-Calibration parameters (via YAML/CSV)
-
-rslidar\_preprocess
-
-Function: Filters raw LiDAR point clouds.
-
-Subscribes:
-
-/mast/orin1/lidar/points
-
-Publishes:
-
-/mast/orin1/lidar/points\_filtered
-
-Operations:
-
-Range filtering
-
-Ground removal
-
-Noise suppression
-
-lidar\_background\_subtraction
-
-Function: Separates static background from dynamic foreground points.
-
-Subscribes:
-
-/mast/orin1/lidar/points\_filtered
-
-Publishes:
-
-/mast/orin1/lidar/foreground
-
-Configuration Files:
-
-CSV/YAML containing:
-
-Background model thresholds
-
-Temporal accumulation parameters
-
-lidar\_cluster\_node
-
-Function: Groups foreground points into object clusters.
-
-Subscribes:
-
-/mast/orin1/lidar/foreground
-
-Publishes:
-
-/mast/orin1/lidar/clusters
-
-Algorithm:
-
-Euclidean clustering
-
-Config Parameters:
-
-Cluster distance threshold
-
-Minimum and maximum cluster size
-
-Orin 2 – Vision Perception and 2D–3D Association Nodes
-
-vpi\_undistort\_node
-
-Function: Corrects lens distortion using NVIDIA VPI.
-
-Subscribes:
-
-/mast/orin1/bulletX/image\_raw
-
-/camera\_info
-
-Publishes:
-
-/mast/orin1/bulletX/image\_rect
-
-Uses:
-
-Camera calibration file (YAML/CSV)
-
-Key Parameters:
-
-Camera intrinsic matrix
-
-Distortion coefficients
-
-VPI backend (CUDA / VIC)
-
+\paragraph{vpi\_undistort\_node}
+\begin{itemize}
+    \item Function: Corrects lens distortion using NVIDIA VPI.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/image\_raw
+    \item /camera\_info
+    \item Publishes:
+    \item /mast/orin1/bulletX/image\_rect
+    \item Uses:
+    \item Camera calibration file (YAML/CSV)
+    \item Key Parameters:
+    \item Camera intrinsic matrix
+    \item Distortion coefficients
+    \item VPI backend (CUDA / VIC)
+\end{itemize}
 This node ensures all downstream detections occur in a rectified pixel coordinate system.
 
-yolo\_detector\_node
 
-Function: Performs object detection on rectified images.
+\paragraph{yolo\_detector\_node}
+\begin{itemize}
+    \item Function: Performs object detection on rectified images.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/image\_rect
+    \item Publishes:
+    \item /mast/orin1/bulletX/detections\_2d
+    \item Model Files:
+    \item best.pt (training)
+    \item best.engine (TensorRT inference)
+    \item Config Parameters:
+    \item Confidence threshold
+    \item NMS threshold
+    \item Input image size
+\end{itemize}
 
-Subscribes:
+\paragraph{camera\_image\_to\_3d}
+\begin{itemize}
+    \item Function: Projects 2D detections into 3D space.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/detections\_2d
+    \item /mast/orin1/lidar/clusters
+    \item /tf
+    \item Publishes:
+    \item /mast/orin1/bulletX/detections\_3d
+    \item Uses CSV / Config Files:
+    \item Camera–LiDAR extrinsic calibration
+    \item Transformation matrices
+\end{itemize}
 
-/mast/orin1/bulletX/image\_rect
+\subsubsection{Orin 3 – Tracking, Fusion, and Visualization Nodes}
 
-Publishes:
+\paragraph{camera\_tracker\_node}
+\begin{itemize}
+    \item Function: Tracks detected objects over time using camera-based 3D detections.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/detections\_3d
+    \item Publishes:
+    \item /mast/orin1/bulletX/tracks\_3d
+    \item Algorithm:
+    \item Kalman Filter–based multi-object tracking
+    \item Config Parameters:
+    \item Process noise covariance
+    \item Measurement noise covariance
+    \item Track initiation and termination thresholds
+\end{itemize}
 
-/mast/orin1/bulletX/detections\_2d
+\paragraph{global\_fusion\_node}
+\begin{itemize}
+    \item Function: Performs multi-sensor fusion by combining camera-based tracks with LiDAR-based object clusters to produce globally consistent 3D object tracks.
+    \item Subscribes:
+    \item /mast/orin1/bulletX/tracks\_3d (camera tracks)
+    \item /mast/orin1/lidar/clusters (LiDAR object clusters)
+    \item Publishes:
+    \item /mast/global/tracks\_3d
+    \item Fusion Logic:
+    \item Spatial proximity in 3D space
+    \item Temporal consistency across frames
+    \item Track confidence and sensor reliability weighting
+    \item LiDAR-based position refinement
+\end{itemize}
 
-Model Files:
+\paragraph{tracks\_to\_markers\_node}
+\begin{itemize}
+    \item Function: Converts fused global tracks into visualization markers.
+    \item Subscribes:
+    \item /mast/global/tracks\_3d
+    \item Publishes:
+    \item /mast/global/tracks\_markers
+    \item Output:
+    \item RViz-compatible markers for real-time visualization and debugging
+\end{itemize}
 
-best.pt (training)
-
-best.engine (TensorRT inference)
-
-Config Parameters:
-
-Confidence threshold
-
-NMS threshold
-
-Input image size
-
-camera\_image\_to\_3d
-
-Function: Projects 2D detections into 3D space.
-
-Subscribes:
-
-/mast/orin1/bulletX/detections\_2d
-
-/mast/orin1/lidar/clusters
-
-/tf
-
-Publishes:
-
-/mast/orin1/bulletX/detections\_3d
-
-Uses CSV / Config Files:
-
-Camera–LiDAR extrinsic calibration
-
-Transformation matrices
-
-Orin 3 – Tracking, Fusion, and Visualization Nodes
-
-camera\_tracker\_node
-
-Function: Tracks detected objects over time using camera-based 3D detections.
-
-Subscribes:
-
-/mast/orin1/bulletX/detections\_3d
-
-Publishes:
-
-/mast/orin1/bulletX/tracks\_3d
-
-Algorithm:
-
-Kalman Filter–based multi-object tracking
-
-Config Parameters:
-
-Process noise covariance
-
-Measurement noise covariance
-
-Track initiation and termination thresholds
-
-global\_fusion\_node
-
-Function: Performs multi-sensor fusion by combining camera-based tracks with LiDAR-based object clusters to produce globally consistent 3D object tracks.
-
-Subscribes:
-
-/mast/orin1/bulletX/tracks\_3d (camera tracks)
-
-/mast/orin1/lidar/clusters (LiDAR object clusters)
-
-Publishes:
-
-/mast/global/tracks\_3d
-
-Fusion Logic:
-
-Spatial proximity in 3D space
-
-Temporal consistency across frames
-
-Track confidence and sensor reliability weighting
-
-LiDAR-based position refinement
-
-tracks\_to\_markers\_node
-
-Function: Converts fused global tracks into visualization markers.
-
-Subscribes:
-
-/mast/global/tracks\_3d
-
-Publishes:
-
-/mast/global/tracks\_markers
-
-Output:
-
-RViz-compatible markers for real-time visualization and debugging
-
-2.12 Configuration Files and CSV Usage
-
+\subsection{2.12 Configuration Files and CSV Usage}
 Several nodes rely on external configuration files to ensure flexibility and accuracy:
 
 Node
@@ -832,176 +678,172 @@ Filter parameters
 
 Using CSV/YAML files allows calibration updates without recompiling the system.
 
-2.13 End-to-End Data Flow Summary
 
-Sensors generate raw camera images and LiDAR point clouds
+\subsection{2.13 End-to-End Data Flow Summary}
+\begin{itemize}
+    \item Sensors generate raw camera images and LiDAR point clouds
+    \item Data is preprocessed and filtered on Orin 1
+    \item Images are undistorted and objects detected on Orin 2
+    \item 2D detections are projected into 3D space
+    \item Objects are tracked and fused on Orin 3
+    \item Results are visualized in RViz and recorded using rosbag
+\end{itemize}
 
-Data is preprocessed and filtered on Orin 1
+\section{Chapter 3: LiDAR Perception Pipeline}
 
-Images are undistorted and objects detected on Orin 2
-
-2D detections are projected into 3D space
-
-Objects are tracked and fused on Orin 3
-
-Results are visualized in RViz and recorded using rosbag
-
-Chapter 3: LiDAR Perception Pipeline
-
-3.1 Overview
-
+\subsection{3.1 Overview}
 This chapter describes the LiDAR-based perception pipeline developed for the mobile mast system. The pipeline is responsible for acquiring raw LiDAR measurements, filtering and preprocessing point cloud data, separating dynamic objects from the static environment, and extracting object-level representations through clustering. The resulting LiDAR outputs provide accurate three-dimensional geometric information that can be used for tracking, fusion, visualization, and offline analysis.
 
 The LiDAR pipeline is designed to operate in real time on an NVIDIA Jetson Orin platform using a modular ROS 2 architecture. Each processing stage is implemented as an independent ROS 2 node, enabling scalability, maintainability, and ease of debugging.
 
-3.2 LiDAR Sensor and System Configuration
 
-3.2.1 RoboSense RS16 LiDAR
+\subsection{3.2 LiDAR Sensor and System Configuration}
 
+\subsubsection{3.2.1 RoboSense RS16 LiDAR}
 The system employs a RoboSense RS16 LiDAR sensor, which provides 360-degree horizontal coverage with 16 vertical laser channels. The sensor is configured with the following network parameters:
 
-LiDAR IP address: 192.168.6.60
-
-Communication protocol: UDP
-
-Output data: Raw LiDAR packets containing range, intensity, and angle measurements
-
+\begin{itemize}
+    \item LiDAR IP address: 192.168.6.60
+    \item Communication protocol: UDP
+    \item Output data: Raw LiDAR packets containing range, intensity, and angle measurements
+\end{itemize}
 The RS16 sensor provides accurate and dense three-dimensional measurements of the surrounding environment, independent of ambient lighting conditions.
 
-3.3 LiDAR Data Acquisition
 
-3.3.1 LiDAR Driver Node
+\subsection{3.3 LiDAR Data Acquisition}
 
+\subsubsection{3.3.1 LiDAR Driver Node}
 Node Name: rslidar\_sdk\_node
 
 Function: Interfaces directly with the RoboSense RS16 LiDAR sensor, decodes raw UDP packets, and publishes ROS 2–compatible point cloud messages.
 
 Inputs:
 
-Raw LiDAR packets streamed from the sensor
-
+\begin{itemize}
+    \item Raw LiDAR packets streamed from the sensor
+\end{itemize}
 Outputs:
 
-/mast/orin1/lidar/points (sensor\_msgs/PointCloud2)
-
+\begin{itemize}
+    \item /mast/orin1/lidar/points (sensor\_msgs/PointCloud2)
+\end{itemize}
 Supporting Configuration Files:
 
-Sensor model YAML file
+\begin{itemize}
+    \item Sensor model YAML file
+    \item Angle and channel calibration CSV files
+    \item Network configuration parameters (IP, port)
+\end{itemize}
 
-Angle and channel calibration CSV files
-
-Network configuration parameters (IP, port)
-
-3.3.2 Coordinate Transformation
-
+\subsubsection{3.3.2 Coordinate Transformation}
 Each LiDAR measurement is converted from polar to Cartesian coordinates using the following equations:
 
 x=rcos⁡(θ)cos⁡(ϕ)y=rsin⁡(θ)cos⁡(ϕ)z=rsin⁡(ϕ)\textbackslash\{\}begin\{aligned\} x \&= r \textbackslash\{\}cos(\textbackslash\{\}theta) \textbackslash\{\}cos(\textbackslash\{\}phi) \textbackslash\{\}\textbackslash\{\} y \&= r \textbackslash\{\}sin(\textbackslash\{\}theta) \textbackslash\{\}cos(\textbackslash\{\}phi) \textbackslash\{\}\textbackslash\{\} z \&= r \textbackslash\{\}sin(\textbackslash\{\}phi) \textbackslash\{\}end\{aligned\}xyz​=rcos(θ)cos(ϕ)=rsin(θ)cos(ϕ)=rsin(ϕ)​
 
 where:
 
-rrr is the measured distance
-
-θ\textbackslash\{\}thetaθ is the azimuth angle
-
-ϕ\textbackslash\{\}phiϕ is the vertical elevation angle
-
+\begin{itemize}
+    \item rrr is the measured distance
+    \item θ\textbackslash\{\}thetaθ is the azimuth angle
+    \item ϕ\textbackslash\{\}phiϕ is the vertical elevation angle
+\end{itemize}
 These Cartesian coordinates form the raw point cloud representation.
 
-3.4 LiDAR Preprocessing
 
-3.4.1 Preprocessing Node
+\subsection{3.4 LiDAR Preprocessing}
 
+\subsubsection{3.4.1 Preprocessing Node}
 Node Name: rslidar\_preprocess
 
 Function: Filters and cleans raw point cloud data to remove noise and irrelevant points before higher-level processing.
 
 Subscribes:
 
-/mast/orin1/lidar/points
-
+\begin{itemize}
+    \item /mast/orin1/lidar/points
+\end{itemize}
 Publishes:
 
-/mast/orin1/lidar/points\_filtered
+\begin{itemize}
+    \item /mast/orin1/lidar/points\_filtered
+\end{itemize}
 
-3.4.2 Filtering Operations
-
+\subsubsection{3.4.2 Filtering Operations}
 The preprocessing stage applies the following operations:
 
-Range Filtering Removes points that lie outside a predefined minimum and maximum distance range.
-
-Ground Removal Eliminates ground points using height-based thresholds relative to the sensor frame.
-
-Noise Suppression Removes isolated points with insufficient local neighborhood density.
-
+\begin{itemize}
+    \item Range Filtering Removes points that lie outside a predefined minimum and maximum distance range.
+    \item Ground Removal Eliminates ground points using height-based thresholds relative to the sensor frame.
+    \item Noise Suppression Removes isolated points with insufficient local neighborhood density.
+\end{itemize}
 Configuration Files:
 
-YAML files specifying:
+\begin{itemize}
+    \item YAML files specifying:
+    \item Range limits
+    \item Ground height thresholds
+    \item Region of interest (ROI) boundaries
+\end{itemize}
 
-Range limits
+\subsection{3.5 Background Subtraction}
 
-Ground height thresholds
-
-Region of interest (ROI) boundaries
-
-3.5 Background Subtraction
-
-3.5.1 Background Subtraction Node
-
+\subsubsection{3.5.1 Background Subtraction Node}
 Node Name: lidar\_background\_subtraction
 
 Function: Separates static background structures from dynamic foreground objects using temporal analysis.
 
 Subscribes:
 
-/mast/orin1/lidar/points\_filtered
-
+\begin{itemize}
+    \item /mast/orin1/lidar/points\_filtered
+\end{itemize}
 Publishes:
 
-/mast/orin1/lidar/foreground
+\begin{itemize}
+    \item /mast/orin1/lidar/foreground
+\end{itemize}
 
-3.5.2 Background Modeling Algorithm
-
+\subsubsection{3.5.2 Background Modeling Algorithm}
 The node maintains a temporal background model by observing point stability over multiple frames. A point ppp is classified as background if its spatial variation remains below a threshold over a temporal window:
 
 ∥pt−pt−k∥<δ,∀k∈[1,N]\textbackslash\{\}| p\_t - p\_\{t-k\} \textbackslash\{\}| < \textbackslash\{\}delta, \textbackslash\{\}quad \textbackslash\{\}forall k \textbackslash\{\}in [1, N]∥pt​−pt−k​∥<δ,∀k∈[1,N]
 
 where:
 
-δ\textbackslash\{\}deltaδ is the spatial stability threshold
-
-NNN is the temporal accumulation window
-
+\begin{itemize}
+    \item δ\textbackslash\{\}deltaδ is the spatial stability threshold
+    \item NNN is the temporal accumulation window
+\end{itemize}
 Points violating this condition are classified as dynamic foreground points.
 
 Supporting Configuration Files:
 
-CSV/YAML files specifying:
+\begin{itemize}
+    \item CSV/YAML files specifying:
+    \item Temporal window size
+    \item Distance threshold δ\textbackslash\{\}deltaδ
+    \item Background confidence decay rate
+\end{itemize}
 
-Temporal window size
+\subsection{3.6 LiDAR Clustering}
 
-Distance threshold δ\textbackslash\{\}deltaδ
-
-Background confidence decay rate
-
-3.6 LiDAR Clustering
-
-3.6.1 Clustering Node
-
+\subsubsection{3.6.1 Clustering Node}
 Node Name: lidar\_cluster\_node
 
 Function: Groups foreground points into object-level clusters.
 
 Subscribes:
 
-/mast/orin1/lidar/foreground
-
+\begin{itemize}
+    \item /mast/orin1/lidar/foreground
+\end{itemize}
 Publishes:
 
-/mast/orin1/lidar/clusters
+\begin{itemize}
+    \item /mast/orin1/lidar/clusters
+\end{itemize}
 
-3.6.2 Euclidean Clustering Algorithm
-
+\subsubsection{3.6.2 Euclidean Clustering Algorithm}
 The clustering process groups points based on spatial proximity. Two points pip\_ipi​ and pjp\_jpj​ belong to the same cluster if:
 
 ∥pi−pj∥<ϵ\textbackslash\{\}| p\_i - p\_j \textbackslash\{\}| < \textbackslash\{\}epsilon∥pi​−pj​∥<ϵ
@@ -1012,86 +854,76 @@ Clusters that do not satisfy minimum or maximum size constraints are discarded.
 
 Configuration Parameters:
 
-Distance threshold ϵ\textbackslash\{\}epsilonϵ
+\begin{itemize}
+    \item Distance threshold ϵ\textbackslash\{\}epsilonϵ
+    \item Minimum cluster size
+    \item Maximum cluster size
+\end{itemize}
 
-Minimum cluster size
-
-Maximum cluster size
-
-3.7 LiDAR Object Representation
-
+\subsection{3.7 LiDAR Object Representation}
 Each LiDAR cluster is converted into an object-level representation by computing:
 
-Cluster centroid
-
-Axis-aligned bounding box
-
-Spatial extents
-
+\begin{itemize}
+    \item Cluster centroid
+    \item Axis-aligned bounding box
+    \item Spatial extents
+\end{itemize}
 These compact representations reduce data size and enable efficient downstream processing such as tracking and visualization.
 
-3.8 Operational Workflow
 
+\subsection{3.8 Operational Workflow}
 The LiDAR pipeline operates sequentially as follows:
 
-Raw LiDAR packets are received from the RS16 sensor.
-
-The driver decodes packets and publishes raw point clouds.
-
-Preprocessing filters remove noise and irrelevant points.
-
-Background subtraction isolates dynamic foreground objects.
-
-Clustering groups foreground points into object-level clusters.
-
-Cluster outputs are published for tracking, fusion, and visualization.
-
+\begin{itemize}
+    \item Raw LiDAR packets are received from the RS16 sensor.
+    \item The driver decodes packets and publishes raw point clouds.
+    \item Preprocessing filters remove noise and irrelevant points.
+    \item Background subtraction isolates dynamic foreground objects.
+    \item Clustering groups foreground points into object-level clusters.
+    \item Cluster outputs are published for tracking, fusion, and visualization.
+\end{itemize}
 This progressive refinement ensures robust and real-time LiDAR perception.
 
-3.9 Advantages of the LiDAR Pipeline
 
-Robust to lighting conditions
+\subsection{3.9 Advantages of the LiDAR Pipeline}
+\begin{itemize}
+    \item Robust to lighting conditions
+    \item Accurate 3D spatial measurements
+    \item Modular and scalable ROS 2 design
+    \item Real-time performance on embedded hardware
+    \item Clean object-level outputs for higher-level processing
+\end{itemize}
 
-Accurate 3D spatial measurements
-
-Modular and scalable ROS 2 design
-
-Real-time performance on embedded hardware
-
-Clean object-level outputs for higher-level processing
-
-3.10 Summary
-
+\subsection{3.10 Summary}
 This chapter presented a complete LiDAR-based perception pipeline using a RoboSense RS16 LiDAR sensor. Through systematic preprocessing, background subtraction, and clustering, the system transforms raw sensor measurements into reliable object-level representations. The modular design and mathematical foundations of the pipeline ensure robustness, scalability, and suitability for real-time perception in mobile mast applications.
 
-Chapter 4: Camera Perception Pipeline
 
-Chapter 4
+\section{Chapter 4: Camera Perception Pipeline}
 
+\section{Chapter 4}
 Camera Perception and Time Synchronization Pipeline**
 
-4.1 Axis Camera System Overview
 
+\subsection{4.1 Axis Camera System Overview}
 Camera sensors play a critical role in perception systems by providing dense visual and semantic information about the environment. In the proposed system, Axis network cameras are used to capture continuous video streams of the surroundings from elevated viewpoints on a mobile mast. These cameras provide high-resolution imagery suitable for object detection, tracking, and multi-sensor fusion.
 
 Unlike range sensors, cameras do not directly measure depth. Their effectiveness in multi-sensor perception systems therefore depends on accurate calibration, geometric correction, and precise temporal alignment with LiDAR measurements.
 
-4.2 Camera Data Acquisition
 
-4.2.1 Axis Camera Hardware
+\subsection{4.2 Camera Data Acquisition}
 
+\subsubsection{4.2.1 Axis Camera Hardware}
 The Axis cameras used in this system are IP-based surveillance cameras equipped with wide-angle lenses. They support:
 
-Network-based streaming
-
-Hardware timestamping
-
-High frame rate video capture
-
+\begin{itemize}
+    \item Network-based streaming
+    \item Hardware timestamping
+    \item High frame rate video capture
+\end{itemize}
 The cameras are mounted rigidly to maintain stable extrinsic relationships with the LiDAR sensor.
 
-4.2.2 RTSP/HTTP Streaming
 
+\subsubsection{4.2.2 RTSP/HTTP Streaming}
 Each Axis camera transmits video using RTSP or HTTP protocols. Frames are encoded using standard video compression techniques and transmitted over Ethernet.
 
 Let Ic(t)I\_c(t)Ic​(t) denote the camera image captured at time ttt. The camera produces a sequence:
@@ -1100,38 +932,39 @@ Let Ic(t)I\_c(t)Ic​(t) denote the camera image captured at time ttt. The camer
 
 where tit\_iti​ corresponds to the camera clock timestamps.
 
-4.2.3 axis\_camera\_ros Node
 
+\subsubsection{4.2.3 axis\_camera\_ros Node}
 Node Name: axis\_camera\_ros
 
 Function: Captures network video streams and publishes them as ROS 2 image messages.
 
 Inputs:
 
-RTSP/HTTP video stream
-
+\begin{itemize}
+    \item RTSP/HTTP video stream
+\end{itemize}
 Outputs:
 
-Compressed images: Iccomp(t)I\_c\^{}\{comp\}(t)Iccomp​(t)
-
-Raw images: Icraw(t)I\_c\^{}\{raw\}(t)Icraw​(t)
-
+\begin{itemize}
+    \item Compressed images: Iccomp(t)I\_c\^{}\{comp\}(t)Iccomp​(t)
+    \item Raw images: Icraw(t)I\_c\^{}\{raw\}(t)Icraw​(t)
+\end{itemize}
 Published Topics:
 
-/mast/orin1/bulletX/image\_raw/compressed
-
-/mast/orin1/bulletX/image\_raw
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/image\_raw/compressed
+    \item /mast/orin1/bulletX/image\_raw
+\end{itemize}
 This node bridges the camera hardware and the ROS 2 perception pipeline.
 
-4.3 Camera Image Transport and Processing
 
-4.3.1 Compressed Image Transport
+\subsection{4.3 Camera Image Transport and Processing}
 
+\subsubsection{4.3.1 Compressed Image Transport}
 Compressed image transport minimizes bandwidth usage and allows multiple camera streams to coexist in a distributed system. Images are initially published in compressed form and decoded only when required for processing.
 
-4.3.2 Raw Image Republishing
 
+\subsubsection{4.3.2 Raw Image Republishing}
 Compressed images are decoded and republished as raw images to enable pixel-level operations such as geometric correction and neural network inference.
 
 The transformation can be expressed as:
@@ -1140,20 +973,20 @@ Icraw(t)=Decode(Iccomp(t))I\_c\^{}\{raw\}(t) = \textbackslash\{\}text\{Decode\}(
 
 This process preserves the original image timestamp for synchronization.
 
-4.4 Camera Time Synchronization
 
+\subsection{4.4 Camera Time Synchronization}
 Accurate temporal alignment between camera images and LiDAR point clouds is essential for correct spatial association.
 
-4.4.1 LiDAR Time Reference (GPS Time)
 
+\subsubsection{4.4.1 LiDAR Time Reference (GPS Time)}
 The LiDAR sensor operates on a GPS-disciplined clock, producing timestamps in a global time reference TGPST\_\{GPS\}TGPS​. LiDAR point clouds are stamped as:
 
 PL(TGPS)P\_L(T\_\{GPS\})PL​(TGPS​)
 
-This global reference is treated as the system’s master clock.
+This global reference is treated as the system's master clock.
 
-4.4.2 Camera Time Alignment Strategy
 
+\subsubsection{4.4.2 Camera Time Alignment Strategy}
 Camera timestamps TcT\_cTc​ are aligned to the LiDAR reference using an offset correction:
 
 Tcaligned=Tc+ΔTT\_c\^{}\{aligned\} = T\_c + \textbackslash\{\}Delta TTcaligned​=Tc​+ΔT
@@ -1162,8 +995,8 @@ where ΔT\textbackslash\{\}Delta TΔT is the estimated clock offset between the 
 
 This alignment ensures that camera images and LiDAR point clouds correspond to the same physical moment.
 
-4.4.3 Precision Time Protocol (PTP) Integration
 
+\subsubsection{4.4.3 Precision Time Protocol (PTP) Integration}
 To minimize clock drift and offset, Precision Time Protocol (PTP) is used.
 
 PTP synchronizes camera clocks to a grandmaster clock (LiDAR or dedicated master) by exchanging timestamped messages and estimating propagation delays. The clock offset is computed as:
@@ -1172,76 +1005,69 @@ PTP synchronizes camera clocks to a grandmaster clock (LiDAR or dedicated master
 
 where:
 
-t1,t2,t3,t4t\_1, t\_2, t\_3, t\_4t1​,t2​,t3​,t4​ are PTP message timestamps
-
+\begin{itemize}
+    \item t1,t2,t3,t4t\_1, t\_2, t\_3, t\_4t1​,t2​,t3​,t4​ are PTP message timestamps
+\end{itemize}
 This achieves sub-millisecond synchronization accuracy.
 
-4.5 Camera Image Undistortion
 
+\subsection{4.5 Camera Image Undistortion}
 Wide-angle lenses introduce non-linear distortions that affect geometric accuracy.
 
-4.5.1 Camera Distortion Model
 
+\subsubsection{4.5.1 Camera Distortion Model}
 The pinhole camera model with radial and tangential distortion is used:
 
 xd=xu(1+k1r2+k2r4+k3r6)+2p1xuyu+p2(r2+2xu2)yd=yu(1+k1r2+k2r4+k3r6)+p1(r2+2yu2)+2p2xuyu\textbackslash\{\}begin\{aligned\} x\_d \&= x\_u (1 + k\_1 r\^{}2 + k\_2 r\^{}4 + k\_3 r\^{}6) + 2p\_1 x\_u y\_u + p\_2(r\^{}2 + 2x\_u\^{}2) \textbackslash\{\}\textbackslash\{\} y\_d \&= y\_u (1 + k\_1 r\^{}2 + k\_2 r\^{}4 + k\_3 r\^{}6) + p\_1(r\^{}2 + 2y\_u\^{}2) + 2p\_2 x\_u y\_u \textbackslash\{\}end\{aligned\}xd​yd​​=xu​(1+k1​r2+k2​r4+k3​r6)+2p1​xu​yu​+p2​(r2+2xu2​)=yu​(1+k1​r2+k2​r4+k3​r6)+p1​(r2+2yu2​)+2p2​xu​yu​​
 
 where:
 
-(xu,yu)(x\_u, y\_u)(xu​,yu​): undistorted coordinates
+\begin{itemize}
+    \item (xu,yu)(x\_u, y\_u)(xu​,yu​): undistorted coordinates
+    \item (xd,yd)(x\_d, y\_d)(xd​,yd​): distorted coordinates
+\end{itemize}
 
-(xd,yd)(x\_d, y\_d)(xd​,yd​): distorted coordinates
-
-4.5.2 GPU-Accelerated Undistortion
-
+\subsubsection{4.5.2 GPU-Accelerated Undistortion}
 The system employs NVIDIA VPI to compute a pixel-wise remapping function (WarpMap):
 
 (xd,yd)=f(xu,yu,K,D)(x\_d, y\_d) = f(x\_u, y\_u, K, D)(xd​,yd​)=f(xu​,yu​,K,D)
 
 This WarpMap is applied efficiently on the GPU to generate rectified images in real time.
 
-4.6 Operational Workflow: How the Camera Pipeline Works
 
-Axis cameras capture images and stream them over RTSP.
-
-axis\_camera\_ros publishes compressed image topics.
-
-Images are decoded and republished as raw images.
-
-Camera clocks are synchronized to LiDAR time using PTP.
-
-Timestamps are aligned to the GPS-based reference.
-
-Distorted images are undistorted using GPU acceleration.
-
-Rectified images are forwarded to downstream perception modules.
-
+\subsection{4.6 Operational Workflow: How the Camera Pipeline Works}
+\begin{itemize}
+    \item Axis cameras capture images and stream them over RTSP.
+    \item axis\_camera\_ros publishes compressed image topics.
+    \item Images are decoded and republished as raw images.
+    \item Camera clocks are synchronized to LiDAR time using PTP.
+    \item Timestamps are aligned to the GPS-based reference.
+    \item Distorted images are undistorted using GPU acceleration.
+    \item Rectified images are forwarded to downstream perception modules.
+\end{itemize}
 This sequential processing ensures geometrically and temporally consistent camera data.
 
-4.7 Advantages of the Camera Pipeline
 
-High-resolution semantic information
+\subsection{4.7 Advantages of the Camera Pipeline}
+\begin{itemize}
+    \item High-resolution semantic information
+    \item Precise temporal alignment with LiDAR
+    \item GPU-accelerated image processing
+    \item Scalable multi-camera support
+    \item Robustness to clock drift
+\end{itemize}
 
-Precise temporal alignment with LiDAR
-
-GPU-accelerated image processing
-
-Scalable multi-camera support
-
-Robustness to clock drift
-
-4.8 Summary
-
+\subsection{4.8 Summary}
 This chapter detailed the camera perception and time synchronization pipeline of the system. By integrating Axis cameras with ROS 2, employing efficient image transport, applying precise time synchronization using GPS and PTP, and performing GPU-accelerated undistortion, the system ensures that camera data is both geometrically and temporally consistent. This consistency is essential for accurate multi-sensor perception and downstream processing.
 
-4.5 NVIDIA VPI–Based Image Undistortion
 
+\subsection{4.5 NVIDIA VPI–Based Image Undistortion}
 Wide-angle surveillance cameras, such as Axis network cameras, introduce significant lens distortion that causes straight lines in the real world to appear curved in captured images. This distortion negatively affects pixel-level geometric accuracy and leads to errors when projecting image-based detections into three-dimensional space. To ensure geometric consistency and accurate spatial reasoning, image undistortion is applied as a mandatory preprocessing step before downstream perception tasks.
 
 In the proposed system, image undistortion is implemented using NVIDIA Vision Programming Interface (VPI), which provides GPU-accelerated primitives optimized for embedded NVIDIA platforms. This approach enables real-time undistortion of multiple camera streams while minimizing CPU usage and latency.
 
-4.5.1 Lens Distortion Model
 
+\subsubsection{4.5.1 Lens Distortion Model}
 The camera lens distortion is modeled using the pinhole camera model augmented with radial and tangential distortion components. Let (xu,yu)(x\_u, y\_u)(xu​,yu​) represent undistorted normalized image coordinates and (xd,yd)(x\_d, y\_d)(xd​,yd​) represent distorted coordinates.
 
 The radial distortion model is defined as:
@@ -1262,8 +1088,8 @@ The final distorted pixel coordinates are obtained using the camera intrinsic ma
 
 These distortion parameters are obtained from camera calibration and provided through the ROS CameraInfo message.
 
-4.5.2 VPI WarpMap Generation
 
+\subsubsection{4.5.2 VPI WarpMap Generation}
 Directly computing the inverse distortion mapping for every pixel at runtime is computationally expensive. To address this, VPI uses a WarpMap, which is a precomputed pixel-wise mapping that defines how each pixel in the rectified image corresponds to a pixel in the distorted image.
 
 The WarpMap represents the following transformation:
@@ -1272,84 +1098,76 @@ The WarpMap represents the following transformation:
 
 where:
 
-(ur,vr)(u\_r, v\_r)(ur​,vr​) are pixel coordinates in the rectified image
-
-(ud,vd)(u\_d, v\_d)(ud​,vd​) are corresponding coordinates in the original distorted image
-
-KKK is the camera intrinsic matrix
-
-DDD is the vector of distortion coefficients
-
+\begin{itemize}
+    \item (ur,vr)(u\_r, v\_r)(ur​,vr​) are pixel coordinates in the rectified image
+    \item (ud,vd)(u\_d, v\_d)(ud​,vd​) are corresponding coordinates in the original distorted image
+    \item KKK is the camera intrinsic matrix
+    \item DDD is the vector of distortion coefficients
+\end{itemize}
 Using the polynomial lens distortion model, VPI computes this mapping once whenever camera calibration parameters change. The resulting WarpMap encodes the inverse distortion function required to remap pixels efficiently.
 
 This WarpMap is stored in GPU memory and reused for all subsequent frames, significantly reducing computational overhead.
 
-4.5.3 Rectified Image Topics
 
+\subsubsection{4.5.3 Rectified Image Topics}
 Once the WarpMap is generated, incoming camera frames are processed as follows:
 
-The distorted image IdI\_dId​ is received from the camera pipeline.
-
-The WarpMap is applied using GPU acceleration to compute the rectified image: Ir(ur,vr)=Id(f(ur,vr))I\_r(u\_r, v\_r) = I\_d(f(u\_r, v\_r))Ir​(ur​,vr​)=Id​(f(ur​,vr​))
-
-The output image IrI\_rIr​ has corrected geometry, where straight lines in the real world appear straight in the image plane.
-
+\begin{itemize}
+    \item The distorted image IdI\_dId​ is received from the camera pipeline.
+    \item The WarpMap is applied using GPU acceleration to compute the rectified image: Ir(ur,vr)=Id(f(ur,vr))I\_r(u\_r, v\_r) = I\_d(f(u\_r, v\_r))Ir​(ur​,vr​)=Id​(f(ur​,vr​))
+    \item The output image IrI\_rIr​ has corrected geometry, where straight lines in the real world appear straight in the image plane.
+\end{itemize}
 Published Topic:
 
-/mast/orin1/bulletX/image\_rect
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/image\_rect
+\end{itemize}
 This rectified image is used as the input to downstream perception modules, ensuring that all pixel coordinates correspond to an ideal pinhole camera model.
 
-Why NVIDIA VPI Is Used
 
+\subsubsection{Why NVIDIA VPI Is Used}
 The choice of NVIDIA VPI provides several advantages:
 
-GPU-accelerated remapping using CUDA or VIC backends
-
-Low-latency real-time performance on Jetson Orin
-
-Reduced CPU load for other perception tasks
-
-Consistent geometric correction across all camera streams
-
+\begin{itemize}
+    \item GPU-accelerated remapping using CUDA or VIC backends
+    \item Low-latency real-time performance on Jetson Orin
+    \item Reduced CPU load for other perception tasks
+    \item Consistent geometric correction across all camera streams
+\end{itemize}
 By offloading undistortion to the GPU, the system maintains high throughput even when processing multiple cameras simultaneously.
 
-Operational Workflow: How the Undistortion Pipeline Works
 
-Camera calibration parameters are received via CameraInfo.
-
-VPI computes a WarpMap using the lens distortion model.
-
-Each incoming distorted image is remapped using the WarpMap.
-
-Rectified images are published with preserved timestamps.
-
-Downstream nodes operate on geometrically corrected images.
-
+\subsubsection{Operational Workflow: How the Undistortion Pipeline Works}
+\begin{itemize}
+    \item Camera calibration parameters are received via CameraInfo.
+    \item VPI computes a WarpMap using the lens distortion model.
+    \item Each incoming distorted image is remapped using the WarpMap.
+    \item Rectified images are published with preserved timestamps.
+    \item Downstream nodes operate on geometrically corrected images.
+\end{itemize}
 This processing ensures that all camera-based detections are produced in a rectified coordinate system suitable for accurate multi-sensor fusion.
 
-Summary
 
+\subsubsection{Summary}
 This section described the NVIDIA VPI–based image undistortion pipeline used in the system. By modeling lens distortion mathematically and applying a GPU-accelerated WarpMap-based remapping, the system corrects geometric distortions efficiently and in real time. The resulting rectified images provide a reliable foundation for accurate object detection, projection, and multi-sensor fusion.
 
-4.6 Deep Learning–Based Object Detection - FATIK
 
-4.6.1 YOLOv11 Architecture
+\subsection{4.6 Deep Learning–Based Object Detection - FATIK}
+\begin{itemize}
+    \item 4.6.1 YOLOv11 Architecture
+    \item 4.6.2 Model Training and Dataset Preparation
+    \item 4.6.3 TensorRT Engine Deployment
+\end{itemize}
 
-4.6.2 Model Training and Dataset Preparation
-
-4.6.3 TensorRT Engine Deployment
-
-4.7 Camera Intrinsic Calibration
-
+\subsection{4.7 Camera Intrinsic Calibration}
 Accurate camera intrinsic calibration is fundamental for any perception system that relies on geometric reasoning. Intrinsic calibration defines how three-dimensional points in the camera coordinate system are projected onto the two-dimensional image plane. Inaccurate intrinsic parameters lead to systematic projection errors, which directly affect object localization, tracking, and multi-sensor fusion accuracy.
 
 In the proposed system, intrinsic calibration parameters are used by multiple modules, including image undistortion, 2D–3D projection, and visualization. These parameters are obtained offline through a calibration procedure and are made available to the perception pipeline through ROS 2 messages and configuration files.
 
 4.7.1 Intrinsic Parameters
 
-Camera Projection Model
 
+\paragraph{Camera Projection Model}
 The system uses the standard pinhole camera model, which maps a 3D point (X,Y,Z)(X, Y, Z)(X,Y,Z) in the camera coordinate frame to a 2D pixel location (u,v)(u, v)(u,v) on the image plane.
 
 The projection is defined as:
@@ -1362,14 +1180,14 @@ K=[fx0cx0fycy001]K = \textbackslash\{\}begin\{bmatrix\} f\_x \& 0 \& c\_x \textb
 
 with:
 
-fx,fyf\_x, f\_yfx​,fy​: focal lengths in pixel units
-
-cx,cyc\_x, c\_ycx​,cy​: principal point coordinates
-
+\begin{itemize}
+    \item fx,fyf\_x, f\_yfx​,fy​: focal lengths in pixel units
+    \item cx,cyc\_x, c\_ycx​,cy​: principal point coordinates
+\end{itemize}
 These parameters define the internal geometry of the camera and are independent of camera position or orientation in the world.
 
-Intrinsic Calibration Process
 
+\paragraph{Intrinsic Calibration Process}
 Intrinsic parameters are estimated offline using a calibration target (e.g., a checkerboard) and multiple images captured at different orientations and positions. Feature correspondences between known 3D target points and observed 2D image points are used to minimize reprojection error.
 
 The calibration objective minimizes the cost function:
@@ -1378,32 +1196,30 @@ min⁡K∑i=1N∥ui−π(K,Xi)∥2\textbackslash\{\}min\_\{K\} \textbackslash\{\
 
 where:
 
-Xi\textbackslash\{\}mathbf\{X\}\_iXi​ are known 3D points
+\begin{itemize}
+    \item Xi\textbackslash\{\}mathbf\{X\}\_iXi​ are known 3D points
+    \item ui\textbackslash\{\}mathbf\{u\}\_iui​ are observed image points
+    \item π(⋅)\textbackslash\{\}pi(\textbackslash\{\}cdot)π(⋅) is the camera projection function
+\end{itemize}
 
-ui\textbackslash\{\}mathbf\{u\}\_iui​ are observed image points
-
-π(⋅)\textbackslash\{\}pi(\textbackslash\{\}cdot)π(⋅) is the camera projection function
-
-Usage in the Project
-
+\paragraph{Usage in the Project}
 In this project:
 
-Intrinsic parameters are loaded from calibration files
+\begin{itemize}
+    \item Intrinsic parameters are loaded from calibration files
+    \item Parameters are published via ROS CameraInfo messages
+    \item All downstream nodes assume a rectified pinhole camera model
+\end{itemize}
 
-Parameters are published via ROS CameraInfo messages
+\subsubsection{4.7.2 Distortion Coefficients}
 
-All downstream nodes assume a rectified pinhole camera model
-
-4.7.2 Distortion Coefficients
-
-Lens Distortion Effects
-
+\paragraph{Lens Distortion Effects}
 Real camera lenses introduce non-linear distortions, especially for wide-angle optics. These distortions cause straight lines to appear curved and must be corrected for accurate geometric processing.
 
 The system models lens distortion using radial and tangential components.
 
-Distortion Model
 
+\paragraph{Distortion Model}
 Let (xu,yu)(x\_u, y\_u)(xu​,yu​) be undistorted normalized coordinates. The distorted coordinates (xd,yd)(x\_d, y\_d)(xd​,yd​) are computed as:
 
 Radial distortion:
@@ -1420,102 +1236,98 @@ r2=xu2+yu2r\^{}2 = x\_u\^{}2 + y\_u\^{}2r2=xu2​+yu2​
 
 The final distorted pixel coordinates are obtained using the intrinsic matrix KKK.
 
-Calibration and Storage
 
+\paragraph{Calibration and Storage}
 Distortion coefficients are estimated during intrinsic calibration and stored alongside intrinsic parameters in calibration files. These parameters are published as part of the CameraInfo message.
 
-4.7.3 Integration into the Perception Pipeline
 
-ROS Nodes and Topics
+\subsection{4.7.3 Integration into the Perception Pipeline}
 
+\subsubsection{ROS Nodes and Topics}
 CameraInfo Publisher
 
-Publishes intrinsic matrix KKK and distortion vector DDD
-
+\begin{itemize}
+    \item Publishes intrinsic matrix KKK and distortion vector DDD
+\end{itemize}
 Topics:
 
-/mast/orin1/bulletX/camera\_info
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/camera\_info
+\end{itemize}
 Consumers of Calibration Data:
 
-VPI undistortion node
+\begin{itemize}
+    \item VPI undistortion node
+    \item 2D–3D projection nodes
+    \item Visualization modules
+\end{itemize}
 
-2D–3D projection nodes
-
-Visualization modules
-
-How It Works in the Project
-
-Camera calibration parameters are loaded from configuration files.
-
-Intrinsic parameters and distortion coefficients are published via CameraInfo.
-
-The undistortion node subscribes to CameraInfo and generates a WarpMap.
-
-Rectified images are produced using GPU acceleration.
-
-Downstream perception nodes assume an ideal pinhole camera model.
-
+\subsubsection{How It Works in the Project}
+\begin{itemize}
+    \item Camera calibration parameters are loaded from configuration files.
+    \item Intrinsic parameters and distortion coefficients are published via CameraInfo.
+    \item The undistortion node subscribes to CameraInfo and generates a WarpMap.
+    \item Rectified images are produced using GPU acceleration.
+    \item Downstream perception nodes assume an ideal pinhole camera model.
+\end{itemize}
 This ensures that all geometric computations operate in a consistent and physically meaningful coordinate system.
 
-4.7.4 Output and Impact
 
+\subsection{4.7.4 Output and Impact}
 Accurate intrinsic calibration enables:
 
-Correct pixel-to-ray back-projection
-
-Precise 2D–3D association
-
-Reduced reprojection error
-
-Improved tracking and fusion accuracy
-
+\begin{itemize}
+    \item Correct pixel-to-ray back-projection
+    \item Precise 2D–3D association
+    \item Reduced reprojection error
+    \item Improved tracking and fusion accuracy
+\end{itemize}
 By explicitly modeling and correcting lens distortion, the system achieves reliable geometric performance across all camera streams.
 
-4.7.5 Summary
 
+\subsection{4.7.5 Summary}
 This section presented the camera intrinsic calibration process, including intrinsic parameter estimation and distortion modeling. The mathematical foundations of camera projection and lens distortion were discussed, along with their practical integration into the ROS 2 perception pipeline. Accurate intrinsic calibration is a critical prerequisite for image undistortion, object detection, and multi-sensor fusion in the proposed system.
 
-4.8 Camera–LiDAR Extrinsic Calibration
 
+\subsection{4.8 Camera–LiDAR Extrinsic Calibration}
 While intrinsic calibration defines the internal geometry of a camera, extrinsic calibration defines the spatial relationship between different sensors. In a multi-sensor perception system, accurate extrinsic calibration between the camera and LiDAR is essential to ensure that measurements from both sensors can be expressed in a common coordinate frame.
 
 In the proposed system, camera–LiDAR extrinsic calibration enables the projection of 3D LiDAR points into the camera image plane and the association of 2D camera detections with 3D LiDAR geometry. Any error in extrinsic parameters directly results in spatial misalignment, leading to incorrect object localization and fusion errors.
 
-4.8.1 Coordinate Frame Alignment
 
-Sensor Coordinate Frames
+\subsubsection{4.8.1 Coordinate Frame Alignment}
 
+\paragraph{Sensor Coordinate Frames}
 Each sensor operates in its own coordinate frame:
 
-LiDAR frame (FL\textbackslash\{\}mathcal\{F\}\_LFL​) Origin at the LiDAR sensor, axes defined by the sensor manufacturer.
-
-Camera frame (FC\textbackslash\{\}mathcal\{F\}\_CFC​) Origin at the camera optical center, with the optical axis aligned along the ZZZ-axis.
-
+\begin{itemize}
+    \item LiDAR frame (FL\textbackslash\{\}mathcal\{F\}\_LFL​) Origin at the LiDAR sensor, axes defined by the sensor manufacturer.
+    \item Camera frame (FC\textbackslash\{\}mathcal\{F\}\_CFC​) Origin at the camera optical center, with the optical axis aligned along the ZZZ-axis.
+\end{itemize}
 To enable sensor fusion, measurements from both sensors must be transformed into a common reference frame.
 
-Rigid Body Transformation
 
+\paragraph{Rigid Body Transformation}
 The spatial relationship between the LiDAR and camera frames is modeled as a rigid body transformation composed of a rotation and a translation:
 
 TCL=[Rt01]\textbackslash\{\}mathbf\{T\}\_\{C\}\^{}\{L\} = \textbackslash\{\}begin\{bmatrix\} \textbackslash\{\}mathbf\{R\} \& \textbackslash\{\}mathbf\{t\} \textbackslash\{\}\textbackslash\{\} \textbackslash\{\}mathbf\{0\} \& 1 \textbackslash\{\}end\{bmatrix\}TCL​=[R0​t1​]
 
 where:
 
-R∈SO(3)\textbackslash\{\}mathbf\{R\} \textbackslash\{\}in SO(3)R∈SO(3) is the rotation matrix
-
-t∈R3\textbackslash\{\}mathbf\{t\} \textbackslash\{\}in \textbackslash\{\}mathbb\{R\}\^{}3t∈R3 is the translation vector
-
+\begin{itemize}
+    \item R∈SO(3)\textbackslash\{\}mathbf\{R\} \textbackslash\{\}in SO(3)R∈SO(3) is the rotation matrix
+    \item t∈R3\textbackslash\{\}mathbf\{t\} \textbackslash\{\}in \textbackslash\{\}mathbb\{R\}\^{}3t∈R3 is the translation vector
+\end{itemize}
 A 3D point pL\textbackslash\{\}mathbf\{p\}\_LpL​ in the LiDAR frame is transformed into the camera frame as:
 
 pC=RpL+t\textbackslash\{\}mathbf\{p\}\_C = \textbackslash\{\}mathbf\{R\} \textbackslash\{\}mathbf\{p\}\_L + \textbackslash\{\}mathbf\{t\}pC​=RpL​+t
 
 This transformation ensures consistent spatial alignment between sensors.
 
-4.8.2 Extrinsic Transformation Estimation
 
-Calibration Objective
+\subsubsection{4.8.2 Extrinsic Transformation Estimation}
 
+\paragraph{Calibration Objective}
 Extrinsic calibration aims to estimate the rotation R\textbackslash\{\}mathbf\{R\}R and translation t\textbackslash\{\}mathbf\{t\}t that minimize the spatial discrepancy between corresponding camera and LiDAR observations.
 
 Given a set of corresponding 3D LiDAR points PL\textbackslash\{\}mathbf\{P\}\_LPL​ and 2D image observations u\textbackslash\{\}mathbf\{u\}u, the calibration minimizes the reprojection error:
@@ -1524,12 +1336,12 @@ min⁡R,t∑i=1N∥ui−π(K,RPL,i+t)∥2\textbackslash\{\}min\_\{\textbackslash
 
 where:
 
-KKK is the camera intrinsic matrix
+\begin{itemize}
+    \item KKK is the camera intrinsic matrix
+    \item π(⋅)\textbackslash\{\}pi(\textbackslash\{\}cdot)π(⋅) is the camera projection function
+\end{itemize}
 
-π(⋅)\textbackslash\{\}pi(\textbackslash\{\}cdot)π(⋅) is the camera projection function
-
-Estimation Method
-
+\paragraph{Estimation Method}
 In this project, extrinsic parameters are estimated offline using calibration targets or manually refined alignment. The resulting parameters are stored as rotation vectors and translation vectors.
 
 The rotation is often represented using Euler angles or a Rodrigues vector:
@@ -1538,262 +1350,243 @@ R=exp⁡([ω]×)\textbackslash\{\}mathbf\{R\} = \textbackslash\{\}exp([\textback
 
 where [ω]×[\textbackslash\{\}omega]\_\textbackslash\{\}times[ω]×​ is the skew-symmetric matrix of the rotation vector.
 
-Configuration and Storage
 
+\paragraph{Configuration and Storage}
 Extrinsic parameters are stored in configuration files (YAML) and include:
 
-Translation (x,y,z)(x, y, z)(x,y,z)
-
-Rotation (roll,pitch,yaw)(roll, pitch, yaw)(roll,pitch,yaw)
-
+\begin{itemize}
+    \item Translation (x,y,z)(x, y, z)(x,y,z)
+    \item Rotation (roll,pitch,yaw)(roll, pitch, yaw)(roll,pitch,yaw)
+\end{itemize}
 These parameters are loaded at runtime by perception and projection nodes.
 
-4.8.3 Integration into the Project Pipeline
 
-ROS Nodes and Topics
+\subsection{4.8.3 Integration into the Project Pipeline}
 
+\subsubsection{ROS Nodes and Topics}
 Extrinsic Transformation Publisher
 
-Publishes static transforms using tf\_static
-
+\begin{itemize}
+    \item Publishes static transforms using tf\_static
+\end{itemize}
 Topics:
 
-/tf
-
-/tf\_static
-
+\begin{itemize}
+    \item /tf
+    \item /tf\_static
+\end{itemize}
 Consumers of Extrinsic Parameters:
 
-2D–3D projection nodes
+\begin{itemize}
+    \item 2D–3D projection nodes
+    \item Camera–LiDAR association nodes
+    \item Visualization modules (RViz)
+\end{itemize}
 
-Camera–LiDAR association nodes
-
-Visualization modules (RViz)
-
-How It Works in the System
-
-Extrinsic calibration parameters are loaded from configuration files.
-
-A static transform between the LiDAR and camera frames is published.
-
-LiDAR points are transformed into the camera frame.
-
-Transformed points are projected onto the image plane.
-
-Camera detections are associated with LiDAR geometry.
-
+\subsubsection{How It Works in the System}
+\begin{itemize}
+    \item Extrinsic calibration parameters are loaded from configuration files.
+    \item A static transform between the LiDAR and camera frames is published.
+    \item LiDAR points are transformed into the camera frame.
+    \item Transformed points are projected onto the image plane.
+    \item Camera detections are associated with LiDAR geometry.
+\end{itemize}
 This process ensures consistent spatial alignment across sensors.
 
-4.8.4 Impact on Multi-Sensor Fusion
 
+\subsection{4.8.4 Impact on Multi-Sensor Fusion}
 Accurate extrinsic calibration enables:
 
-Correct projection of LiDAR points into camera images
-
-Reliable 2D–3D object association
-
-Stable tracking and fusion across sensors
-
-Meaningful visualization in RViz
-
+\begin{itemize}
+    \item Correct projection of LiDAR points into camera images
+    \item Reliable 2D–3D object association
+    \item Stable tracking and fusion across sensors
+    \item Meaningful visualization in RViz
+\end{itemize}
 Even small errors in extrinsic calibration can lead to significant perception errors, highlighting the importance of precise calibration.
 
-4.8.5 Summary
 
+\subsection{4.8.5 Summary}
 This section described the camera–LiDAR extrinsic calibration process, including coordinate frame alignment and transformation estimation. By modeling the sensor relationship as a rigid body transformation and integrating extrinsic parameters into the ROS 2 TF framework, the system achieves accurate spatial alignment between camera and LiDAR data, which is essential for reliable perception and fusion.
 
-4.9 2D–3D Projection and Camera–LiDAR Association
 
+\subsection{4.9 2D–3D Projection and Camera–LiDAR Association}
 After intrinsic and extrinsic calibration, the next critical step in the perception pipeline is the association of 2D camera detections with 3D LiDAR data. This process enables the system to assign accurate depth and spatial location to objects detected in camera images, transforming purely image-based detections into three-dimensional object representations.
 
 In the proposed system, this association is achieved by projecting LiDAR points into the camera image plane and matching them with 2D bounding boxes produced by the object detection pipeline.
 
-4.9.1 Motivation for 2D–3D Projection
 
+\subsubsection{4.9.1 Motivation for 2D–3D Projection}
 Camera-based object detectors provide:
 
-Object class labels
-
-2D bounding boxes in pixel coordinates
-
+\begin{itemize}
+    \item Object class labels
+    \item 2D bounding boxes in pixel coordinates
+\end{itemize}
 However, they do not provide depth or absolute position information. LiDAR sensors, on the other hand, provide accurate 3D geometry but lack semantic classification.
 
 By projecting LiDAR data into the camera image plane and associating it with camera detections, the system combines:
 
-Semantic information from cameras
-
-Metric depth and position from LiDAR
-
+\begin{itemize}
+    \item Semantic information from cameras
+    \item Metric depth and position from LiDAR
+\end{itemize}
 This fusion enables accurate 3D object localization and tracking.
 
-4.9.2 Mathematical Formulation of 3D-to-2D Projection
 
-LiDAR Point Transformation
+\subsubsection{4.9.2 Mathematical Formulation of 3D-to-2D Projection}
 
+\paragraph{LiDAR Point Transformation}
 Each LiDAR point pL=[XL,YL,ZL]T\textbackslash\{\}mathbf\{p\}\_L = [X\_L, Y\_L, Z\_L]\^{}TpL​=[XL​,YL​,ZL​]T is first transformed into the camera coordinate frame using the extrinsic calibration:
 
 pC=RCLpL+tCL\textbackslash\{\}mathbf\{p\}\_C = \textbackslash\{\}mathbf\{R\}\_\{CL\} \textbackslash\{\}mathbf\{p\}\_L + \textbackslash\{\}mathbf\{t\}\_\{CL\}pC​=RCL​pL​+tCL​
 
 where:
 
-RCL\textbackslash\{\}mathbf\{R\}\_\{CL\}RCL​ is the rotation matrix
+\begin{itemize}
+    \item RCL\textbackslash\{\}mathbf\{R\}\_\{CL\}RCL​ is the rotation matrix
+    \item tCL\textbackslash\{\}mathbf\{t\}\_\{CL\}tCL​ is the translation vector
+\end{itemize}
 
-tCL\textbackslash\{\}mathbf\{t\}\_\{CL\}tCL​ is the translation vector
-
-Camera Projection
-
+\paragraph{Camera Projection}
 The transformed point pC=[XC,YC,ZC]T\textbackslash\{\}mathbf\{p\}\_C = [X\_C, Y\_C, Z\_C]\^{}TpC​=[XC​,YC​,ZC​]T is projected onto the image plane using the camera intrinsic matrix KKK:
 
 [uv1]=K[XC/ZCYC/ZC1]\textbackslash\{\}begin\{bmatrix\} u \textbackslash\{\}\textbackslash\{\} v \textbackslash\{\}\textbackslash\{\} 1 \textbackslash\{\}end\{bmatrix\} = K \textbackslash\{\}begin\{bmatrix\} X\_C / Z\_C \textbackslash\{\}\textbackslash\{\} Y\_C / Z\_C \textbackslash\{\}\textbackslash\{\} 1 \textbackslash\{\}end\{bmatrix\}​uv1​​=K​XC​/ZC​YC​/ZC​1​​
 
 where:
 
-(u,v)(u, v)(u,v) are pixel coordinates
-
-ZC>0Z\_C > 0ZC​>0 ensures the point lies in front of the camera
-
+\begin{itemize}
+    \item (u,v)(u, v)(u,v) are pixel coordinates
+    \item ZC>0Z\_C > 0ZC​>0 ensures the point lies in front of the camera
+\end{itemize}
 Only points that project within image boundaries are considered valid.
 
-4.9.3 Camera–LiDAR Association Algorithm
 
+\subsubsection{4.9.3 Camera–LiDAR Association Algorithm}
 Once LiDAR points are projected into the image plane, association with camera detections is performed.
 
-Bounding Box Association
 
+\paragraph{Bounding Box Association}
 For each 2D detection with bounding box B=[umin,vmin,umax,vmax]B = [u\_\{min\}, v\_\{min\}, u\_\{max\}, v\_\{max\}]B=[umin​,vmin​,umax​,vmax​], a projected LiDAR point (u,v)(u, v)(u,v) is considered associated if:
 
 umin≤u≤umax,vmin≤v≤vmaxu\_\{min\} \textbackslash\{\}le u \textbackslash\{\}le u\_\{max\}, \textbackslash\{\}quad v\_\{min\} \textbackslash\{\}le v \textbackslash\{\}le v\_\{max\}umin​≤u≤umax​,vmin​≤v≤vmax​
 
 All LiDAR points satisfying this condition are grouped as belonging to the detected object.
 
-Depth Estimation
 
+\paragraph{Depth Estimation}
 The depth of the detected object is estimated from the associated LiDAR points using statistical measures such as:
 
 Zobj=median(ZC)Z\_\{obj\} = \textbackslash\{\}text\{median\}(Z\_C)Zobj​=median(ZC​)
 
 This approach is robust to outliers and sensor noise.
 
-4.9.4 Node Implementation in the Project
 
-Projection and Association Node
+\subsubsection{4.9.4 Node Implementation in the Project}
 
+\paragraph{Projection and Association Node}
 Function: Associates camera detections with LiDAR clusters and computes 3D object positions.
 
 Subscribes:
 
-2D detections (pixel bounding boxes)
-
-LiDAR clusters or raw projected points
-
-TF transforms (/tf, /tf\_static)
-
+\begin{itemize}
+    \item 2D detections (pixel bounding boxes)
+    \item LiDAR clusters or raw projected points
+    \item TF transforms (/tf, /tf\_static)
+\end{itemize}
 Publishes:
 
-3D detections per camera:
-
-/mast/orin1/bulletX/detections\_3d
-
+\begin{itemize}
+    \item 3D detections per camera:
+    \item /mast/orin1/bulletX/detections\_3d
+\end{itemize}
 Each output message contains:
 
-Object class
+\begin{itemize}
+    \item Object class
+    \item 3D position
+    \item Confidence score
+    \item Camera source identifier
+\end{itemize}
 
-3D position
-
-Confidence score
-
-Camera source identifier
-
-4.9.5 How the Projection Pipeline Works in Practice
-
-LiDAR clusters are transformed into the camera frame.
-
-Each LiDAR point is projected onto the image plane.
-
-Camera detections define regions of interest in pixel space.
-
-LiDAR points falling inside each bounding box are selected.
-
-Object depth and position are computed.
-
-3D detections are published for tracking.
-
+\subsubsection{4.9.5 How the Projection Pipeline Works in Practice}
+\begin{itemize}
+    \item LiDAR clusters are transformed into the camera frame.
+    \item Each LiDAR point is projected onto the image plane.
+    \item Camera detections define regions of interest in pixel space.
+    \item LiDAR points falling inside each bounding box are selected.
+    \item Object depth and position are computed.
+    \item 3D detections are published for tracking.
+\end{itemize}
 This process is executed in real time for each camera stream.
 
-4.9.6 Advantages of Object-Level Association
 
+\subsubsection{4.9.6 Advantages of Object-Level Association}
 The object-level projection approach provides:
 
-Modular sensor independence
-
-Reduced computational complexity
-
-Robustness to partial occlusions
-
-Clear separation between detection and fusion
-
+\begin{itemize}
+    \item Modular sensor independence
+    \item Reduced computational complexity
+    \item Robustness to partial occlusions
+    \item Clear separation between detection and fusion
+\end{itemize}
 It also allows easy extension to additional cameras or sensors.
 
-4.9.7 ROS Topics and Data Flow Summary
 
+\subsubsection{4.9.7 ROS Topics and Data Flow Summary}
 Input Topics:
 
-Rectified camera images
-
-2D detection bounding boxes
-
-LiDAR clusters
-
-TF transforms
-
+\begin{itemize}
+    \item Rectified camera images
+    \item 2D detection bounding boxes
+    \item LiDAR clusters
+    \item TF transforms
+\end{itemize}
 Output Topics:
 
-/mast/orin1/bulletX/detections\_3d
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/detections\_3d
+\end{itemize}
 These outputs serve as inputs to tracking and global fusion modules.
 
-4.9.8 Summary
 
+\subsubsection{4.9.8 Summary}
 This section described the mathematical foundation and practical implementation of the 2D–3D projection and camera–LiDAR association process. By transforming LiDAR points into the camera frame and associating them with 2D detections, the system enriches camera-based object detections with accurate depth and spatial information, forming the basis for reliable tracking and multi-sensor fusion.
 
-4.10 Camera-Based Object Tracking
 
+\section{4.10 Camera-Based Object Tracking}
 Once 2D detections have been associated with 3D LiDAR measurements, the next step in the perception pipeline is object tracking. Tracking enables the system to maintain consistent object identities over time, estimate object motion, and filter measurement noise. In the proposed system, tracking is performed in three-dimensional space using a Kalman filter–based multi-object tracking framework.
 
-4.10.1 Tracking Objectives
 
+\subsection{4.10.1 Tracking Objectives}
 The primary objectives of camera-based 3D object tracking in this project are:
 
-Maintain consistent object IDs across frames
-
-Estimate object position and velocity in 3D space
-
-Handle temporary detection loss (occlusions)
-
-Suppress false detections and measurement noise
-
-Provide stable inputs to global fusion and visualization
-
+\begin{itemize}
+    \item Maintain consistent object IDs across frames
+    \item Estimate object position and velocity in 3D space
+    \item Handle temporary detection loss (occlusions)
+    \item Suppress false detections and measurement noise
+    \item Provide stable inputs to global fusion and visualization
+\end{itemize}
 Tracking is performed per camera stream before global fusion.
 
-4.10.2 Kalman Filter Model
 
-State Representation
+\subsection{4.10.2 Kalman Filter Model}
 
+\subsubsection{State Representation}
 Each object is modeled using a 3D constant acceleration motion model. The state vector is defined as:
 
 xk=[xyzx˙y˙z˙x¨y¨z¨]T\textbackslash\{\}mathbf\{x\}\_k = \textbackslash\{\}begin\{bmatrix\} x \& y \& z \& \textbackslash\{\}dot\{x\} \& \textbackslash\{\}dot\{y\} \& \textbackslash\{\}dot\{z\} \& \textbackslash\{\}ddot\{x\} \& \textbackslash\{\}ddot\{y\} \& \textbackslash\{\}ddot\{z\} \textbackslash\{\}end\{bmatrix\}\^{}Txk​=[x​y​z​x˙​y˙​​z˙​x¨​y¨​​z¨​]T
 
 where:
 
-(x,y,z)(x, y, z)(x,y,z) is the 3D position
+\begin{itemize}
+    \item (x,y,z)(x, y, z)(x,y,z) is the 3D position
+    \item (x˙,y˙,z˙)(\textbackslash\{\}dot\{x\}, \textbackslash\{\}dot\{y\}, \textbackslash\{\}dot\{z\})(x˙,y˙​,z˙) is velocity
+    \item (x¨,y¨,z¨)(\textbackslash\{\}ddot\{x\}, \textbackslash\{\}ddot\{y\}, \textbackslash\{\}ddot\{z\})(x¨,y¨​,z¨) is acceleration
+\end{itemize}
 
-(x˙,y˙,z˙)(\textbackslash\{\}dot\{x\}, \textbackslash\{\}dot\{y\}, \textbackslash\{\}dot\{z\})(x˙,y˙​,z˙) is velocity
-
-(x¨,y¨,z¨)(\textbackslash\{\}ddot\{x\}, \textbackslash\{\}ddot\{y\}, \textbackslash\{\}ddot\{z\})(x¨,y¨​,z¨) is acceleration
-
-State Transition Model
-
+\subsubsection{State Transition Model}
 Assuming constant acceleration over time interval Δt\textbackslash\{\}Delta tΔt, the state transition equation is:
 
 xk+1=Fxk+wk\textbackslash\{\}mathbf\{x\}\_\{k+1\} = \textbackslash\{\}mathbf\{F\} \textbackslash\{\}mathbf\{x\}\_k + \textbackslash\{\}mathbf\{w\}\_kxk+1​=Fxk​+wk​
@@ -1802,8 +1595,8 @@ where wk\textbackslash\{\}mathbf\{w\}\_kwk​ is process noise, and the transiti
 
 F=[100Δt0012Δt2000100Δt0012Δt2000100Δt0012Δt2000100Δt000000100Δt000000100Δt000000100000000010000000001]\textbackslash\{\}mathbf\{F\} = \textbackslash\{\}begin\{bmatrix\} 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \& 0 \& 0 \& \textbackslash\{\}frac\{1\}\{2\}\textbackslash\{\}Delta t\^{}2 \& 0 \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \& 0 \& 0 \& \textbackslash\{\}frac\{1\}\{2\}\textbackslash\{\}Delta t\^{}2 \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \& 0 \& 0 \& \textbackslash\{\}frac\{1\}\{2\}\textbackslash\{\}Delta t\^{}2 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \& 0 \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 0 \& 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 0 \& 0 \& 1 \& 0 \& 0 \& \textbackslash\{\}Delta t \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 1 \& 0 \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 1 \& 0 \textbackslash\{\}\textbackslash\{\} 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 0 \& 1 \textbackslash\{\}end\{bmatrix\}F=​100000000​010000000​001000000​Δt00100000​0Δt0010000​00Δt001000​21​Δt200Δt00100​021​Δt200Δt0010​0021​Δt200Δt001​​
 
-Measurement Model
 
+\subsubsection{Measurement Model}
 Measurements consist of observed 3D positions:
 
 zk=[xyz]T\textbackslash\{\}mathbf\{z\}\_k = \textbackslash\{\}begin\{bmatrix\} x \& y \& z \textbackslash\{\}end\{bmatrix\}\^{}Tzk​=[x​y​z​]T
@@ -1818,8 +1611,8 @@ H=[100000000010000000001000000]\textbackslash\{\}mathbf\{H\} = \textbackslash\{\
 
 where vk\textbackslash\{\}mathbf\{v\}\_kvk​ is measurement noise.
 
-Kalman Filter Update Equations
 
+\subsubsection{Kalman Filter Update Equations}
 Prediction:
 
 x\^{}k∣k−1=Fx\^{}k−1\textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k|k-1\} = \textbackslash\{\}mathbf\{F\} \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k-1\}x\^{}k∣k−1​=Fx\^{}k−1​ Pk∣k−1=FPk−1FT+Q\textbackslash\{\}mathbf\{P\}\_\{k|k-1\} = \textbackslash\{\}mathbf\{F\} \textbackslash\{\}mathbf\{P\}\_\{k-1\} \textbackslash\{\}mathbf\{F\}\^{}T + \textbackslash\{\}mathbf\{Q\}Pk∣k−1​=FPk−1​FT+Q
@@ -1828,22 +1621,22 @@ Update:
 
 Kk=Pk∣k−1HT(HPk∣k−1HT+R)−1\textbackslash\{\}mathbf\{K\}\_k = \textbackslash\{\}mathbf\{P\}\_\{k|k-1\} \textbackslash\{\}mathbf\{H\}\^{}T (\textbackslash\{\}mathbf\{H\} \textbackslash\{\}mathbf\{P\}\_\{k|k-1\} \textbackslash\{\}mathbf\{H\}\^{}T + \textbackslash\{\}mathbf\{R\})\^{}\{-1\}Kk​=Pk∣k−1​HT(HPk∣k−1​HT+R)−1 x\^{}k=x\^{}k∣k−1+Kk(zk−Hx\^{}k∣k−1)\textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k = \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k|k-1\} + \textbackslash\{\}mathbf\{K\}\_k (\textbackslash\{\}mathbf\{z\}\_k - \textbackslash\{\}mathbf\{H\} \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k|k-1\})x\^{}k​=x\^{}k∣k−1​+Kk​(zk​−Hx\^{}k∣k−1​) Pk=(I−KkH)Pk∣k−1\textbackslash\{\}mathbf\{P\}\_k = (\textbackslash\{\}mathbf\{I\} - \textbackslash\{\}mathbf\{K\}\_k \textbackslash\{\}mathbf\{H\}) \textbackslash\{\}mathbf\{P\}\_\{k|k-1\}Pk​=(I−Kk​H)Pk∣k−1​
 
-4.10.3 Track Initialization and Termination
 
-Track Initialization
+\subsection{4.10.3 Track Initialization and Termination}
 
+\subsubsection{Track Initialization}
 A new track is initialized when:
 
-A 3D detection cannot be associated with an existing track
-
-The detection persists for a minimum number of frames
-
+\begin{itemize}
+    \item A 3D detection cannot be associated with an existing track
+    \item The detection persists for a minimum number of frames
+\end{itemize}
 Initial state is set as:
 
 x˙=y˙=z˙=0x¨=y¨=z¨=0\textbackslash\{\}dot\{x\} = \textbackslash\{\}dot\{y\} = \textbackslash\{\}dot\{z\} = 0 \textbackslash\{\}quad \textbackslash\{\}ddot\{x\} = \textbackslash\{\}ddot\{y\} = \textbackslash\{\}ddot\{z\} = 0x˙=y˙​=z˙=0x¨=y¨​=z¨=0
 
-Data Association Using Hungarian Algorithm
 
+\subsubsection{Data Association Using Hungarian Algorithm}
 At each frame, detected objects must be matched to predicted tracks.
 
 A cost matrix CCC is constructed using Euclidean distance:
@@ -1858,40 +1651,37 @@ where πij∈\{0,1\}\textbackslash\{\}pi\_\{ij\} \textbackslash\{\}in \textbacks
 
 Unmatched detections → potential new tracks Unmatched tracks → possible occlusions
 
-Multi-Tracking Hypothesis Management
 
+\subsubsection{Multi-Tracking Hypothesis Management}
 The system supports multiple hypotheses by:
 
-Allowing tracks to persist without measurements for a limited time
-
-Maintaining track confidence scores
-
-Delaying track deletion until confidence falls below a threshold
-
+\begin{itemize}
+    \item Allowing tracks to persist without measurements for a limited time
+    \item Maintaining track confidence scores
+    \item Delaying track deletion until confidence falls below a threshold
+\end{itemize}
 This improves robustness to:
 
-Occlusions
+\begin{itemize}
+    \item Occlusions
+    \item Temporary sensor dropouts
+    \item Missed detections
+\end{itemize}
 
-Temporary sensor dropouts
-
-Missed detections
-
-Track Termination Criteria
-
+\subsubsection{Track Termination Criteria}
 Tracks are terminated when:
 
-They remain unmatched beyond a timeout threshold
+\begin{itemize}
+    \item They remain unmatched beyond a timeout threshold
+    \item Covariance exceeds uncertainty limits
+    \item Confidence score drops below minimum
+\end{itemize}
 
-Covariance exceeds uncertainty limits
-
-Confidence score drops below minimum
-
-4.10.4 Tracking Workflow (Processing Flow)
-
+\subsection{4.10.4 Tracking Workflow (Processing Flow)}
 This section describes the complete processing workflow of the multi-object tracking system employed in the proposed perception framework. The tracking pipeline operates sequentially at each time step and integrates motion prediction, data association, state estimation, and track management using probabilistic filtering and optimization techniques.
 
-Step 1: State Prediction Using Motion Model
 
+\subsubsection{Step 1: State Prediction Using Motion Model}
 At the beginning of each tracking cycle, the state of every active track is predicted forward in time using the constant acceleration motion model.
 
 For each track iii, the predicted state is computed as:
@@ -1900,14 +1690,14 @@ x\^{}k∣k−1(i)=Fx\^{}k−1(i)\textbackslash\{\}hat\{\textbackslash\{\}mathbf\
 
 where:
 
-F\textbackslash\{\}mathbf\{F\}F is the state transition matrix
-
-Q\textbackslash\{\}mathbf\{Q\}Q is the process noise covariance
-
+\begin{itemize}
+    \item F\textbackslash\{\}mathbf\{F\}F is the state transition matrix
+    \item Q\textbackslash\{\}mathbf\{Q\}Q is the process noise covariance
+\end{itemize}
 This prediction step estimates the expected position and velocity of each object before observing new measurements, enabling robust handling of short-term occlusions and irregular detections.
 
-Step 2: Reception of New 3D Measurements
 
+\subsubsection{Step 2: Reception of New 3D Measurements}
 The tracking node receives a set of new 3D detections:
 
 Zk=\{zk1,zk2,…,zkM\}\textbackslash\{\}mathcal\{Z\}\_k = \textbackslash\{\}\{ \textbackslash\{\}mathbf\{z\}\_k\^{}1, \textbackslash\{\}mathbf\{z\}\_k\^{}2, \textbackslash\{\}dots, \textbackslash\{\}mathbf\{z\}\_k\^{}M \textbackslash\{\}\}Zk​=\{zk1​,zk2​,…,zkM​\}
@@ -1916,8 +1706,8 @@ Each detection corresponds to a 3D object estimated from camera–LiDAR associat
 
 These detections serve as measurements for the Kalman filter update stage.
 
-Step 3: Cost Matrix Computation
 
+\subsubsection{Step 3: Cost Matrix Computation}
 To associate predicted tracks with incoming detections, a cost matrix C\textbackslash\{\}mathbf\{C\}C is constructed.
 
 For each predicted track iii and detection jjj, the cost is computed as the Euclidean distance between predicted and observed positions:
@@ -1934,8 +1724,8 @@ S=HPk∣k−1(i)HT+R\textbackslash\{\}mathbf\{S\} = \textbackslash\{\}mathbf\{H\
 
 This ensures probabilistic consistency in association.
 
-Step 4: Hungarian Assignment Optimization
 
+\subsubsection{Step 4: Hungarian Assignment Optimization}
 The association problem is formulated as a minimum-cost bipartite matching problem.
 
 The Hungarian algorithm finds the optimal assignment matrix Π\textbackslash\{\}PiΠ such that:
@@ -1950,62 +1740,59 @@ This guarantees a globally optimal one-to-one matching between tracks and detect
 
 Associations exceeding a maximum gating threshold are rejected to avoid incorrect matches.
 
-Step 5: Kalman Filter Measurement Update
 
+\subsubsection{Step 5: Kalman Filter Measurement Update}
 For each matched track–detection pair, the Kalman filter performs a measurement update:
 
 Kk=Pk∣k−1HT(HPk∣k−1HT+R)−1\textbackslash\{\}mathbf\{K\}\_k = \textbackslash\{\}mathbf\{P\}\_\{k|k-1\} \textbackslash\{\}mathbf\{H\}\^{}T (\textbackslash\{\}mathbf\{H\}\textbackslash\{\}mathbf\{P\}\_\{k|k-1\}\textbackslash\{\}mathbf\{H\}\^{}T + \textbackslash\{\}mathbf\{R\})\^{}\{-1\}Kk​=Pk∣k−1​HT(HPk∣k−1​HT+R)−1 x\^{}k=x\^{}k∣k−1+Kk(zk−Hx\^{}k∣k−1)\textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k = \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k|k-1\} + \textbackslash\{\}mathbf\{K\}\_k (\textbackslash\{\}mathbf\{z\}\_k - \textbackslash\{\}mathbf\{H\}\textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_\{k|k-1\})x\^{}k​=x\^{}k∣k−1​+Kk​(zk​−Hx\^{}k∣k−1​) Pk=(I−KkH)Pk∣k−1\textbackslash\{\}mathbf\{P\}\_k = (\textbackslash\{\}mathbf\{I\} - \textbackslash\{\}mathbf\{K\}\_k \textbackslash\{\}mathbf\{H\})\textbackslash\{\}mathbf\{P\}\_\{k|k-1\}Pk​=(I−Kk​H)Pk∣k−1​
 
 This update step fuses predicted motion and sensor measurements to produce a refined state estimate.
 
-Step 6: Track Initialization
 
+\subsubsection{Step 6: Track Initialization}
 Detections not assigned to any existing track are treated as track candidates.
 
 A new track is initialized if:
 
-The detection persists across consecutive frames
-
-The detection confidence exceeds a threshold
-
+\begin{itemize}
+    \item The detection persists across consecutive frames
+    \item The detection confidence exceeds a threshold
+\end{itemize}
 Initial state values for velocity and acceleration are set to zero with large covariance to reflect uncertainty.
 
-Step 7: Track Aging and Termination
 
+\subsubsection{Step 7: Track Aging and Termination}
 Tracks that do not receive associated measurements are aged.
 
-Each missed update increments a track’s age counter and increases covariance.
+Each missed update increments a track's age counter and increases covariance.
 
 Tracks are deleted if:
 
-Missed detections exceed a timeout limit
-
-Covariance exceeds stability bounds
-
-Track confidence falls below minimum threshold
-
+\begin{itemize}
+    \item Missed detections exceed a timeout limit
+    \item Covariance exceeds stability bounds
+    \item Track confidence falls below minimum threshold
+\end{itemize}
 This prevents ghost tracks and false positives.
 
-Step 8: Publishing Updated Track States
 
+\subsubsection{Step 8: Publishing Updated Track States}
 After updating all tracks, the node publishes the current set of active tracks:
 
 Tk=\{x\^{}k(1),x\^{}k(2),… \}\textbackslash\{\}mathcal\{T\}\_k = \textbackslash\{\}\{ \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k\^{}\{(1)\}, \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k\^{}\{(2)\}, \textbackslash\{\}dots \textbackslash\{\}\}Tk​=\{x\^{}k(1)​,x\^{}k(2)​,…\}
 
 Published information includes:
 
-Track ID
-
-3D position and velocity
-
-Confidence and age
-
-Timestamp
-
+\begin{itemize}
+    \item Track ID
+    \item 3D position and velocity
+    \item Confidence and age
+    \item Timestamp
+\end{itemize}
 These outputs are used by global fusion and visualization modules.
 
-4.10.5 Tunable Parameters
 
+\subsection{4.10.5 Tunable Parameters}
 Key parameters that require tuning include:
 
 Parameter
@@ -2032,62 +1819,58 @@ Track deletion timeout
 
 Handle occlusions
 
-4.10.6 ROS Node Integration
 
-Node: camera\_tracker\_node
+\subsection{4.10.6 ROS Node Integration}
 
+\subsubsection{Node: camera\_tracker\_node}
 Subscribes:
 
-/mast/orin1/bulletX/detections\_3d
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/detections\_3d
+\end{itemize}
 Publishes:
 
-/mast/orin1/bulletX/tracks\_3d
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/tracks\_3d
+\end{itemize}
 Each published track includes:
 
-Track ID
+\begin{itemize}
+    \item Track ID
+    \item 3D position and velocity
+    \item Confidence score
+    \item Timestamp
+\end{itemize}
 
-3D position and velocity
-
-Confidence score
-
-Timestamp
-
-4.10.7 Summary
-
+\subsection{4.10.7 Summary}
 This section presented the camera-based 3D object tracking framework used in the system. By employing a constant-acceleration Kalman filter, optimal data association via the Hungarian algorithm, and robust multi-hypothesis track management, the system achieves stable and reliable tracking of dynamic objects in three-dimensional space. These tracked objects serve as essential inputs to the global fusion and visualization modules.
 
-Chapter 5: Global Tracking and Multi-Sensor Fusion
 
-5.1 Motivation for Global Fusion
+\section{Chapter 5: Global Tracking and Multi-Sensor Fusion}
 
+\subsection{5.1 Motivation for Global Fusion}
 In multi-camera perception systems, each camera independently detects and tracks objects within its field of view. While this design improves scalability and fault isolation, it introduces several challenges:
 
-The same physical object may be detected by multiple cameras
-
-Individual camera tracks may be noisy or temporarily lost
-
-LiDAR-only clusters lack semantic labels
-
-Camera-only tracks lack robust depth estimates
-
+\begin{itemize}
+    \item The same physical object may be detected by multiple cameras
+    \item Individual camera tracks may be noisy or temporarily lost
+    \item LiDAR-only clusters lack semantic labels
+    \item Camera-only tracks lack robust depth estimates
+\end{itemize}
 Global fusion addresses these challenges by:
 
-Merging redundant tracks from different sensors
-
-Reinforcing weak tracks using complementary modalities
-
-Producing a consistent, globally referenced object list
-
-Enabling reliable visualization and downstream decision-making
-
+\begin{itemize}
+    \item Merging redundant tracks from different sensors
+    \item Reinforcing weak tracks using complementary modalities
+    \item Producing a consistent, globally referenced object list
+    \item Enabling reliable visualization and downstream decision-making
+\end{itemize}
 In the proposed system, global fusion is performed on Orin 3, aggregating camera-specific 3D tracks and LiDAR clusters into a unified representation.
 
-5.2 Camera Track Aggregation
 
-5.2.1 Input Track Representation
+\subsection{5.2 Camera Track Aggregation}
 
+\subsubsection{5.2.1 Input Track Representation}
 Each camera tracker publishes 3D tracks in the global coordinate frame:
 
 Tc=\{xk(i)\}\textbackslash\{\}mathcal\{T\}\_c = \textbackslash\{\}left\textbackslash\{\}\{ \textbackslash\{\}mathbf\{x\}\_k\^{}\{(i)\} \textbackslash\{\}right\textbackslash\{\}\}Tc​=\{xk(i)​\}
@@ -2098,20 +1881,20 @@ xk=[xyzx˙y˙z˙]T\textbackslash\{\}mathbf\{x\}\_k = \textbackslash\{\}begin\{bm
 
 Tracks are already temporally filtered using Kalman filters at the camera level.
 
-5.2.2 Temporal Alignment
 
+\subsubsection{5.2.2 Temporal Alignment}
 Before aggregation, tracks from different cameras are time-aligned using synchronized timestamps ensured by:
 
-Chrony-based system clock synchronization
-
-Consistent ROS 2 time usage
-
+\begin{itemize}
+    \item Chrony-based system clock synchronization
+    \item Consistent ROS 2 time usage
+\end{itemize}
 Tracks within a temporal window Δt\textbackslash\{\}Delta tΔt are considered for fusion:
 
 ∣ti−tj∣≤Δt| t\_i - t\_j | \textbackslash\{\}le \textbackslash\{\}Delta t∣ti​−tj​∣≤Δt
 
-5.2.3 Inter-Camera Track Similarity
 
+\subsubsection{5.2.3 Inter-Camera Track Similarity}
 To determine whether tracks from different cameras correspond to the same physical object, a spatial similarity metric is used.
 
 For two tracks xa\textbackslash\{\}mathbf\{x\}\_axa​ and xb\textbackslash\{\}mathbf\{x\}\_bxb​:
@@ -2126,58 +1909,54 @@ Tracks are considered candidates for fusion if:
 
 dab<dfusiond\_\{ab\} < d\_\{\textbackslash\{\}text\{fusion\}\}dab​<dfusion​
 
-5.2.4 Track Aggregation Logic
 
+\subsubsection{5.2.4 Track Aggregation Logic}
 When multiple tracks satisfy spatial and temporal consistency:
 
-A single global track is created
-
-Position is estimated using weighted averaging
-
-Velocity is combined similarly
-
+\begin{itemize}
+    \item A single global track is created
+    \item Position is estimated using weighted averaging
+    \item Velocity is combined similarly
+\end{itemize}
 pglobal=∑iwipi∑iwi\textbackslash\{\}mathbf\{p\}\_\{global\} = \textbackslash\{\}frac\{\textbackslash\{\}sum\_i w\_i \textbackslash\{\}mathbf\{p\}\_i\}\{\textbackslash\{\}sum\_i w\_i\}pglobal​=∑i​wi​∑i​wi​pi​​
 
 where weights wiw\_iwi​ depend on:
 
-Track confidence
-
-Track age
-
-Measurement uncertainty
-
+\begin{itemize}
+    \item Track confidence
+    \item Track age
+    \item Measurement uncertainty
+\end{itemize}
 This aggregation reduces noise and eliminates duplicate tracks.
 
-5.3 LiDAR–Camera Track Association
 
-5.3.1 Role of LiDAR in Global Fusion
+\subsection{5.3 LiDAR–Camera Track Association}
 
+\subsubsection{5.3.1 Role of LiDAR in Global Fusion}
 LiDAR provides accurate 3D geometry and spatial structure, serving as a strong reference for:
 
-Depth correction
-
-Object size estimation
-
-Reducing false positives
-
+\begin{itemize}
+    \item Depth correction
+    \item Object size estimation
+    \item Reducing false positives
+\end{itemize}
 LiDAR clusters are treated as geometry-only tracks without semantic labels.
 
-5.3.2 LiDAR Cluster Representation
 
+\subsubsection{5.3.2 LiDAR Cluster Representation}
 Each LiDAR cluster is represented by:
 
 cj=[xc,yc,zc]T\textbackslash\{\}mathbf\{c\}\_j = [x\_c, y\_c, z\_c]\^{}Tcj​=[xc​,yc​,zc​]T
 
 Optionally enriched with:
 
-Bounding box dimensions
+\begin{itemize}
+    \item Bounding box dimensions
+    \item Point density
+    \item Motion estimates
+\end{itemize}
 
-Point density
-
-Motion estimates
-
-5.3.3 Camera–LiDAR Association Metric
-
+\subsubsection{5.3.3 Camera–LiDAR Association Metric}
 Association between a camera track pi\textbackslash\{\}mathbf\{p\}\_ipi​ and LiDAR cluster cj\textbackslash\{\}mathbf\{c\}\_jcj​ is based on spatial proximity:
 
 dij=∥pi−cj∥2d\_\{ij\} = \textbackslash\{\}left\textbackslash\{\}| \textbackslash\{\}mathbf\{p\}\_i - \textbackslash\{\}mathbf\{c\}\_j \textbackslash\{\}right\textbackslash\{\}|\_2dij​=∥pi​−cj​∥2​
@@ -2190,50 +1969,49 @@ Optionally, gating using covariance:
 
 dij=(pi−cj)TΣ−1(pi−cj)d\_\{ij\} = \textbackslash\{\}sqrt\{(\textbackslash\{\}mathbf\{p\}\_i - \textbackslash\{\}mathbf\{c\}\_j)\^{}T \textbackslash\{\}mathbf\{\textbackslash\{\}Sigma\}\^{}\{-1\} (\textbackslash\{\}mathbf\{p\}\_i - \textbackslash\{\}mathbf\{c\}\_j)\}dij​=(pi​−cj​)TΣ−1(pi​−cj​)​
 
-5.3.4 Fusion of Camera and LiDAR Tracks
 
+\subsubsection{5.3.4 Fusion of Camera and LiDAR Tracks}
 When association is successful:
 
-Camera track provides semantic label
-
-LiDAR cluster refines position and size
-
+\begin{itemize}
+    \item Camera track provides semantic label
+    \item LiDAR cluster refines position and size
+\end{itemize}
 The fused position is computed as:
 
 pfused=αpcamera+(1−α)plidar\textbackslash\{\}mathbf\{p\}\_\{fused\} = \textbackslash\{\}alpha \textbackslash\{\}mathbf\{p\}\_\{camera\} + (1 - \textbackslash\{\}alpha) \textbackslash\{\}mathbf\{p\}\_\{lidar\}pfused​=αpcamera​+(1−α)plidar​
 
 where α\textbackslash\{\}alphaα is selected based on confidence and sensor reliability.
 
-5.3.5 Handling Unmatched Tracks
 
-Camera-only tracks remain active but marked as low-confidence
-
-LiDAR-only clusters are published without semantic labels
-
-Tracks may later be fused when data becomes available
-
+\subsubsection{5.3.5 Handling Unmatched Tracks}
+\begin{itemize}
+    \item Camera-only tracks remain active but marked as low-confidence
+    \item LiDAR-only clusters are published without semantic labels
+    \item Tracks may later be fused when data becomes available
+\end{itemize}
 5.4 Global Fusion Processing Flow
 
 The global fusion process integrates multi-camera tracking outputs and LiDAR-based spatial information into a single, coherent world-level representation. This process is executed sequentially at each fusion cycle and combines temporal alignment, spatial association, probabilistic fusion, and track management.
 
-Step 1: Reception of Camera-Based Tracks
 
+\subsubsection{Step 1: Reception of Camera-Based Tracks}
 The global fusion node receives 3D object tracks from all camera-specific tracking nodes:
 
 T=⋃c=1NcTc\textbackslash\{\}mathcal\{T\} = \textbackslash\{\}bigcup\_\{c=1\}\^{}\{N\_c\} \textbackslash\{\}mathcal\{T\}\_cT=c=1⋃Nc​​Tc​
 
 where:
 
-Tc\textbackslash\{\}mathcal\{T\}\_cTc​ denotes the set of tracks from camera ccc
-
-Each track includes position, velocity, confidence, and timestamp
-
+\begin{itemize}
+    \item Tc\textbackslash\{\}mathcal\{T\}\_cTc​ denotes the set of tracks from camera ccc
+    \item Each track includes position, velocity, confidence, and timestamp
+\end{itemize}
 Each track state is represented as:
 
 xi=[xiyizix˙iy˙iz˙i]T\textbackslash\{\}mathbf\{x\}\_i = \textbackslash\{\}begin\{bmatrix\} x\_i \& y\_i \& z\_i \& \textbackslash\{\}dot\{x\}\_i \& \textbackslash\{\}dot\{y\}\_i \& \textbackslash\{\}dot\{z\}\_i \textbackslash\{\}end\{bmatrix\}\^{}Txi​=[xi​​yi​​zi​​x˙i​​y˙​i​​z˙i​​]T
 
-Step 2: Temporal Alignment of Tracks
 
+\subsubsection{Step 2: Temporal Alignment of Tracks}
 Since tracks originate from different cameras and nodes, they may not arrive at exactly the same timestamp. To ensure consistency, tracks are time-aligned using a sliding temporal window.
 
 Two tracks xi\textbackslash\{\}mathbf\{x\}\_ixi​ and xj\textbackslash\{\}mathbf\{x\}\_jxj​ are considered temporally compatible if:
@@ -2242,14 +2020,14 @@ Two tracks xi\textbackslash\{\}mathbf\{x\}\_ixi​ and xj\textbackslash\{\}mathb
 
 where:
 
-ti,tjt\_i, t\_jti​,tj​ are the track timestamps
-
-Δtfusion\textbackslash\{\}Delta t\_\{\textbackslash\{\}text\{fusion\}\}Δtfusion​ is a configurable temporal tolerance
-
+\begin{itemize}
+    \item ti,tjt\_i, t\_jti​,tj​ are the track timestamps
+    \item Δtfusion\textbackslash\{\}Delta t\_\{\textbackslash\{\}text\{fusion\}\}Δtfusion​ is a configurable temporal tolerance
+\end{itemize}
 This step is enabled by Chrony-based system time synchronization across Orin devices.
 
-Step 3: Inter-Camera Track Association
 
+\subsubsection{Step 3: Inter-Camera Track Association}
 To identify tracks originating from different cameras that correspond to the same physical object, spatial association is performed.
 
 For two temporally aligned tracks iii and jjj, the spatial distance is computed as:
@@ -2268,8 +2046,8 @@ This association may be further refined using motion consistency:
 
 ∥p˙i−p˙j∥2<vthreshold\textbackslash\{\}left\textbackslash\{\}| \textbackslash\{\}dot\{\textbackslash\{\}mathbf\{p\}\}\_i - \textbackslash\{\}dot\{\textbackslash\{\}mathbf\{p\}\}\_j \textbackslash\{\}right\textbackslash\{\}|\_2 < v\_\{\textbackslash\{\}text\{threshold\}\}∥p˙​i​−p˙​j​∥2​<vthreshold​
 
-Step 4: Merging Duplicate Camera Tracks
 
+\subsubsection{Step 4: Merging Duplicate Camera Tracks}
 When multiple camera tracks are associated with the same object, they are merged into a single intermediate track.
 
 The fused position is computed using confidence-weighted averaging:
@@ -2278,16 +2056,16 @@ pmerged=∑i=1Kwipi∑i=1Kwi\textbackslash\{\}mathbf\{p\}\_\{\textbackslash\{\}t
 
 where:
 
-wiw\_iwi​ is the confidence of track iii
-
-KKK is the number of associated tracks
-
+\begin{itemize}
+    \item wiw\_iwi​ is the confidence of track iii
+    \item KKK is the number of associated tracks
+\end{itemize}
 Velocity estimates are fused similarly.
 
 This step eliminates duplicate detections while improving positional stability.
 
-Step 5: Camera–LiDAR Track Association
 
+\subsubsection{Step 5: Camera–LiDAR Track Association}
 The merged camera tracks are then associated with LiDAR clusters to refine spatial accuracy.
 
 Each LiDAR cluster cj\textbackslash\{\}mathbf\{c\}\_jcj​ is represented by its centroid:
@@ -2304,104 +2082,96 @@ dijCL<dlidar-assocd\_\{ij\}\^{}\{CL\} < d\_\{\textbackslash\{\}text\{lidar-assoc
 
 Optionally, covariance-based gating can be applied using Mahalanobis distance.
 
-Step 6: Computation of Fused Object States
 
+\subsubsection{Step 6: Computation of Fused Object States}
 Once a camera track and LiDAR cluster are associated, the final fused state is computed:
 
 pfused=αpcamera+(1−α)plidar\textbackslash\{\}mathbf\{p\}\_\{\textbackslash\{\}text\{fused\}\} = \textbackslash\{\}alpha \textbackslash\{\}mathbf\{p\}\_\{\textbackslash\{\}text\{camera\}\} + (1 - \textbackslash\{\}alpha) \textbackslash\{\}mathbf\{p\}\_\{\textbackslash\{\}text\{lidar\}\}pfused​=αpcamera​+(1−α)plidar​
 
 where:
 
-α\textbackslash\{\}alphaα is a tunable weight based on confidence and sensor reliability
-
+\begin{itemize}
+    \item α\textbackslash\{\}alphaα is a tunable weight based on confidence and sensor reliability
+\end{itemize}
 This fusion improves depth accuracy while preserving semantic labels from the camera.
 
-Step 7: Global Track Management
 
+\subsubsection{Step 7: Global Track Management}
 Global tracks are maintained across frames with:
 
-Unique global track IDs
-
-Track age and confidence counters
-
-Motion consistency checks
-
+\begin{itemize}
+    \item Unique global track IDs
+    \item Track age and confidence counters
+    \item Motion consistency checks
+\end{itemize}
 Tracks are terminated if:
 
-No association occurs for a defined duration
+\begin{itemize}
+    \item No association occurs for a defined duration
+    \item Confidence drops below a threshold
+    \item Covariance grows beyond limits
+\end{itemize}
 
-Confidence drops below a threshold
-
-Covariance grows beyond limits
-
-Step 8: Publishing Global Tracks
-
+\subsubsection{Step 8: Publishing Global Tracks}
 The final set of fused tracks is published as:
 
 Tglobal=\{x\^{}k(1),x\^{}k(2),… \}\textbackslash\{\}mathcal\{T\}\_\{\textbackslash\{\}text\{global\}\} = \textbackslash\{\}left\textbackslash\{\}\{ \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k\^{}\{(1)\}, \textbackslash\{\}hat\{\textbackslash\{\}mathbf\{x\}\}\_k\^{}\{(2)\}, \textbackslash\{\}dots \textbackslash\{\}right\textbackslash\{\}\}Tglobal​=\{x\^{}k(1)​,x\^{}k(2)​,…\}
 
 Published Topic:
 
-/mast/global/tracks\_3d
-
+\begin{itemize}
+    \item /mast/global/tracks\_3d
+\end{itemize}
 Each message contains:
 
-Global track ID
-
-3D position and velocity
-
-Semantic class label
-
-Confidence score
-
-Sensor sources
-
+\begin{itemize}
+    \item Global track ID
+    \item 3D position and velocity
+    \item Semantic class label
+    \item Confidence score
+    \item Sensor sources
+\end{itemize}
 These outputs are used for visualization, recording, and downstream applications.
 
-Summary of Global Fusion Flow
 
+\subsubsection{Summary of Global Fusion Flow}
 The global fusion workflow systematically:
 
-Aligns multi-camera tracks temporally
-
-Eliminates duplicate detections
-
-Integrates LiDAR geometry
-
-Produces stable, globally consistent object tracks
-
+\begin{itemize}
+    \item Aligns multi-camera tracks temporally
+    \item Eliminates duplicate detections
+    \item Integrates LiDAR geometry
+    \item Produces stable, globally consistent object tracks
+\end{itemize}
 This design ensures accurate perception in complex, multi-sensor environments while maintaining scalability and modularity.
 
-5.5 ROS Node Implementation
 
-Node: global\_fusion\_node
+\subsection{5.5 ROS Node Implementation}
 
+\subsubsection{Node: global\_fusion\_node}
 Subscribes:
 
-/mast/orin1/bulletX/tracks\_3d
-
-/mast/orin1/lidar/clusters
-
-/tf, /tf\_static
-
+\begin{itemize}
+    \item /mast/orin1/bulletX/tracks\_3d
+    \item /mast/orin1/lidar/clusters
+    \item /tf, /tf\_static
+\end{itemize}
 Publishes:
 
-/mast/global/tracks\_3d
-
+\begin{itemize}
+    \item /mast/global/tracks\_3d
+\end{itemize}
 Each published track includes:
 
-Global track ID
+\begin{itemize}
+    \item Global track ID
+    \item 3D position and velocity
+    \item Semantic class
+    \item Confidence score
+    \item Sensor sources
+\end{itemize}
 
-3D position and velocity
-
-Semantic class
-
-Confidence score
-
-Sensor sources
-
-5.6 Tunable Fusion Parameters
-
+\subsection{5.6 Tunable Fusion Parameters}
 Parameter
 
 Description
@@ -2426,80 +2196,77 @@ Track confidence decay
 
 Handling lost tracks
 
-5.7 Summary
 
+\subsection{5.7 Summary}
 This chapter detailed the global fusion framework used in the proposed system. By aggregating camera-level tracks and associating them with LiDAR clusters, the system produces a unified, stable, and semantically enriched global object representation. This fused output enables reliable visualization, analysis, and downstream decision-making in real-time multi-sensor environments.
 
-Chapter 6: Visualization and System Monitoring
 
+\section{Chapter 6: Visualization and System Monitoring}
 This chapter describes the visualization framework used to monitor, analyze, and validate the performance of the proposed multi-sensor perception system. RViz is employed as the primary visualization tool, providing real-time insight into object detection, tracking, and fusion outputs.
 
-6.1 RViz Visualization Framework
 
+\subsection{6.1 RViz Visualization Framework}
 RViz is a widely used visualization tool in ROS-based systems that enables real-time rendering of sensor data and high-level perception outputs. In the proposed system, RViz is used to visualize:
 
-Fused 3D object tracks
-
-Bounding boxes and trajectories
-
-Sensor coordinate frames
-
-System state and timing consistency
-
+\begin{itemize}
+    \item Fused 3D object tracks
+    \item Bounding boxes and trajectories
+    \item Sensor coordinate frames
+    \item System state and timing consistency
+\end{itemize}
 Visualization plays a critical role during system development, debugging, and evaluation by providing intuitive feedback on perception accuracy and system stability.
 
-6.2 Marker Generation
 
+\subsection{6.2 Marker Generation}
 Visualization markers are generated using a dedicated ROS 2 node that converts fused object tracks into RViz-compatible markers.
 
-Node: tracks\_to\_markers\_node
 
+\subsubsection{Node: tracks\_to\_markers\_node}
 Function: Converts global fused tracks into visualization markers.
 
 Subscribes:
 
-/mast/global/tracks\_3d
-
+\begin{itemize}
+    \item /mast/global/tracks\_3d
+\end{itemize}
 Publishes:
 
-/mast/global/tracks\_markers
+\begin{itemize}
+    \item /mast/global/tracks\_markers
+\end{itemize}
 
-6.2.1 Bounding Box Markers
-
+\subsubsection{6.2.1 Bounding Box Markers}
 Each tracked object is visualized using a 3D bounding box marker.
 
-Bounding Box Construction
 
+\paragraph{Bounding Box Construction}
 For each fused track with center position (x,y,z)(x, y, z)(x,y,z) and estimated object dimensions (l,w,h)(l, w, h)(l,w,h), a 3D bounding box is defined by:
 
 xmin⁡=x−l2,xmax⁡=x+l2ymin⁡=y−w2,ymax⁡=y+w2zmin⁡=z−h2,zmax⁡=z+h2\textbackslash\{\}begin\{aligned\} x\_\{\textbackslash\{\}min\} \&= x - \textbackslash\{\}frac\{l\}\{2\}, \textbackslash\{\}quad x\_\{\textbackslash\{\}max\} = x + \textbackslash\{\}frac\{l\}\{2\} \textbackslash\{\}\textbackslash\{\} y\_\{\textbackslash\{\}min\} \&= y - \textbackslash\{\}frac\{w\}\{2\}, \textbackslash\{\}quad y\_\{\textbackslash\{\}max\} = y + \textbackslash\{\}frac\{w\}\{2\} \textbackslash\{\}\textbackslash\{\} z\_\{\textbackslash\{\}min\} \&= z - \textbackslash\{\}frac\{h\}\{2\}, \textbackslash\{\}quad z\_\{\textbackslash\{\}max\} = z + \textbackslash\{\}frac\{h\}\{2\} \textbackslash\{\}end\{aligned\}xmin​ymin​zmin​​=x−2l​,xmax​=x+2l​=y−2w​,ymax​=y+2w​=z−2h​,zmax​=z+2h​​
 
 The bounding box is visualized using RViz LINE\_LIST or CUBE markers.
 
-Marker Attributes
 
-Position: object centroid
+\paragraph{Marker Attributes}
+\begin{itemize}
+    \item Position: object centroid
+    \item Orientation: derived from object motion direction
+    \item Scale: object dimensions
+    \item Color: class-dependent or confidence-based
+    \item Transparency: reflects track confidence
+\end{itemize}
 
-Orientation: derived from object motion direction
+\subsubsection{6.2.2 Track ID and Trajectory Visualization}
 
-Scale: object dimensions
-
-Color: class-dependent or confidence-based
-
-Transparency: reflects track confidence
-
-6.2.2 Track ID and Trajectory Visualization
-
-Track ID Visualization
-
+\paragraph{Track ID Visualization}
 Each object is assigned a unique track ID, which is displayed as a text marker positioned above the object:
 
 ptext=[x,y,z+h+δ]\textbackslash\{\}mathbf\{p\}\_\{\textbackslash\{\}text\{text\}\} = [x, y, z + h + \textbackslash\{\}delta]ptext​=[x,y,z+h+δ]
 
 where δ\textbackslash\{\}deltaδ is a vertical offset to improve readability.
 
-Trajectory Visualization
 
+\paragraph{Trajectory Visualization}
 Object motion over time is visualized using trajectory markers.
 
 Given a sequence of historical positions:
@@ -2510,366 +2277,334 @@ a polyline is constructed by connecting consecutive positions.
 
 This provides insight into:
 
-Object motion patterns
+\begin{itemize}
+    \item Object motion patterns
+    \item Tracking consistency
+    \item Association stability
+\end{itemize}
 
-Tracking consistency
-
-Association stability
-
-6.3 Real-Time System Monitoring
-
+\subsection{6.3 Real-Time System Monitoring}
 Beyond object visualization, RViz is used for real-time system monitoring.
 
-Coordinate Frame Visualization
 
+\subsubsection{Coordinate Frame Visualization}
 TF frames are visualized to verify:
 
-Camera–LiDAR extrinsic calibration
+\begin{itemize}
+    \item Camera–LiDAR extrinsic calibration
+    \item Correct frame alignment
+    \item Time-consistent transforms
+\end{itemize}
 
-Correct frame alignment
-
-Time-consistent transforms
-
-Latency and Update Rate Monitoring
-
+\subsubsection{Latency and Update Rate Monitoring}
 By observing marker update rates and timestamps, system performance metrics such as:
 
-End-to-end latency
-
-Sensor synchronization accuracy
-
-Tracking stability
-
+\begin{itemize}
+    \item End-to-end latency
+    \item Sensor synchronization accuracy
+    \item Tracking stability
+\end{itemize}
 can be assessed.
 
-Failure Detection and Debugging
 
+\subsubsection{Failure Detection and Debugging}
 Visualization allows rapid identification of:
 
-False detections
+\begin{itemize}
+    \item False detections
+    \item Track ID switches
+    \item Calibration errors
+    \item Fusion inconsistencies
+\end{itemize}
 
-Track ID switches
+\subsection{6.4 Visualization Data Flow Summary}
+\begin{itemize}
+    \item Global fusion node publishes fused tracks
+    \item Marker generation node converts tracks into markers
+    \item RViz subscribes to marker topics
+    \item Objects, trajectories, and IDs are rendered in real time
+\end{itemize}
 
-Calibration errors
-
-Fusion inconsistencies
-
-6.4 Visualization Data Flow Summary
-
-Global fusion node publishes fused tracks
-
-Marker generation node converts tracks into markers
-
-RViz subscribes to marker topics
-
-Objects, trajectories, and IDs are rendered in real time
-
-6.5 Summary
-
+\subsection{6.5 Summary}
 This chapter presented the RViz-based visualization and monitoring framework used in the proposed system. By visualizing fused object tracks, trajectories, and system state information, RViz provides essential feedback for system validation, debugging, and performance analysis. The visualization framework complements the perception pipeline and plays a critical role in ensuring reliable real-time operation.
 
-Chapter 7: Time Synchronization and System Timing
 
+\section{Chapter 7: Time Synchronization and System Timing}
 This chapter describes the time synchronization strategy employed in the proposed multi-Orin perception system. Accurate and consistent timestamps are critical for multi-sensor fusion, tracking, and reliable system replay. The system combines Precision Time Protocol (PTP) for sensor-level alignment and Chrony-based clock synchronization for system-level consistency across distributed computing nodes.
 
-7.1 Importance of Time Synchronization
 
+\subsection{7.1 Importance of Time Synchronization}
 In multi-sensor perception systems, data from different sensors and processing nodes must be temporally aligned to enable accurate fusion and tracking. Even small timing offsets can lead to:
 
-Incorrect association between camera and LiDAR detections
-
-Degraded tracking accuracy
-
-Inconsistent TF transformations
-
-Fusion instability during playback
-
+\begin{itemize}
+    \item Incorrect association between camera and LiDAR detections
+    \item Degraded tracking accuracy
+    \item Inconsistent TF transformations
+    \item Fusion instability during playback
+\end{itemize}
 Given that the proposed system operates across three independent NVIDIA Jetson Orin devices, ensuring a common time reference is essential for reliable real-time operation and offline analysis.
 
-7.2 Precision Time Protocol (PTP)
 
+\subsection{7.2 Precision Time Protocol (PTP)}
 Precision Time Protocol (IEEE 1588) is used to achieve high-precision synchronization between sensors and the network infrastructure. PTP enables sub-microsecond time alignment by compensating for network latency and clock drift.
 
-7.2.1 Camera Time Synchronization
 
+\subsubsection{7.2.1 Camera Time Synchronization}
 Axis network cameras support PTP-based synchronization, allowing camera image timestamps to be aligned with a global time reference.
 
 In this system:
 
-Cameras operate as PTP slaves
-
-The network clock acts as the grandmaster
-
-Image acquisition timestamps are generated at the camera hardware level
-
+\begin{itemize}
+    \item Cameras operate as PTP slaves
+    \item The network clock acts as the grandmaster
+    \item Image acquisition timestamps are generated at the camera hardware level
+\end{itemize}
 This ensures that captured images are temporally consistent with LiDAR data and system clocks.
 
-7.2.2 Network Time Alignment
 
+\subsubsection{7.2.2 Network Time Alignment}
 PTP operates over the Ethernet network connecting the cameras and Orin devices. Hardware timestamping at the network interface level minimizes jitter and transmission delays.
 
 This alignment ensures:
 
-Consistent timestamps across multiple cameras
+\begin{itemize}
+    \item Consistent timestamps across multiple cameras
+    \item Reduced temporal skew during high-bandwidth streaming
+    \item Improved accuracy in multi-camera fusion
+\end{itemize}
 
-Reduced temporal skew during high-bandwidth streaming
-
-Improved accuracy in multi-camera fusion
-
-7.3 Chrony-Based System Clock Synchronization
-
+\subsection{7.3 Chrony-Based System Clock Synchronization}
 While PTP synchronizes sensors, Chrony is used to synchronize the system clocks of all computing devices.
 
-7.3.1 Master–Client Configuration
 
+\subsubsection{7.3.1 Master–Client Configuration}
 The system is configured with:
 
-Central PC as the Chrony master (NTP server)
-
-Orin devices as Chrony clients
-
+\begin{itemize}
+    \item Central PC as the Chrony master (NTP server)
+    \item Orin devices as Chrony clients
+\end{itemize}
 Each Orin synchronizes its system clock to the master over the local network. This configuration ensures that all ROS 2 nodes share a common system time.
 
-7.3.2 Verification and Drift Analysis
 
+\subsubsection{7.3.2 Verification and Drift Analysis}
 Synchronization quality is verified using Chrony diagnostic tools:
 
-chronyc sources
-
-chronyc tracking
-
+\begin{itemize}
+    \item chronyc sources
+    \item chronyc tracking
+\end{itemize}
 Key metrics monitored include:
 
-System time offset
-
-Frequency drift
-
-Update stability
-
+\begin{itemize}
+    \item System time offset
+    \item Frequency drift
+    \item Update stability
+\end{itemize}
 Offsets within a few milliseconds are sufficient for reliable fusion and tracking in this system.
 
-7.4 Timestamp Consistency in ROS 2
 
+\subsection{7.4 Timestamp Consistency in ROS 2}
 ROS 2 relies heavily on timestamps embedded in message headers and TF transforms.
 
-7.4.1 Header Stamps
 
+\subsubsection{7.4.1 Header Stamps}
 Each ROS 2 message includes a header.stamp field representing the time at which the data was generated.
 
 In the proposed system:
 
-Sensor drivers assign timestamps at acquisition time
-
-Processing nodes preserve original timestamps
-
-Fusion nodes rely on header stamps for alignment
-
+\begin{itemize}
+    \item Sensor drivers assign timestamps at acquisition time
+    \item Processing nodes preserve original timestamps
+    \item Fusion nodes rely on header stamps for alignment
+\end{itemize}
 This design ensures temporal consistency across the entire processing pipeline.
 
-7.4.2 TF Time Alignment
 
+\subsubsection{7.4.2 TF Time Alignment}
 TF transforms describe the spatial relationship between coordinate frames and are time-dependent.
 
 Proper TF alignment requires:
 
-Consistent timestamps across transforms
-
-Synchronization between TF and sensor data
-
-Accurate extrapolation during lookup
-
+\begin{itemize}
+    \item Consistent timestamps across transforms
+    \item Synchronization between TF and sensor data
+    \item Accurate extrapolation during lookup
+\end{itemize}
 Chrony-based synchronization ensures that TF transforms and sensor messages are temporally compatible, preventing TF lookup errors and fusion inconsistencies.
 
-7.5 End-to-End Timing Integrity
 
+\subsection{7.5 End-to-End Timing Integrity}
 By combining:
 
-PTP for sensor-level synchronization
-
-Chrony for system-level synchronization
-
-ROS 2 timestamp management
-
+\begin{itemize}
+    \item PTP for sensor-level synchronization
+    \item Chrony for system-level synchronization
+    \item ROS 2 timestamp management
+\end{itemize}
 the system achieves reliable end-to-end timing integrity. This enables accurate real-time perception, stable tracking, and consistent rosbag replay across distributed devices.
 
-7.6 Summary
 
+\subsection{7.6 Summary}
 This chapter presented the time synchronization strategy used in the proposed perception system. Through the integration of Precision Time Protocol and Chrony-based clock synchronization, the system ensures accurate temporal alignment across sensors, computing devices, and ROS 2 nodes. This foundation is essential for robust multi-sensor fusion, tracking, and system evaluation.
 
-Chapter 8: Graphical User Interface (GUI) Architecture and System Control
 
+\section{Chapter 8: Graphical User Interface (GUI) Architecture and System Control}
 This chapter presents the design, implementation, and functionality of the graphical user interface (GUI) developed for the Mobile Mast multi-sensor perception system. The GUI serves as a centralized platform for controlling distributed ROS 2 nodes, monitoring system status, performing calibration, and recording data across multiple NVIDIA Jetson Orin devices.
 
-8.1 Design Motivation
 
+\subsection{8.1 Design Motivation}
 The Mobile Mast system is distributed across three Jetson Orin devices, each responsible for a different stage of the perception pipeline. Operating such a system through multiple terminals is inefficient and prone to human error.
 
 The GUI was developed to:
 
-Provide a single control interface for all Orin devices
+\begin{itemize}
+    \item Provide a single control interface for all Orin devices
+    \item Simplify node startup, shutdown, and verification
+    \item Enable real-time calibration and visualization
+    \item Integrate rosbag recording and playback
+    \item Reduce operational complexity during experiments and demonstrations
+\end{itemize}
 
-Simplify node startup, shutdown, and verification
-
-Enable real-time calibration and visualization
-
-Integrate rosbag recording and playback
-
-Reduce operational complexity during experiments and demonstrations
-
-8.2 GUI Architecture Overview
-
+\subsection{8.2 GUI Architecture Overview}
 The GUI is implemented using PyQt5 and follows a modular, tab-based architecture. It communicates with the distributed ROS 2 system using two mechanisms:
 
-SSH-based command execution for remote node control
-
-ROS 2 subscriptions for live data visualization and calibration feedback
-
+\begin{itemize}
+    \item SSH-based command execution for remote node control
+    \item ROS 2 subscriptions for live data visualization and calibration feedback
+\end{itemize}
 The GUI runs on a control workstation and connects to each Orin over a dedicated Ethernet network.
 
-8.3 Process Control Interface
 
-8.3.1 Multi-Orin Process Management
+\subsection{8.3 Process Control Interface}
 
+\subsubsection{8.3.1 Multi-Orin Process Management}
 The Process Control tab organizes system components by Orin device:
 
-Orin 1 (Sensors): LiDAR drivers, preprocessing, camera drivers
-
-Orin 2 (Detection): VPI undistortion, YOLO detection, 2D–3D projection
-
-Orin 3 (Tracking): Object tracking, global fusion, RViz marker publishing
-
+\begin{itemize}
+    \item Orin 1 (Sensors): LiDAR drivers, preprocessing, camera drivers
+    \item Orin 2 (Detection): VPI undistortion, YOLO detection, 2D–3D projection
+    \item Orin 3 (Tracking): Object tracking, global fusion, RViz marker publishing
+\end{itemize}
 Each Orin panel displays:
 
-Device IP address
+\begin{itemize}
+    \item Device IP address
+    \item Remote access buttons (VNC and terminal)
+    \item Node-level Start, Stop, and Check controls
+\end{itemize}
 
-Remote access buttons (VNC and terminal)
-
-Node-level Start, Stop, and Check controls
-
-8.3.2 Node Control Mechanism
-
+\subsubsection{8.3.2 Node Control Mechanism}
 Each processing node is represented as a row with:
 
-Start button: launches the node via SSH and shell scripts
-
-Stop button: gracefully terminates the node
-
-Check button: verifies node health by checking ROS topics or node names
-
+\begin{itemize}
+    \item Start button: launches the node via SSH and shell scripts
+    \item Stop button: gracefully terminates the node
+    \item Check button: verifies node health by checking ROS topics or node names
+\end{itemize}
 This design ensures:
 
-Independent control of each pipeline stage
+\begin{itemize}
+    \item Independent control of each pipeline stage
+    \item Fault isolation between Orins
+    \item Rapid debugging and recovery
+\end{itemize}
 
-Fault isolation between Orins
+\subsubsection{Figure 8.1: Orin 1 Tracking and Fusion Control}
 
-Rapid debugging and recovery
+\subsubsection{Figure 8.2: Orin 2 Sensor Control Panel}
 
-Figure 8.1: Orin 1 Tracking and Fusion Control
+\subsubsection{Figure 8.3: Orin 3 Tracking and Fusion Control}
 
-Figure 8.2: Orin 2 Sensor Control Panel
+\subsection{8.4 Calibration and Visualization Interface}
 
-Figure 8.3: Orin 3 Tracking and Fusion Control
-
-8.4 Calibration and Visualization Interface
-
-8.4.1 Calibration View
-
+\subsubsection{8.4.1 Calibration View}
 The Calibration View tab provides a real-time visual interface for:
 
-Camera–LiDAR spatial alignment
-
-Parameter tuning
-
-Sensor verification
-
+\begin{itemize}
+    \item Camera–LiDAR spatial alignment
+    \item Parameter tuning
+    \item Sensor verification
+\end{itemize}
 The central viewport displays live or recorded camera images, while control panels allow interactive adjustments.
 
-Figure 8.4: Calibration and Visualization Interface
 
-8.5 Rosbag Recording and Playback
+\subsubsection{Figure 8.4: Calibration and Visualization Interface}
 
+\subsection{8.5 Rosbag Recording and Playback}
 The GUI integrates rosbag recording functionality directly into the interface.
 
-Recording Features
 
-Start and stop recording with a single click
+\subsubsection{Recording Features}
+\begin{itemize}
+    \item Start and stop recording with a single click
+    \item Automatic timestamp-based bag naming
+    \item Selection of relevant topics (camera, LiDAR, tracks, TF)
+\end{itemize}
 
-Automatic timestamp-based bag naming
-
-Selection of relevant topics (camera, LiDAR, tracks, TF)
-
-Playback Support
-
-Load and replay recorded bags
-
-Switch between live feed and offline playback
-
+\subsubsection{Playback Support}
+\begin{itemize}
+    \item Load and replay recorded bags
+    \item Switch between live feed and offline playback
+\end{itemize}
 This enables reproducible experiments and efficient dataset generation.
 
-8.6 Camera Lens Control and Spatial Alignment
 
-8.6.1 VAPIX Lens Control
+\subsection{8.6 Camera Lens Control and Spatial Alignment}
 
+\subsubsection{8.6.1 VAPIX Lens Control}
 The GUI includes lens control sliders for:
 
-Zoom
-
-Focus
-
+\begin{itemize}
+    \item Zoom
+    \item Focus
+\end{itemize}
 Commands are sent to Axis cameras using the VAPIX HTTP API, allowing remote camera configuration without physical access.
 
-8.6.2 Spatial Alignment Controls
 
+\subsubsection{8.6.2 Spatial Alignment Controls}
 Spatial alignment sliders allow interactive adjustment of:
 
-Translation (X, Y, Z)
-
-Rotation (Roll, Pitch, Yaw)
-
+\begin{itemize}
+    \item Translation (X, Y, Z)
+    \item Rotation (Roll, Pitch, Yaw)
+\end{itemize}
 These parameters are used during camera–LiDAR calibration to refine extrinsic alignment in real time.
 
-8.7 System Monitoring and Feedback
 
+\subsection{8.7 System Monitoring and Feedback}
 The GUI provides continuous feedback on:
 
-Active camera selection
-
-Node execution status
-
-Recording state
-
-Data stream availability
-
+\begin{itemize}
+    \item Active camera selection
+    \item Node execution status
+    \item Recording state
+    \item Data stream availability
+\end{itemize}
 Visual indicators and status messages allow operators to quickly assess system health.
 
-8.8 End-to-End System Workflow Using the GUI
 
-Launch GUI on control workstation
+\subsection{8.8 End-to-End System Workflow Using the GUI}
+\begin{itemize}
+    \item Launch GUI on control workstation
+    \item Connect to all Orin devices
+    \item Start sensor drivers on Orin 1
+    \item Launch detection pipeline on Orin 2
+    \item Enable tracking and fusion on Orin 3
+    \item Verify outputs using RViz
+    \item Start rosbag recording
+    \item Stop and shut down nodes safely
+\end{itemize}
 
-Connect to all Orin devices
-
-Start sensor drivers on Orin 1
-
-Launch detection pipeline on Orin 2
-
-Enable tracking and fusion on Orin 3
-
-Verify outputs using RViz
-
-Start rosbag recording
-
-Stop and shut down nodes safely
-
-8.9 Summary
-
+\subsection{8.9 Summary}
 This chapter presented the design and implementation of the GUI developed for the Mobile Mast perception system. The GUI provides centralized control, real-time monitoring, calibration support, and integrated data recording across multiple Orin devices. By abstracting system complexity into an intuitive interface, the GUI significantly improves usability, reliability, and experimental efficiency.
 
-Chapter 9: Discussion and Future Work
 
-9.1 Challenges faced 
+\section{Chapter 9: Discussion and Future Work}
 
-Chapter 10 : References
+\subsection{9.1 Challenges faced }
 
+\subsection{Chapter 10 : References}
 [1] OpenCV Team, OpenCV Documentation, Version 4.x, OpenCV Foundation, 2025.Available: https://opencv.org/
 
 [2] OpenCV, Color Conversions (cv::cvtColor), OpenCV Documentation, Version 4.x, 2024.Available: https://docs.opencv.org/4.x/d8/d01/group\_\_imgproc\_\_color\_\_conversions.html
@@ -2884,27 +2619,27 @@ Chapter 10 : References
 
 [7] Arduino Libraries, Braccio Arduino Library, Arduino AG, 2019.Available: https://github.com/arduino-libraries/Braccio
 
-[8] R. Bogoslavskyi and C. Stachniss, “Efficient online segmentation for sparse 3D laser scans,” IEEE Robotics and Automation Letters, vol. 2, no. 2, pp. 932–938, 2017.Available: https://ieeexplore.ieee.org/document/7856592
+[8] R. Bogoslavskyi and C. Stachniss, ``Efficient online segmentation for sparse 3D laser scans,'' IEEE Robotics and Automation Letters, vol. 2, no. 2, pp. 932–938, 2017.Available: https://ieeexplore.ieee.org/document/7856592
 
-[9] A. Geiger, P. Lenz, and R. Urtasun, “Are we ready for autonomous driving? The KITTI vision benchmark suite,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2012.Available: https://www.cvlibs.net/datasets/kitti/
+[9] A. Geiger, P. Lenz, and R. Urtasun, ``Are we ready for autonomous driving? The KITTI vision benchmark suite,'' Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2012.Available: https://www.cvlibs.net/datasets/kitti/
 
-[10] J. Behley et al., “SemanticKITTI: A dataset for semantic scene understanding of LiDAR sequences,” Proceedings of the IEEE International Conference on Computer Vision, 2019.Available: https://semantic-kitti.org/
+[10] J. Behley et al., ``SemanticKITTI: A dataset for semantic scene understanding of LiDAR sequences,'' Proceedings of the IEEE International Conference on Computer Vision, 2019.Available: https://semantic-kitti.org/
 
-[11] J. Ku, M. Mozifian, J. Lee, A. Harakeh, and S. Waslander, “Joint 3D proposal generation and object detection from view aggregation,” Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems, 2018.Available: https://arxiv.org/abs/1712.02294
+[11] J. Ku, M. Mozifian, J. Lee, A. Harakeh, and S. Waslander, ``Joint 3D proposal generation and object detection from view aggregation,'' Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems, 2018.Available: https://arxiv.org/abs/1712.02294
 
-[12] C. Chen et al., “Multi-view 3D object detection network for autonomous driving,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2017.Available: https://arxiv.org/abs/1611.07759
+[12] C. Chen et al., ``Multi-view 3D object detection network for autonomous driving,'' Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2017.Available: https://arxiv.org/abs/1611.07759
 
-[13] L. Wen et al., “UA-DETRAC: A new benchmark and protocol for multi-object detection and tracking,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 42, no. 2, pp. 299–313, 2020.Available: https://detrac-db.rit.albany.edu/
+[13] L. Wen et al., ``UA-DETRAC: A new benchmark and protocol for multi-object detection and tracking,'' IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 42, no. 2, pp. 299–313, 2020.Available: https://detrac-db.rit.albany.edu/
 
-[14] J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, “You only look once: Unified, real-time object detection,” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016.Available: https://arxiv.org/abs/1506.02640
+[14] J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, ``You only look once: Unified, real-time object detection,'' Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016.Available: https://arxiv.org/abs/1506.02640
 
-[15] A. Bochkovskiy, C.-Y. Wang, and H.-Y. M. Liao, “YOLOv4: Optimal speed and accuracy of object detection,” arXiv preprint, 2020.Available: https://arxiv.org/abs/2004.10934
+[15] A. Bochkovskiy, C.-Y. Wang, and H.-Y. M. Liao, ``YOLOv4: Optimal speed and accuracy of object detection,'' arXiv preprint, 2020.Available: https://arxiv.org/abs/2004.10934
 
 [16] G. Jocher et al., YOLOv8: Ultralytics Object Detection Framework, Ultralytics, 2023.Available: https://docs.ultralytics.com/
 
-[17] R. E. Kalman, “A new approach to linear filtering and prediction problems,” Journal of Basic Engineering, vol. 82, no. 1, pp. 35–45, 1960.Available: https://ieeexplore.ieee.org/document/5391918
+[17] R. E. Kalman, ``A new approach to linear filtering and prediction problems,'' Journal of Basic Engineering, vol. 82, no. 1, pp. 35–45, 1960.Available: https://ieeexplore.ieee.org/document/5391918
 
-[18] H. W. Kuhn, “The Hungarian method for the assignment problem,” Naval Research Logistics Quarterly, vol. 2, no. 1–2, pp. 83–97, 1955.Available: https://onlinelibrary.wiley.com/doi/10.1002/nav.3800020109
+[18] H. W. Kuhn, ``The Hungarian method for the assignment problem,'' Naval Research Logistics Quarterly, vol. 2, no. 1–2, pp. 83–97, 1955.Available: https://onlinelibrary.wiley.com/doi/10.1002/nav.3800020109
 
 [19] S. S. Blackman and R. Popoli, Design and Analysis of Modern Tracking Systems, Artech House, 1999.
 
@@ -2914,11 +2649,11 @@ Chapter 10 : References
 
 [22] Open Robotics, ROS 2 Documentation, Open Robotics Foundation, 2025.Available: https://docs.ros.org/en/rolling/
 
-[23] M. Quigley et al., “ROS: An open-source robot operating system,” Proceedings of the IEEE International Conference on Robotics and Automation Workshop, 2009.Available: https://www.ros.org/
+[23] M. Quigley et al., ``ROS: An open-source robot operating system,'' Proceedings of the IEEE International Conference on Robotics and Automation Workshop, 2009.Available: https://www.ros.org/
 
 [24] IEEE Standards Association, IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems (IEEE 1588), IEEE, 2008.Available: https://standards.ieee.org/standard/1588-2008.html
 
-[25] S. Rajagopalan et al., “Survey of object detection datasets for intelligent vision systems,” Expert Systems with Applications, vol. 219, 2023.Available: https://www.sciencedirect.com/science/article/pii/S095741742300755
+[25] S. Rajagopalan et al., ``Survey of object detection datasets for intelligent vision systems,'' Expert Systems with Applications, vol. 219, 2023.Available: https://www.sciencedirect.com/science/article/pii/S095741742300755
 
 Affidavit
 
@@ -2928,14 +2663,14 @@ Ingolstadt, Feb 06, 2026
 
 Project Members: Asfak,Sahil,Shwetha,Sanjay,Fatik
 
-Appendix: Source Code
 
+\section{Appendix: Source Code}
 The complete source code used for this project is available in the GitHub repository linked below.
 
 Github   Link:     
 
-Appendix: Source Code
 
+\section{Appendix: Source Code}
 The complete source code used for this project is available in the GitHub repository linked below.
 
 Github   Link:  https://github.com/Asfak3566/AI-Mobile-Perception-System
