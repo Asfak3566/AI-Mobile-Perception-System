@@ -340,6 +340,13 @@ Key design considerations include:
 This distributed approach improves scalability, fault isolation, and real-time performance.
 
 \subsection{2.7 Overall System Pipeline and Flow}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Flowchart.png}
+    \caption{Complete perception pipeline across Distributed Orin Devices.}
+    \label{fig:pipeline}
+\end{figure}
+
 Figure 2.1 illustrates the complete perception pipeline deployed across the three Orin devices.
 
 \subsubsection{Orin 1 – Sensor Drivers and Preprocessing}
@@ -740,7 +747,9 @@ Publishes:
 \subsubsection{3.5.2 Background Modeling Algorithm}
 The node maintains a temporal background model by observing point stability over multiple frames. A point ppp is classified as background if its spatial variation remains below a threshold over a temporal window:
 
-∥pt−pt−k∥<δ,∀k∈[1,N]\| p_t - p_{t-k} \| < \delta, \quad \forall k \in [1, N]∥pt​−pt−k​∥<δ,∀k∈[1,N]
+\begin{equation}
+\| p_t - p_{t-k} \| < \delta, \quad \forall k \in [1, N]
+\end{equation}
 
 where:
 
@@ -780,7 +789,9 @@ Publishes:
 \subsubsection{3.6.2 Euclidean Clustering Algorithm}
 The clustering process groups points based on spatial proximity. Two points pip_ipi​ and pjp_jpj​ belong to the same cluster if:
 
-∥pi−pj∥<ϵ\| p_i - p_j \| < \epsilon∥pi​−pj​∥<ϵ
+\begin{equation}
+\| p_i - p_j \| < \epsilon
+\end{equation}
 
 where ϵ\epsilonϵ is the clustering distance threshold.
 
