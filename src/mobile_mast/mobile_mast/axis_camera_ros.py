@@ -12,7 +12,7 @@ import h264decoder
 
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import CompressedImage
+from sensor_msgs.msg import Image, CompressedImage
 
 import numpy as np
 import socket
@@ -505,11 +505,25 @@ class RTSPClientROS(RTSPClient):
         self.set_ros_stuff()
 
     def set_ros_stuff(self):
+        self.image_pub = self.node.create_publisher(Image, "image_raw", 10)
         self.compressed_image_pub = self.node.create_publisher(CompressedImage, "image_raw/compressed", 10)
 
     def do_something_with_frame(self, frame, utc_time_in_sec):
         sec, nsec = rclpy.time.Time(seconds=utc_time_in_sec).seconds_nanoseconds()
 
+        # 1. Publish Raw Image
+        img_msg = Image()
+        img_msg.header.stamp.sec = sec
+        img_msg.header.stamp.nanosec = nsec
+        img_msg.header.frame_id = self.node.get_name() # Use node name as frame_id if not specified
+        img_msg.height = frame.shape[0]
+        img_msg.width = frame.shape[1]
+        img_msg.encoding = "bgr8"
+        img_msg.step = frame.shape[1] * 3
+        img_msg.data = frame.tobytes()
+        self.image_pub.publish(img_msg)
+
+        # 2. Publish Compressed Image
         compressed_img_msg = CompressedImage()
         compressed_img_msg.format = "jpeg"
         compressed_img_msg.header.stamp.sec = sec

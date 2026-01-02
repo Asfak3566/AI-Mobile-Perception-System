@@ -133,8 +133,14 @@ def generate_launch_description():
     ]
 
     for ns, ip in bullet_cams:
+        bullet_name = ns.split('/')[-1]
+        intrinsics_yaml = os.path.join(
+            mobile_mast_share, 'config', 'camera', f'{bullet_name}_intrinsics.yaml'
+        )
+
         nodes.append(
             GroupAction([
+                # Driver
                 Node(
                     package='mobile_mast',
                     executable='axis_camera_ros',
@@ -142,7 +148,21 @@ def generate_launch_description():
                     namespace=ns,
                     output='screen',
                     parameters=camera_common_params + [{'ip': ip}],
-                )
+                ),
+                # Camera Info
+                Node(
+                    package='mobile_mast',
+                    executable='camerainfo_publisher',
+                    name='camerainfo_publisher',
+                    namespace=ns,
+                    output='screen',
+                    parameters=[{
+                        'camera_info_yaml': intrinsics_yaml,
+                        'camera_info_topic': 'camera_info',
+                        'frame_id': bullet_name,
+                        'publish_rate_hz': 10.0,
+                    }],
+                ),
             ])
         )
 
@@ -158,10 +178,23 @@ def generate_launch_description():
         '/mast/orin1/lidar/points',
         '/mast/orin1/lidar/points_filtered',
         '/mast/orin1/lidar/foreground',
+        
+        '/mast/orin1/bullet1/image_raw',
         '/mast/orin1/bullet1/image_raw/compressed',
+        '/mast/orin1/bullet1/camera_info',
+        
+        '/mast/orin1/bullet2/image_raw',
         '/mast/orin1/bullet2/image_raw/compressed',
+        '/mast/orin1/bullet2/camera_info',
+        
+        '/mast/orin1/bullet3/image_raw',
         '/mast/orin1/bullet3/image_raw/compressed',
+        '/mast/orin1/bullet3/camera_info',
+        
+        '/mast/orin1/bullet4/image_raw',
         '/mast/orin1/bullet4/image_raw/compressed',
+        '/mast/orin1/bullet4/camera_info',
+        
         '/tf', 
         '/tf_static'
     ]

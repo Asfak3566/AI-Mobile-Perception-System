@@ -56,20 +56,8 @@ def generate_launch_description():
                     output='screen',
                 ),
 
-                # 2. Publish CameraInfo
-                Node(
-                    package='mobile_mast',
-                    executable='camerainfo_publisher',
-                    name=f'camerainfo_{bullet_name}',
-                    namespace=ns,
-                    output='screen',
-                    parameters=[{
-                        'camera_info_yaml': intrinsics_yaml,
-                        'camera_info_topic': 'camera_info',
-                        'frame_id': bullet_name,
-                        'publish_rate_hz': 10.0,
-                    }],
-                ),
+                # 2. Publish CameraInfo (Moved to Orin 1)
+                
 
                 # 3. Undistort: image_raw + camera_info -> image_rect
                 Node(
