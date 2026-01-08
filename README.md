@@ -78,13 +78,6 @@ To launch specific stages (on individual Orins):
 - **Orin 1**: `ros2 launch mobile_mast mobile_mast_orin1.launch.py`
 - **Orin 2**: `ros2 launch mobile_mast mobile_mast_orin2.launch.py`
 - **Orin 3**: `ros2 launch mobile_mast mobile_mast_orin3.launch.py`
-
-### 3. Calibration
-A custom GUI is provided for camera-LiDAR calibration:
-```bash
-python3 src/mobile_mast/mobile_mast/qt_calibrator.py
-```
-
 ---
 
 ## Configuration
