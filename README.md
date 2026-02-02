@@ -86,12 +86,3 @@ Start the management GUI from your base station:
 python3 src/mobile_mast/mobile_mast/qt_calibrator.py
 ```
 
----
-
-## Handover Notes
-For new developers and research teams:
-- **Primary Configuration**: All sensor parameters and network IPs are defined in `src/mobile_mast/config/`.
-- **Hardware Acceleration**: The system relies heavily on the `best_fp16.engine` (TensorRT) and VPI WarpMaps. Do not remove these assets from the workspace root.
-- **Network Architecture**: Refer to the **[SETUP_GUIDE.md](file:///home/ashfaq/Downloads/mobile_mast_ws/SETUP_GUIDE.md)** for detailed connectivity and PTP clock hierarchy.
-- **Support**: Check existing GitHub Issues or refer to the archived Technical Report sections for the mathematical formulation of the PTP sync strategy.
-
