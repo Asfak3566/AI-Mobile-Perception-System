@@ -1,31 +1,40 @@
-# Mobile Mast Project
+# Mobile Mast Perception System
 
 ## Overview
-The Mobile Mast project is a multi-sensor perception and tracking system designed for high-altitude surveillance using a mobile mast platform. It utilizes a combination of **RoboSense RS16 LiDAR** and **4x Axis Bullet Cameras** to detect, localize, and track objects in a global 3D frame.
+The Mobile Mast Perception System is a distributed, multi-sensor tracking platform designed for high-altitude traffic monitoring and infrastructure perception. It integrates a **RoboSense RS16 LiDAR** and **4x Axis Bullet Cameras** (expandable to PTZ and Panorama) to detect and localize objects in a global 3D coordinate system.
 
-The system is distributed across three **NVIDIA Orin** devices to handle the heavy computational load of real-time point cloud processing, AI-based object detection (YOLO11), and global multi-object tracking.
+The system utilizes a cluster of three **NVIDIA Jetson Orin** modules to achieve real-time performance through hardware-accelerated deep learning (YOLOv11 via TensorRT), image processing (NVIDIA VPI), and sub-microsecond time synchronization (IEEE 1588 PTP).
 
 ---
 
 ## System Architecture
 
-The project follows a modular architecture where processing is split by stage across the Orin devices:
+The project follows a distributed ROS 2 architecture where processing is offloaded across three Orin modules:
 
-
-### Detailed Breakdown
-
-1.  **Orin 1 (Drivers & Pre-processing)**:
-    *   Runs the LiDAR driver and filters raw points.
-    *   Performs background subtraction and clustering.
-    *   Hosts the camera streaming drivers.
+1.  **Orin 1 (Sensing & Sync)**:
+    *   IP: `192.168.6.100`
+    *   Handles high-bandwidth sensor drivers (LiDAR, Cameras).
+    *   Runs initial point cloud preprocessing and background subtraction.
+    *   Acts as the PTP synchronization slave to the GPS-disciplined LiDAR clock.
 2.  **Orin 2 (AI Perception)**:
-    *   Handles image rectification using NVIDIA VPI.
-    *   Runs YOLO11 inference for person/vehicle detection.
-    *   Projects 2D detections into 3D using LiDAR-camera fusion.
-3.  **Orin 3 (State Estimation)**:
-    *   Runs EKF-based trackers for each sensor stream.
-    *   Fuses local tracks into a single global state.
-    *   Publishes markers for visualization.
+    *   IP: `192.168.6.101`
+    *   Performs VPI-accelerated image undistortion.
+    *   Runs YOLOv11 inference via a TensorRT FP16 engine (~38ms latency).
+    *   Projects 2D detections into 3D space using the camera-LiDAR fusion model.
+3.  **Orin 3 (Global Tracking & Fusion)**:
+    *   IP: `192.168.6.102`
+    *   Runs a local tracker for each camera stream.
+    *   Consolidates detections into a unified Global Track List using the Hungarian algorithm and Euclidean distance metrics.
+    *   Publishes visualization markers for real-time monitoring.
+
+---
+
+## Key Features
+
+- **Mission Control GUI**: A centralized PyQt5-based dashboard (`qt_calibrator.py`) for managing the entire cluster, monitoring node health, and fine-tuning manual extrinsic calibrations.
+- **Latency-Optimized Pipeline**: End-to-end perception latency of ~90ms, enabling stable 10Hz operation.
+- **PTP Synchronization**: Anchors all visual and spatial data to a unified GPS-disciplined time-base with <1µs jitter.
+- **High-Throughput Transport**: Uses specialized `image_transport` republishing to keep high-bandwidth raw data local to the inference modules.
 
 ---
 
@@ -35,78 +44,54 @@ The project follows a modular architecture where processing is split by stage ac
 - **ROS 2 Humble**
 - **NVIDIA VPI 2.x/3.x**
 - **Ultralytics (YOLO11)**
-- **OpenCV & NumPy**
-- **linuxptp** (for time synchronization)
+- **TensorRT 8.6+**
+- **linuxptp** (for PTP synchronization)
 
 ---
 
-## Installation
+## Installation & Setup
 
-1.  **Clone the workspace**:
+1.  **Setup Network**: Configure your local machine and Orins on the `192.168.6.x` subnet.
+2.  **Clone & Build**:
     ```bash
-    git clone <repository_url> mobile_mast_ws
-    cd mobile_mast_ws
+    mkdir -p ~/mobile_mast_ws/src
+    cd ~/mobile_mast_ws/src
+    git clone https://github.com/Asfak3566/AI-Mobile-Perception-System.git .
+    cd ..
+    colcon build --symlink-install --packages-select mobile_mast
     ```
-
-2.  **Install dependencies**:
+3.  **Time Sync**: Run the PTP configuration script on each Orin:
     ```bash
-    rosdep install --from-paths src --ignore-src -r -y
-    ```
-
-3.  **Build the project**:
-    ```bash
-    colcon build --symlink-install
+    sudo ./setup_ptp.sh
     ```
 
 ---
 
 ## Usage
 
-### 1. Time Synchronization (PTP)
-The system requires microsecond-level synchronization across all Orin devices. Run the setup script on each device:
-```bash
-sudo ./setup_ptp.sh
-```
+### 1. Launching the System
+Launch the specialized nodes on each Orin:
+- **Orin 1**: `ros2 launch mobile_mast mobile_mast_orin1.launch.py`
+- **Orin 2**: `ros2 launch mobile_mast mobile_mast_orin2.launch.py`
+- **Orin 3**: `ros2 launch mobile_mast mobile_mast_orin3.launch.py`
 
-### 2. Launching the System
-To launch the entire pipeline from a master controller:
+Alternatively, use the master controller launch file (if configured):
 ```bash
 ros2 launch mobile_mast mobile_mast_all.launch.py
 ```
 
-To launch specific stages (on individual Orins):
-- **Orin 1**: `ros2 launch mobile_mast mobile_mast_orin1.launch.py`
-- **Orin 2**: `ros2 launch mobile_mast mobile_mast_orin2.launch.py`
-- **Orin 3**: `ros2 launch mobile_mast mobile_mast_orin3.launch.py`
----
-
-## Configuration
-Config files for LiDAR clustering, camera intrinsics/extrinsics, and trackers are located in:
-`src/mobile_mast/config/`
-
----
-
-## Recording & Data Analysis
-To record data for offline analysis, use the `record` argument:
+### 2. Mission Control
+Start the management GUI from your base station:
 ```bash
-ros2 launch mobile_mast mobile_mast_all.launch.py record:=True
+python3 src/mobile_mast/mobile_mast/qt_calibrator.py
 ```
+
 ---
 
-### Handover Documentation
-For the next team of students, please refer to the following documents in the `report/` directory:
-- [Main Project Report](file:///home/ashfaq/Downloads/mobile_mast_ws/report/project_report.tex): See Chapter 10 for network setup and future roadmap.
-- [Handover Presentation](file:///home/ashfaq/Downloads/mobile_mast_ws/report/presentation.tex): Summary slides for team kickoff.
-- [Setup Guide](file:///home/ashfaq/Downloads/mobile_mast_ws/SETUP_GUIDE.md): Detailed connectivity and clock sync instructions.
+## Handover Notes
+For new developers and research teams:
+- **Primary Configuration**: All sensor parameters and network IPs are defined in `src/mobile_mast/config/`.
+- **Hardware Acceleration**: The system relies heavily on the `best_fp16.engine` (TensorRT) and VPI WarpMaps. Do not remove these assets from the workspace root.
+- **Network Architecture**: Refer to the **[SETUP_GUIDE.md](file:///home/ashfaq/Downloads/mobile_mast_ws/SETUP_GUIDE.md)** for detailed connectivity and PTP clock hierarchy.
+- **Support**: Check existing GitHub Issues or refer to the archived Technical Report sections for the mathematical formulation of the PTP sync strategy.
 
-**Quick Reference (Network):**
-- Subnets: `192.168.6.x` (Compute) & `192.168.51.x` (Sensors)
-- Master PC: `192.168.6.105`
-- Orins: `192.168.6.106 - .108`
-- LiDAR: `192.168.51.132`
-
-### Where to start?
-1. Read the **Handover Guide** in the main report (Chapter 10).
-2. Review the **Presentation slides** to understand the 3-Orin data flow.
-3. Follow the **Setup Guide** to configure your local network and PTP synchronization.
-4. Reach out to the previous team via GitHub issues for clarification.
