@@ -91,4 +91,22 @@ To record data for offline analysis, use the `record` argument:
 ```bash
 ros2 launch mobile_mast mobile_mast_all.launch.py record:=True
 ```
-Bag files are timestamped and stored in the package directory.
+---
+
+### Handover Documentation
+For the next team of students, please refer to the following documents in the `report/` directory:
+- [Main Project Report](file:///home/ashfaq/Downloads/mobile_mast_ws/report/project_report.tex): See Chapter 10 for network setup and future roadmap.
+- [Handover Presentation](file:///home/ashfaq/Downloads/mobile_mast_ws/report/presentation.tex): Summary slides for team kickoff.
+- [Setup Guide](file:///home/ashfaq/Downloads/mobile_mast_ws/SETUP_GUIDE.md): Detailed connectivity and clock sync instructions.
+
+**Quick Reference (Network):**
+- Subnets: `192.168.6.x` (Compute) & `192.168.51.x` (Sensors)
+- Master PC: `192.168.6.105`
+- Orins: `192.168.6.106 - .108`
+- LiDAR: `192.168.51.132`
+
+### Where to start?
+1. Read the **Handover Guide** in the main report (Chapter 10).
+2. Review the **Presentation slides** to understand the 3-Orin data flow.
+3. Follow the **Setup Guide** to configure your local network and PTP synchronization.
+4. Reach out to the previous team via GitHub issues for clarification.

@@ -6,11 +6,13 @@ This guide details the configuration required to synchronize three Orin devices 
 
 **Goal**: Ensure all devices can communicate via ROS 2 over a local network (Gigabit Ethernet recommended).
 
-### IP Address Assignment (Example)
-*   **Central PC**: `192.168.6.100`
-*   **Orin 1 (Sensors)**: `192.168.6.101`
-*   **Orin 2 (Detection)**: `192.168.6.102`
-*   **Orin 3 (Tracking)**: `192.168.6.103`
+### IP Address Assignment (Allowable Range)
+*   **Central PC**: `192.168.6.105`
+*   **Orin 1 (Sensors)**: `192.168.6.106`
+*   **Orin 2 (Detection)**: `192.168.6.107`
+*   **Orin 3 (Tracking)**: `192.168.6.108`
+*   **Network Switch**: `192.168.6.109`
+*   **LiDAR Sensor**: `192.168.51.132`
 
 ### ROS 2 Configuration
 Add the following to the `~/.bashrc` file on **ALL** devices (including Central PC):
@@ -40,6 +42,7 @@ source ~/.bashrc
     ```conf
     # Allow NTP client access from local network.
     allow 192.168.6.0/24
+    allow 192.168.51.0/24
 
     # Serve time even if not synchronized to an external source (isolated network)
     local stratum 10
@@ -52,7 +55,7 @@ source ~/.bashrc
 3.  **Comment out** default pools (e.g., `pool 2.debian.pool.ntp.org...`).
 4.  Add the Master IP:
     ```conf
-    server 192.168.6.100 minpoll 0 maxpoll 2 iburst
+    server 192.168.6.105 minpoll 0 maxpoll 2 iburst
     ```
 5.  Restart Chrony: `sudo systemctl restart chrony`
 
@@ -61,7 +64,7 @@ On each Client (Orin), run:
 ```bash
 chronyc sources
 ```
-You should see the Master IP (`192.168.6.100`) listed with an `*` (synced) or `+` (candidate).
+You should see the Master IP (`192.168.6.105`) listed with an `*` (synced) or `+` (candidate).
 
 Run:
 ```bash

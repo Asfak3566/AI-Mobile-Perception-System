@@ -361,6 +361,8 @@ class CameraImageTo3DNode(Node):
 
     # ------------- Helper: Build Detection3D -------------
 
+        return det3d
+
     def build_detection3d(self, det2d, pts_cam: np.ndarray) -> Detection3D:
         """
         pts_cam: Nx3 points in camera frame belonging to one 2D bbox.
@@ -387,9 +389,18 @@ class CameraImageTo3DNode(Node):
         det3d.header = det2d.header  # reuse same header as 2D if available
 
         # copy class info from 2D
+        # AND encode 2D bbox info for the tracker (ReID)
+        # Format: "original_class_id|x,y,w,h"
         if det2d.results:
             det3d.results.append(det3d.results.__class__())
-            det3d.results[0].hypothesis.class_id = det2d.results[0].hypothesis.class_id
+            
+            orig_id = det2d.results[0].hypothesis.class_id
+            
+            # 2D bbox info
+            b2d = det2d.bbox
+            bbox_str = f"{b2d.center.x},{b2d.center.y},{b2d.size_x},{b2d.size_y}"
+            
+            det3d.results[0].hypothesis.class_id = f"{orig_id}|{bbox_str}"
             det3d.results[0].hypothesis.score = det2d.results[0].hypothesis.score
 
         # bbox center

@@ -26,7 +26,7 @@ def generate_launch_description():
         mobile_mast_share, 'config', 'camera'
     )
 
-    yolo_weights_path = '/home/orin1/Downloads/mobile_mast_ws/yolo11n.pt'
+    yolo_weights_path = os.path.join(os.environ['HOME'], 'Downloads/mobile_mast_ws/best_fp16.engine')
 
     # ───── 1) YOLO11 + 3D fusion for each bullet ─────────
     bullet_cams = [

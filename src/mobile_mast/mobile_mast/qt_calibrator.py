@@ -377,9 +377,10 @@ class OrinPanel(QGroupBox):
 
 
    def open_terminal(self):
-       # Launches gnome-terminal with SSH session
-       cmd = f"gnome-terminal --title='SSH: {self.cfg.name}' -- ssh {self.cfg.user}@{self.cfg.ip}"
-       subprocess.Popen(cmd, shell=True)
+        # Launches gnome-terminal with SSH session
+        # wrapped in bash to keep window open if ssh fails
+        cmd = f"gnome-terminal --title='SSH: {self.cfg.name}' -- bash -c 'ssh {self.cfg.user}@{self.cfg.ip}; echo \"SSH Session Ended\"; read -p \"Press Enter to close...\"'"
+        subprocess.Popen(cmd, shell=True)
 
    def start_launch(self):
        sess = self.cfg.tmux_session
@@ -463,11 +464,11 @@ class ProcessControlTab(QWidget):
        self.orins = [
            OrinConfig(
                name="Orin1 (Sensors)",
-               ip="192.168.6.101",
+               ip="192.168.6.100",
                user=USER,
                launch_cmd="ros2 launch mobile_mast mobile_mast_orin1.launch.py",
                tmux_session="orin1_launch",
-               vnc_cmd="remmina -c vnc://192.168.6.101",
+               vnc_cmd="remmina -c vnc://192.168.6.100",
                components=[
                    Component("LiDAR Driver", "bash ~/scripts/start_lidar_driver.sh", "bash ~/scripts/stop_lidar_driver.sh", check_topic="/mast/orin1/lidar/points"),
                    Component("LiDAR Preprocess", "bash ~/scripts/start_lidar_preprocess.sh", "bash ~/scripts/stop_lidar_preprocess.sh", check_topic="/mast/orin1/lidar/points_filtered"),
@@ -481,11 +482,11 @@ class ProcessControlTab(QWidget):
            ),
            OrinConfig(
                name="Orin2 (Detection)",
-               ip="192.168.6.102",
+               ip="192.168.6.101",
                user=USER,
                launch_cmd="ros2 launch mobile_mast mobile_mast_orin2.launch.py",
                tmux_session="orin2_launch",
-               vnc_cmd="remmina -c vnc://192.168.6.102",
+               vnc_cmd="remmina -c vnc://192.168.6.101",
                components=[
                    # Bullet 1
                    Component("VPI Undistort B1", "bash ~/scripts/start_vpi_bullet1.sh", "bash ~/scripts/stop_vpi_bullet1.sh", check_topic="/mast/orin1/bullet1/image_rect"),
@@ -507,11 +508,11 @@ class ProcessControlTab(QWidget):
            ),
            OrinConfig(
                name="Orin3 (Tracking)",
-               ip="192.168.6.103",
+               ip="192.168.6.102",
                user=USER,
                launch_cmd="ros2 launch mobile_mast mobile_mast_orin3.launch.py",
                tmux_session="orin3_launch",
-               vnc_cmd="remmina -c vnc://192.168.6.103",
+               vnc_cmd="remmina -c vnc://192.168.6.102",
                components=[
                    Component("Tracker B1", "bash ~/scripts/start_tracker_bullet1.sh", "bash ~/scripts/stop_tracker_bullet1.sh", check_topic="/mast/orin1/bullet1/tracks_3d"),
                    Component("Tracker B2", "bash ~/scripts/start_tracker_bullet2.sh", "bash ~/scripts/stop_tracker_bullet2.sh", check_topic="/mast/orin1/bullet2/tracks_3d"),

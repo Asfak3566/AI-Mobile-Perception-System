@@ -15,6 +15,53 @@ from rclpy.qos import QoSProfile
 
 from vision_msgs.msg import Detection3DArray, Detection3D
 from geometry_msgs.msg import Pose, Vector3
+from sensor_msgs.msg import CompressedImage
+from message_filters import ApproximateTimeSynchronizer, Subscriber as MFSubscriber
+
+# CNN / ReID
+import cv2
+import torch
+import torchvision.transforms as T
+from torchvision.models import resnet18, ResNet18_Weights
+
+
+class ReIDModel:
+    """
+    CNN Feature Extractor for Re-Identification.
+    Uses ResNet18.
+    """
+    def __init__(self, use_cuda=True):
+        self.device = torch.device('cuda' if torch.cuda.is_available() and use_cuda else 'cpu')
+        print(f"[ReID] Using device: {self.device}")
+        
+        # Load Pretrained ResNet18
+        self.model = resnet18(weights=ResNet18_Weights.DEFAULT)
+        # Remove final FC layer to get features (512-dim)
+        # ResNet: (conv1 -> bn1 -> relu -> maxpool -> layer1..4 -> avgpool -> fc)
+        # We want output of avgpool: (Batch, 512, 1, 1) -> flatten -> (Batch, 512)
+        self.model.fc = torch.nn.Identity()
+        
+        self.model.to(self.device)
+        self.model.eval()
+        
+        self.transform = T.Compose([
+            T.ToPILImage(),
+            T.Resize((128, 64)), # Typical ReID size (H, W)
+            T.ToTensor(),
+            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ])
+        
+    def extract(self, img_bgr: np.ndarray) -> np.ndarray:
+        if img_bgr is None or img_bgr.size == 0:
+            return np.zeros(512, dtype=np.float32)
+            
+        img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+        tensor = self.transform(img_rgb).unsqueeze(0).to(self.device)
+        
+        with torch.no_grad():
+            feat = self.model(tensor) # (1, 512)
+            
+        return feat.cpu().numpy().flatten()
 
 
 class Track:
@@ -23,7 +70,7 @@ class Track:
     State x = [px, py, pz, vx, vy, vz, ax, ay, az]^T
     """
 
-    def __init__(self, track_id: int, initial_pos: np.ndarray, timestamp: float, params: dict):
+    def __init__(self, track_id: int, initial_pos: np.ndarray, timestamp: float, params: dict, feature: np.ndarray = None):
         self.id = track_id
         self.params = params
 
@@ -43,6 +90,11 @@ class Track:
         self.hits = 1  # how many times we've been updated
         self.hit_streak = 1
         self.time_since_update = 0
+
+        # Feature for ReID (Moving Average)
+        self.feature = feature
+        if self.feature is not None:
+            self.feature = self.feature / np.linalg.norm(self.feature)
 
         # Measurement matrix: we measure position only (3x9)
         self.H = np.zeros((3, 9), dtype=np.float32)
@@ -104,7 +156,7 @@ class Track:
 
         self.last_update = t
 
-    def update(self, z: np.ndarray, t: float):
+    def update(self, z: np.ndarray, t: float, feature: np.ndarray = None):
         """Update with position measurement z (3x1)."""
         # Note: predict() is usually called before this in the loop
         
@@ -115,6 +167,15 @@ class Track:
         self.x = self.x + K @ y
         I = np.eye(9, dtype=np.float32)
         self.P = (I - K @ self.H) @ self.P
+
+        # Update feature (EMA)
+        if feature is not None and self.feature is not None:
+            alpha = 0.9
+            norm_feat = feature / np.linalg.norm(feature)
+            self.feature = alpha * self.feature + (1 - alpha) * norm_feat
+            self.feature /= np.linalg.norm(self.feature)
+        elif self.feature is None and feature is not None:
+            self.feature = feature / np.linalg.norm(feature)
 
         self.hits += 1
         self.hit_streak += 1
@@ -137,6 +198,18 @@ class Track:
             return float(np.sqrt(d_squared))
         except np.linalg.LinAlgError:
             return 1e6
+        
+    def feature_distance(self, feature: np.ndarray) -> float:
+        """Cosine distance: 1 - cosine_similarity"""
+        if self.feature is None or feature is None:
+            return 1.0 # Max distance if no features
+        
+        # Assume features are normalized
+        f1 = self.feature
+        f2 = feature / np.linalg.norm(feature)
+        
+        dot = np.dot(f1, f2)
+        return float(1.0 - dot)
 
 
 class CameraTrackerNode(Node):
@@ -164,12 +237,17 @@ class CameraTrackerNode(Node):
         # Topics
         self.detections_topic = cfg.get('detections_topic', '/mast/orin1/camera/detections_3d')
         self.tracks_topic = cfg.get('tracks_topic', '/mast/orin1/camera/tracks_3d')
+        self.image_topic = 'image_raw/compressed' # Hardcoded or from config?
 
         # Tracker parameters
         self.max_age = float(cfg.get('max_age', 1.0))
         self.min_hits = int(cfg.get('min_hits', 3))
         self.max_assoc_dist = float(cfg.get('max_association_distance', 5.0)) # Gating threshold (Mahalanobis or Euclidean)
         self.use_mahalanobis = True
+        
+        # ReID weight
+        # If 0.0, use only Mahalanobis. If 1.0, use only ReID.
+        self.reid_weight = 0.5 
 
         self.params = {
             'process_noise_pos': float(cfg.get('process_noise_pos', 1.0)),
@@ -194,16 +272,27 @@ class CameraTrackerNode(Node):
         # Tracks state
         self.tracks: Dict[int, Track] = {}
         self.next_track_id = 1
+        
+        # Init ReID
+        try:
+            self.reid_model = ReIDModel(use_cuda=True)
+            self.get_logger().info("[TRACKER] ReID Model initialized")
+        except Exception as e:
+            self.get_logger().error(f"[TRACKER] Failed to init ReID: {e}")
+            self.reid_model = None
 
         qos = QoSProfile(depth=10)
 
-        # Subscriber
-        self.sub = self.create_subscription(
-            Detection3DArray,
-            self.detections_topic,
-            self.detections_callback,
-            qos,
+        # Subscribers (Sync)
+        self.sub_det = MFSubscriber(self, Detection3DArray, self.detections_topic, qos_profile=qos)
+        self.sub_img = MFSubscriber(self, CompressedImage, self.image_topic, qos_profile=qos)
+        
+        self.sync = ApproximateTimeSynchronizer(
+            [self.sub_det, self.sub_img],
+            queue_size=10,
+            slop=0.2
         )
+        self.sync.registerCallback(self.detections_callback)
 
         # Publisher
         self.pub = self.create_publisher(
@@ -251,15 +340,20 @@ class CameraTrackerNode(Node):
 
     # ---------- Main callback ----------
 
-    def detections_callback(self, msg: Detection3DArray):
+    def detections_callback(self, msg: Detection3DArray, img_msg: CompressedImage):
         t_now = self.get_clock().now().nanoseconds / 1e9
 
+        # Decode image
+        np_arr = np.frombuffer(img_msg.data, np.uint8)
+        cv_img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        
         # 1) Predict all tracks forward
         for tr in self.tracks.values():
             tr.predict(t_now)
 
-        # 2) Filter detections inside region
+        # 2) Filter detections inside region & Extract Features
         det_positions: List[np.ndarray] = []
+        det_features: List[np.ndarray] = []
         det_objects: List[Detection3D] = []
 
         for det in msg.detections:
@@ -272,20 +366,61 @@ class CameraTrackerNode(Node):
 
             det_positions.append(np.array([px, py, pz], dtype=np.float32).reshape(3, 1))
             det_objects.append(det)
+            
+            # Extract feature
+            feat = np.zeros(512, dtype=np.float32)
+            if self.reid_model and cv_img is not None:
+                # Decode bbox info from class_id
+                cid = det.results[0].hypothesis.class_id
+                if '|' in cid:
+                    try:
+                        _, bbox_part = cid.split('|')
+                        bx, by, bw, bh = map(float, bbox_part.split(','))
+                        
+                        # Crop image (clamp to bounds)
+                        h, w, _ = cv_img.shape
+                        x1 = int(bx - bw/2)
+                        y1 = int(by - bh/2)
+                        x2 = int(bx + bw/2)
+                        y2 = int(by + bh/2)
+                        
+                        x1 = max(0, x1); y1 = max(0, y1)
+                        x2 = min(w, x2); y2 = min(h, y2)
+                        
+                        if x2 > x1 and y2 > y1:
+                            crop = cv_img[y1:y2, x1:x2]
+                            feat = self.reid_model.extract(crop)
+                    except Exception as e:
+                        # self.get_logger().warn(f"Failed to parse bbox: {e}")
+                        pass
+            
+            det_features.append(feat)
 
         # 3) Associate detections to tracks
         assigned_det_indices, assigned_track_ids, unassigned_dets, unassigned_tracks = \
-            self.associate_detections_to_tracks(det_positions)
+            self.associate_detections_to_tracks(det_positions, det_features)
 
         # 4) Update assigned tracks
         for det_idx, track_id in zip(assigned_det_indices, assigned_track_ids):
             pos = det_positions[det_idx]
-            self.tracks[track_id].update(pos, t_now)
+            feat = det_features[det_idx]
+            
+            # Check if this feature is "empty" (all zeros), if so don't update feature?
+            # ReIDModel returns zeros if update fails.
+            if np.all(feat == 0):
+                feat = None
+                
+            self.tracks[track_id].update(pos, t_now, feat)
 
         # 5) Create new tracks for unassigned detections
         for det_idx in unassigned_dets:
             pos = det_positions[det_idx]
-            self.create_track(pos, t_now)
+            feat = det_features[det_idx]
+            
+            if np.all(feat == 0):
+                feat = None
+                
+            self.create_track(pos, t_now, feat)
 
         # 6) Remove stale tracks
         self.prune_tracks(t_now)
@@ -312,11 +447,11 @@ class CameraTrackerNode(Node):
                 min_y <= y <= max_y and
                 min_z <= z <= max_z)
 
-    def create_track(self, pos: np.ndarray, t: float):
+    def create_track(self, pos: np.ndarray, t: float, feature: np.ndarray = None):
         track_id = self.next_track_id
         self.next_track_id += 1
 
-        self.tracks[track_id] = Track(track_id, pos, t, self.params)
+        self.tracks[track_id] = Track(track_id, pos, t, self.params, feature)
         self.get_logger().info(f"[TRACKER] New track {track_id} at {pos.flatten()}")
 
     def prune_tracks(self, t_now: float):
@@ -329,10 +464,10 @@ class CameraTrackerNode(Node):
             self.get_logger().info(f"[TRACKER] Removing track {tid} (stale)")
             del self.tracks[tid]
 
-    def associate_detections_to_tracks(self, detections: List[np.ndarray]):
+    def associate_detections_to_tracks(self, detections: List[np.ndarray], features: List[np.ndarray]):
         """
         Optimal association using Hungarian Algorithm (Munkres).
-        Uses Mahalanobis distance if enabled.
+        Uses combination of Mahalanobis and Cosine distance.
         """
         track_ids = list(self.tracks.keys())
         N_t = len(track_ids)
@@ -349,11 +484,28 @@ class CameraTrackerNode(Node):
         for i, tid in enumerate(track_ids):
             track = self.tracks[tid]
             for j, det_pos in enumerate(detections):
+                # Spatial cost (Mahalanobis)
                 if self.use_mahalanobis:
-                    dist = track.mahalanobis_distance(det_pos)
+                    spatial_cost = track.mahalanobis_distance(det_pos)
                 else:
-                    dist = np.linalg.norm(track.get_position() - det_pos.flatten())
-                cost_matrix[i, j] = dist
+                    spatial_cost = np.linalg.norm(track.get_position() - det_pos.flatten())
+                
+                # Appearance cost (Cosine)
+                feat_cost = 1.0
+                det_feat = features[j]
+                if not np.all(det_feat == 0):
+                    feat_cost = track.feature_distance(det_feat)
+                    
+                # Combined cost
+                # Normalize spatial cost to be vaguely around [0, 1] range is hard without threshold.
+                # Assuming spatial gaiting is done later or we trust raw values?
+                # Mahalanobis is often < 5-10 for match. Cosine is < 0.2-0.5.
+                # Let's just sum them with weight.
+                
+                total_cost = (1.0 - self.reid_weight) * spatial_cost + \
+                             (self.reid_weight * feat_cost * 10.0) # Boost feature cost to match scale
+                             
+                cost_matrix[i, j] = total_cost
 
         # Hungarian Algorithm
         row_ind, col_ind = linear_sum_assignment(cost_matrix)
@@ -364,7 +516,18 @@ class CameraTrackerNode(Node):
         unassigned_tracks = set(range(N_t))
 
         for r, c in zip(row_ind, col_ind):
-            if cost_matrix[r, c] <= self.max_assoc_dist:
+            # Apply gating
+            # We use a relaxed spatial gating for now, because cost is mixed.
+            # But strictly speaking we should probably gate separately.
+            
+            # Simple check: if spatial distance is HUGE, reject.
+            track = self.tracks[track_ids[r]]
+            if self.use_mahalanobis:
+                d_spatial = track.mahalanobis_distance(detections[c])
+            else:
+                d_spatial = np.linalg.norm(track.get_position() - detections[c].flatten())
+                
+            if d_spatial <= self.max_assoc_dist * 2.0: # Relaxed gating
                 assigned_tracks.append(track_ids[r])
                 assigned_dets.append(c)
                 unassigned_tracks.discard(r)

@@ -13,7 +13,7 @@ class Yolo11DetectorNode(Node):
         super().__init__('yolo11_detector')
 
         # Declare parameters
-        self.declare_parameter('weights', '/home/ashfaq/Downloads/mobile_mast_ws/best.pt')
+        self.declare_parameter('weights', '/home/ashfaq/Downloads/mobile_mast_ws/best_fp16.engine')
         self.declare_parameter('input_topic', 'image_raw/compressed')
         self.declare_parameter('conf_threshold', 0.35)
 
@@ -25,28 +25,11 @@ class Yolo11DetectorNode(Node):
         self.get_logger().info(f"[YOLO11] Loading model from: {self.weights}")
         
         try:
-            # Check if we should export to TensorRT
-            if self.weights.endswith('.pt'):
-                # Check if CUDA is available for TensorRT export
-                import torch
-                if torch.cuda.is_available():
-                    self.get_logger().info(f"[YOLO11] CUDA available, attempting export to TensorRT engine...")
-                    # Load the model solely for export
-                    model = YOLO(self.weights)
-                    # Export to engine (TensorRT)
-                    exported_path = model.export(format='engine')
-                    self.get_logger().info(f"[YOLO11] Export success: {exported_path}")
-                    # Update weights path to the new engine file
-                    self.weights = str(exported_path)
-                else:
-                    self.get_logger().warn(f"[YOLO11] CUDA not available, skipping TensorRT export. Using .pt file directly.")
-                    self.get_logger().warn(f"[YOLO11] For TensorRT optimization, install PyTorch with CUDA support.")
-
-            # Load the model (now .engine or original if not .pt)
+            # Load the model directly
             self.model = YOLO(self.weights, task='detect')
             self.get_logger().info(f"[YOLO11] Model loaded successfully from {self.weights}")
         except Exception as e:
-            self.get_logger().error(f"[YOLO11] Failed to load/export model: {e}")
+            self.get_logger().error(f"[YOLO11] Failed to load model: {e}")
             raise e
 
         # Subscriber: input images (CompressedImage or Image)
